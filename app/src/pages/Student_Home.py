@@ -9,13 +9,8 @@ if 'page' not in st.session_state:
 
 # Function to handle search input
 def handle_search():
-    query = st.session_state['search_input'].lower()
-    if query == 'google':
-        # Set session state to navigate to Google page
-        st.session_state.page = 'Google'
-    else:
-        # Set session state to display error page
-        st.session_state.page = 'Error'
+    # Always redirect to the Company_Profile page
+    st.session_state.page = 'pages/Company_Profile.py'
 
 # Header section with functional search bar
 header_col1, header_col2, header_col3 = st.columns([1, 2, 1])
@@ -125,14 +120,11 @@ if page == 'Home':
     st.markdown("---")
     st.markdown("<h5>Hotlinks to Helpful Resources</h5>", unsafe_allow_html=True)
 
-elif page == 'Google':
-    # Display the Google company profile page
-    # Ensure Google.py is in the same directory and contains the display_google_profile function
-    import Google
-    Google.display_google_profile()
-
-elif page == 'Error':
-    st.error("Page not found.")
+elif page == 'Company_Profile':
+    # Import and display the Company_Profile page
+    # Ensure Company_Profile.py is in the same directory
+    import Company_Profile as cp
+    cp.display_profile()
 
 else:
     st.error("Page not found.")
