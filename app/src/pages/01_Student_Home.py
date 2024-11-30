@@ -37,8 +37,8 @@ col_left, col_right = st.columns([2, 1])
 # Left column: Slightly smaller static image
 with col_left:
     st.image(
-        "https://img.freepik.com/premium-photo/face-portrait-casual-middleaged-man-white-square-background-generative-ai_741672-1331.jpg",
-        use_container_width=False,
+        "https://static1.gensler.com/uploads/hero_element/20772/thumb_desktop/thumbs/221201_US-Workplace-Survey_1_1669939238_1024x576.jpg",
+        use_container_width=True,
         caption="Helping students achieve their goals",
         width=500,  # Reduced image width
     )
