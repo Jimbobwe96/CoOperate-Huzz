@@ -9,20 +9,25 @@ st.markdown(
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
         <h3 style="margin: 0;">CoOperate</h3>
         <input type="text" placeholder="Search for reviews..." style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 60%;">
-        <a href="/" style="text-decoration: none;">
-            <div style="
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                background-color: white;
-                font-weight: normal;
-                text-align: center;
-                color: black;
-                box-shadow: none;
-            ">
-                Home
-            </div>
-        </a>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <a href="/" style="text-decoration: none;">
+                <div style="
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    background-color: white;
+                    font-weight: normal;
+                    text-align: center;
+                    color: black;
+                    box-shadow: none;
+                ">
+                    Home
+                </div>
+            </a>
+            <a href="02_Student_Profile.py" style="text-decoration: none;">
+                <img src="https://img.icons8.com/ios-filled/50/000000/user.png" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ccc;">
+            </a>
+        </div>
     </div>
     """,
     unsafe_allow_html=True,
