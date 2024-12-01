@@ -29,7 +29,7 @@ st.session_state['authenticated'] = False
 logger.info("Loading the Home page of the app")
 st.title('CoOperate')
 st.write('\n\n')
-st.write('### HI! As which user would you like to log in?')
+st.write('### Which user would you like to act as?')
 
 # For each of the user personas for which we are implementing
 # functionality, we put a button on the screen that the user 
@@ -41,7 +41,7 @@ if st.button("Act as a Student",
     # when user clicks the button, they are now considered authenticated
     st.session_state['authenticated'] = True
     # we set the role of the current user
-    st.session_state['role'] = 'pol_strat_advisor'
+    st.session_state['role'] = 'student'
     # we add the first name of the user (so it can be displayed on 
     # subsequent pages). 
     st.session_state['first_name'] = 'John'
@@ -50,26 +50,26 @@ if st.button("Act as a Student",
     logger.info("Logging in as a Student")
     st.switch_page('pages/Student_Home.py') 
 
-if st.button('Act as Mohammad, an USAID worker', 
+if st.button('Act as a Co-Op Advisor', 
             type = 'primary', 
             use_container_width=True):
     st.session_state['authenticated'] = True
-    st.session_state['role'] = 'usaid_worker'
+    st.session_state['role'] = 'coop_advisor'
     st.session_state['first_name'] = 'Mohammad'
-    st.switch_page('pages/Student_Profile.py')
+    st.switch_page('pages/Advisor_Home.py')
 
-if st.button('Act as System Administrator', 
+if st.button('Act as a Company', 
             type = 'primary', 
             use_container_width=True):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'administrator'
-    st.session_state['first_name'] = 'SysAdmin'
-    st.switch_page('pages/20_Admin_Home.py')
+    st.session_state['first_name'] = 'Google'
+    st.switch_page('pages/Company_Home.py')
 
-if st.button('Some Text On the Button',
-             type = 'secondary',
+if st.button('Act as an Admin',
+             type = 'primary',
              use_container_width=True):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'Admin'
-    st.switch_page('pages/20_Admin_Home.py')
+    st.switch_page('pages/Admin_Home.py')
 
