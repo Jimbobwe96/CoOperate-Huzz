@@ -29,7 +29,7 @@ st.markdown(
                     color: black;
                     box-shadow: none;
                 ">
-                    Home
+                    Sign Out
                 </div>
             </a>
             <a href="Student_Profile" style="text-decoration: none;">

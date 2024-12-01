@@ -14,5 +14,5 @@ if st.button("Go to Answer Student Questions"):
 if st.button("Go to Student Compatibility Assessment"):
     st.switch_page("pages/Advisor_Comp.py") 
 
-if st.button("Home"):
+if st.button("Sign Out"):
     st.switch_page("Home.py") 
