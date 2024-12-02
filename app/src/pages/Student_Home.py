@@ -12,8 +12,10 @@ def handle_search():
     query = st.session_state['search_input'].lower()
     if query == 'google':
         # Set session state to navigate to Google page
-        st.session_state.page = 'pages/Google.py'
-        # No need to rerun or set query params
+        st.session_state.page = 'Google'
+    else:
+        # Set session state to display error page
+        st.session_state.page = 'Error'
 
 # Header section with functional search bar
 header_col1, header_col2, header_col3 = st.columns([1, 2, 1])
@@ -22,7 +24,12 @@ with header_col1:
     st.markdown("<h3 style='margin: 0;'>CoOperate</h3>", unsafe_allow_html=True)
 
 with header_col2:
-    search_input = st.text_input("", placeholder="Search for reviews...", key='search_input', on_change=handle_search)
+    search_input = st.text_input(
+        "",
+        placeholder="Search for reviews...",
+        key='search_input',
+        on_change=handle_search
+    )
 
 with header_col3:
     st.markdown(
@@ -123,6 +130,9 @@ elif page == 'Google':
     # Ensure Google.py is in the same directory and contains the display_google_profile function
     import Google
     Google.display_google_profile()
+
+elif page == 'Error':
+    st.error("Page not found.")
 
 else:
     st.error("Page not found.")
