@@ -15,14 +15,8 @@ reviews = Blueprint('reviews', __name__)
 @reviews.route('/reviews', methods=['GET'])
 def get_reviews():
     query = '''
-        SELECT  StudentID, 
-                FirstName, 
-                LastName, 
-                Major, 
-                GPA,
-                HomeCollege,
-                Email 
-        FROM Students
+        SELECT *
+        FROM Reviews
     '''
     
     # get a cursor object from the database
