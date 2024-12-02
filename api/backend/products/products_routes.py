@@ -206,3 +206,61 @@ def update_product():
     current_app.logger.info(product_info)
 
     return "Success"
+
+# Homework #5
+
+
+# ------------------------------------------------------------
+# 8 Most Ordered Items
+@products.route('/mostOrdered', methods = ['GET'])
+def get_8_most_ordered_products():
+    query = '''
+        SELECT 
+            p.product_name AS product_name,
+            s.company AS supplier_name,
+            COUNT(od.product_id) AS num_orders
+        FROM products p
+        JOIN order_details od ON p.id = od.product_id
+        JOIN purchase_orders po ON od.purchase_order_id = po.id
+        JOIN suppliers s ON po.supplier_id = s.id
+        GROUP BY p.product_name, s.company
+        ORDER BY num_orders DESC
+        LIMIT 8
+    '''
+
+    # Same process as above
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    theData = cursor.fetchall()
+
+    response = make_response(jsonify(theData))
+    response.status_code = 200
+    return response
+
+products_routes = Blueprint('products', __name__)
+
+# ------------------------------------------------------------
+# 8 Most Ordered Items
+@products.route('/mostOrdered', methods = ['GET'])
+def get_8_most_ordered_products():
+    query = '''
+        SELECT 
+            p.ProductName AS Product_Name,
+            s.CompanyName AS Supplier_Name,
+            COUNT(DISTINCT od.OrderID) AS Num_Orders
+        FROM Products p
+        JOIN Supplier s ON p.SupplierID = s.SupplierID
+        JOIN OrderDetails od ON p.ProductID = od.ProductID
+        GROUP BY p.ProductName, s.CompanyName
+        ORDER BY Num_Orders DESC, p.ProductName ASC
+        LIMIT 8
+    '''
+
+    # Same process as above
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    theData = cursor.fetchall()
+
+    response = make_response(jsonify(theData))
+    response.status_code = 200
+    return response
