@@ -1,6 +1,5 @@
 import streamlit as st
 import logging
-logger = logging.getLogger(__name__)
 import requests
 from streamlit_extras.app_logo import add_logo
 from modules.nav import SideBarLinks
@@ -103,31 +102,20 @@ if page == 'Home':
             st.write("**Important**: Could not connect to sample api, so using dummy data.")
             data = {"a":{"b": "123", "c": "hello"}, "z": {"b": "456", "c": "goodbye"}}
 
-        st.dataframe(data)
+        # Simulated response data extracted via the GET route
+        data = {
+            "summary": ["Text 1", "Great!!!", "Phenom"]
+        }
 
-        # # Review 1
-        # st.markdown(
-        #     review_style.format(title="Review 1", content="Great platform for students!"),
-        #     unsafe_allow_html=True,
-        # )
-
-        # # Gap between reviews
-        # st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
-
-        # # Review 2
-        # st.markdown(
-        #     review_style.format(title="Review 2", content="Helped me secure my first internship!"),
-        #     unsafe_allow_html=True,
-        # )
-
-        # # Gap between reviews
-        # st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
-
-        # # Review 3
-        # st.markdown(
-        #     review_style.format(title="Review 3", content="Easy to navigate and resourceful!"),
-        #     unsafe_allow_html=True,
-        # )
+        # Display the data as text with dynamic review titles
+        for index, item in enumerate(data["summary"]):
+            if index == 0:
+                st.markdown("### Review 1")
+            elif index == 1:
+                st.markdown("### Review 2")
+            elif index == 2:
+                st.markdown("### Review 3")
+            st.write(item)
 
     # Footer links
     st.markdown("---")
