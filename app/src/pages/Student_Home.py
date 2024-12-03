@@ -67,40 +67,48 @@ if page == 'Home':
 
     # Right column: Featured Reviews centered with text
     with col_right:
-        st.markdown("<h4 style='font-size: 24px; text-align: center;'>Featured Reviews</h4>", unsafe_allow_html=True)
-
-        data = {} 
+        # Fetch data from the API or use dummy data if the request fails
         try:
             data = requests.get('http://api:4000/r/reviews').json()
         except:
             st.write("**Important**: Could not connect to sample api, so using dummy data.")
-            data = {"a":{"b": "123", "c": "hello"}, "z": {"b": "456", "c": "goodbye"}}
+            data = {
+                "a":{"b": "123", "c": "hello"},
+                "z": {"b": "456", "c": "goodbye"}}
 
-        # Simulated response data extracted via the GET route
-        data = {
-            "summary": ["Text 1", "Great!!!", "Phenom"]
-        }
+        # Display reviews from the data fetched
+        if isinstance(data, list): 
+            for review in data:
+                review_id = review.get('ReviewID', 'N/A')
+                student_id = review.get('StudentID', 'N/A')
+                date = review.get('Date', 'N/A')
+                culture = review.get('Culture', 'N/A')
+                satisfaction = review.get('Satisfaction', 'N/A')
+                compensation = review.get('Compensation', 'N/A')
+                learning_opportunity = review.get('LearningOpportunity', 'N/A')
+                work_life_balance = review.get('WorkLifeBalance', 'N/A')
+                summary = review.get('Summary', 'N/A')
+                flagged = review.get('Flagged', 'N/A')
+                resolved_by = review.get('ResolvedBy', 'N/A')
+                position_id = review.get('PositionID', 'N/A')
 
-        # Display the data as text with dynamic review titles and styled boxes
-        for index, item in enumerate(data["summary"]):
-            review_title = f"Review {index + 1}"
-            st.markdown(
-                f"""
-                <div style="
-                    border: 1px solid #ccc;
-                    border-radius: 8px;
-                    padding: 15px;
-                    margin: 10px auto; 
-                    background-color: #f9f9f9;
-                    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-                    text-align: center;
-                ">
-                    <h4 style="margin: 0; font-size: 20px;">{review_title}</h4>
-                    <p style="font-size: 16px; margin: 10px 0 0 0;">{item}</p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+                # Display in a formatted way
+                st.markdown(
+                    f"""
+                    <div style="
+                        border: 1px solid #ccc;
+                        border-radius: 8px;
+                        padding: 15px;
+                        margin: 10px auto; 
+                        background-color: #f9f9f9;
+                        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+                    ">
+                        <h4 style="margin: 0; font-size: 20px; text-align: center;">Review {review_id}</h4>
+                        <p style="font-size: 16px; margin: 10px 0 0 0; text-align: center;"><strong></strong> {summary}</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
 
     # Footer with "All Reviews" linked text
     st.markdown("---")
