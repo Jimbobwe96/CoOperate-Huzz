@@ -69,7 +69,7 @@ def get_student_reviews(studentID):
 #------------------------------------------------------------
 # TODO
 @reviews.route('/reviews/<studentID>/<positionID>', methods=['GET'])
-def get_student_reviews(studentID, positionID):
+def get_spec_student_reviews(studentID, positionID):
     query = f'''
         SELECT *
         FROM Reviews
@@ -98,7 +98,7 @@ def get_student_reviews(studentID, positionID):
 #------------------------------------------------------------
 # TODO
 @reviews.route('/reviews/<studentID>/<positionID>', methods=['POST'])
-def get_student_reviews(studentID, positionID):
+def add_student_reviews(studentID, positionID):
     query = f'''
         INSERT INTO Reviews (StudentID, Date, Culture, Satisfaction, Compensation,
           LearningOpportunity, WorkLifeBalance, Summary, PositionID)

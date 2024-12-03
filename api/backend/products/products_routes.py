@@ -208,37 +208,6 @@ def update_product():
     return "Success"
 
 # Homework #5
-
-
-# ------------------------------------------------------------
-# 8 Most Ordered Items
-@products.route('/mostOrdered', methods = ['GET'])
-def get_8_most_ordered_products():
-    query = '''
-        SELECT 
-            p.product_name AS product_name,
-            s.company AS supplier_name,
-            COUNT(od.product_id) AS num_orders
-        FROM products p
-        JOIN order_details od ON p.id = od.product_id
-        JOIN purchase_orders po ON od.purchase_order_id = po.id
-        JOIN suppliers s ON po.supplier_id = s.id
-        GROUP BY p.product_name, s.company
-        ORDER BY num_orders DESC
-        LIMIT 8
-    '''
-
-    # Same process as above
-    cursor = db.get_db().cursor()
-    cursor.execute(query)
-    theData = cursor.fetchall()
-
-    response = make_response(jsonify(theData))
-    response.status_code = 200
-    return response
-
-products_routes = Blueprint('products', __name__)
-
 # ------------------------------------------------------------
 # 8 Most Ordered Items
 @products.route('/mostOrdered', methods = ['GET'])
