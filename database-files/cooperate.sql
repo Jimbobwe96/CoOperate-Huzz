@@ -134,7 +134,7 @@ CREATE TABLE Reviews
 (
     ReviewID            INT PRIMARY KEY AUTO_INCREMENT,
     StudentID           INT NOT NULL,
-    Date                DATE NOT NULL,
+    Date                DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Culture             INT CHECK (Culture BETWEEN 1 AND 5),
     Satisfaction        INT CHECK (Satisfaction BETWEEN 1 AND 5),
     Compensation        INT CHECK (Compensation BETWEEN 1 AND 5),

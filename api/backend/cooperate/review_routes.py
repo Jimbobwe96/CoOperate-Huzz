@@ -49,14 +49,14 @@ def add_new_review():
     current_app.logger.info(the_data)
 
     #extracting the variable
-    student_id = the_data['StudentID']
-    culture = the_data['Culture']
-    satisfaction = the_data['Satisfaction']
-    compensation = the_data['Compensation']
-    learning_oppurtunity = the_data['LearningOpportunity']
-    work_life_balance = the_data['WorkLifeBalance']
-    summary = the_data['Summary']
-    position_id = the_data['PositionID']
+    student_id = the_data['student_id']
+    culture = the_data['culture']
+    satisfaction = the_data['satisfaction']
+    compensation = the_data['compensation']
+    learning_oppurtunity = the_data['learning_oppurtunity']
+    work_life_balance = the_data['work_life_balance']
+    summary = the_data['summary']
+    position_id = the_data['position_id']
     
     query = f'''
         INSERT INTO Reviews (StudentID,

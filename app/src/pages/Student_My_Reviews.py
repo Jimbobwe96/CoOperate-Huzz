@@ -1,11 +1,12 @@
 import streamlit as st
 import requests
+import logging
+logger = logging.getLogger(__name__)
 from streamlit_extras.app_logo import add_logo
 from modules.nav import SideBarLinks
 
 # Page configuration
 st.set_page_config(page_title="My Reviews", layout="wide")
-st.session_state['authenticated'] = True
 
 # Header
 # Create a two-column layout with the button on the far right
@@ -16,6 +17,9 @@ with col2:
     if st.button('Add Review', 
                 type='secondary', 
                 use_container_width=False):
+        logger.info("Button maybe works")
+        st.session_state['authenticated'] = True
+        st.session_state['role'] = 'student'
         st.switch_page('pages/Add_Student_Review.py')
 with col3:
     if st.button('Back', 

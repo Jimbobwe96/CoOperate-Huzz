@@ -6,8 +6,6 @@ import requests
 
 st.set_page_config(layout = 'wide')
 
-SideBarLinks()
-
 st.title('Add New Review')
 
 st.write('\n\n')
@@ -18,11 +16,11 @@ with st.form("add_review_form"):
 # Create the various input widgets needed for 
     # each piece of information you're eliciting from the user
     student_id = st.text_input("Student ID")
-    culture = st.number_input("Culture", min_value=0.0, step=0.01)
-    satisfaction = st.number_input("Satisfaction", min_value=1, max_value=5, step=0.05)
-    compensation = st.number_input("Compensation", min_value=1, max_value=5, step=0.05)
-    learning_oppurtunity = st.number_input("Learning Oppurtunity", min_value=1, max_value=5, step=0.05)
-    work_life_balance = st.number_input("Work/Life Balance", min_value=1, max_value=5, step=0.05)
+    culture = st.number_input("Culture", min_value=0)
+    satisfaction = st.number_input("Satisfaction", min_value=1, max_value=5)
+    compensation = st.number_input("Compensation", min_value=1, max_value=5)
+    learning_oppurtunity = st.number_input("Learning Oppurtunity", min_value=1, max_value=5)
+    work_life_balance = st.number_input("Work/Life Balance", min_value=1, max_value=5)
     summary = st.text_input("Summary of Experience")
     position_id = st.text_input("Position ID")
     # Notice here, we are using a selectbox widget.  The options for the 
@@ -36,7 +34,7 @@ with st.form("add_review_form"):
     if submit_button:
         if not student_id:
             st.error("Please enter a student id")
-        elif not culture or satisfaction or satisfaction or compensation or learning_oppurtunity or work_life_balance:
+        elif not (culture or satisfaction or satisfaction or compensation or learning_oppurtunity or work_life_balance):
             st.error("Please enter a rating")
         elif culture <= 0 or satisfaction <= 0 or satisfaction <= 0 or compensation <= 0 or learning_oppurtunity <= 0 or work_life_balance <= 0:
             st.error("Please enter a valid rating from 1-5")
@@ -72,6 +70,7 @@ with st.form("add_review_form"):
                 response = requests.post('http://api:4000/r/reviews', json=review_data)
                 if response.status_code == 200:
                     st.success("Review added successfully!")
+                    st.switch_page('pages/Student_My_Reviews.py')
                 else:
                     st.error(f"Error adding review: {response.text}")
             except requests.exceptions.RequestException as e:
