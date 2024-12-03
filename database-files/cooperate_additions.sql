@@ -1,5 +1,5 @@
 -- USE CoOperate;
-
+-- testing
 -- insert into Students (FirstName, LastName, GPA, Major, CurrentYear, HomeCollege, AdvisorID, Email) values ('Carlie', 'Colombier', 3.66, 'Art', 5, 'College of Engineering', 9, 'ccolombier0@qq.com');
 -- insert into Students (FirstName, LastName, GPA, Major, CurrentYear, HomeCollege, AdvisorID, Email) values ('Gertruda', 'Deakes', 2.24, 'History', 5, 'CAMD', 13, 'gdeakes1@usa.gov');
 -- insert into Students (FirstName, LastName, GPA, Major, CurrentYear, HomeCollege, AdvisorID, Email) values ('Alyss', 'Stithe', 2.59, 'English', 5, 'College of Engineering', 21, 'astithe2@cornell.edu');

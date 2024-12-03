@@ -129,7 +129,7 @@ CREATE TABLE Admin
     Email     VARCHAR(50) UNIQUE,
     Role      VARCHAR(50)
 );
-
+-- Testing
 CREATE TABLE Reviews
 (
     ReviewID            INT PRIMARY KEY AUTO_INCREMENT,
