@@ -85,7 +85,27 @@ if isinstance(data, list):
         col1, col2 = st.columns([1, 1])
         with col1:
             if st.button(f"Edit Review {review_id}"):
+                try:
+                    response = requests.delete('http://api:4000/r/reviews/<reviewID>')
+                    if response.status_code == 200:
+                        st.success("Review deleted successfully!")
+                    else:
+                        st.error(f"Error deleting review: {response.text}")
+                except requests.exceptions.RequestException as e:
+                    st.error(f"Error connecting to server: {str(e)}")
+                    
                 st.write(f"Edit Review {review_id} clicked.")
         with col2:
             if st.button(f"Delete Review {review_id}"):
+                try:
+                    logger.info({review_id})
+                    response = requests.delete(f'http://api:4000/r/reviews/{review_id}')
+                    if response.status_code == 200:
+                        st.success("Review deleted successfully!")
+                        st.rerun()
+                    else:
+                        st.error(f"Error deleting review: {response.text}")
+                except requests.exceptions.RequestException as e:
+                    st.error(f"Error connecting to server: {str(e)}")
                 st.write(f"Delete Review {review_id} clicked.")
+
