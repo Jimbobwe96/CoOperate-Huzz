@@ -163,7 +163,7 @@ def get_spec_student_reviews(studentID, positionID):
 #------------------------------------------------------------
 # TODO
 @reviews.route('/reviews/<studentID>/<positionID>', methods=['POST'])
-def add_student_reviews(studentID, positionID):
+def add_student_reviews_new(studentID, positionID):
     query = f'''
         INSERT INTO Reviews (StudentID, Date, Culture, Satisfaction, Compensation,
           LearningOpportunity, WorkLifeBalance, Summary, PositionID)
@@ -186,4 +186,28 @@ def add_student_reviews(studentID, positionID):
     # set the proper HTTP Status code of 200 (meaning all good)
     response.status_code = 200
     # send the response back to the client
+    return response
+
+#------------------------------------------------------------
+# TODO
+@reviews.route('/reviews/<student_id>/<position_id>', methods=['DELETE'])
+def del_student_reviews(student_id, position_id):
+    query = f'''
+        DELETE FROM Reviews
+        WHERE StudentID = {int(student_id)} 
+        AND PositionID = {int(position_id)}
+    '''
+    logger.info(query)
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    # use cursor to query the database for a list of products
+    cursor.execute(query)
+
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    response = make_response("Successfully deleted review")
+    response.status_code = 200
     return response

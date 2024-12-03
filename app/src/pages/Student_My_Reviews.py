@@ -99,7 +99,7 @@ if isinstance(data, list):
             if st.button(f"Delete Review {review_id}"):
                 try:
                     logger.info({review_id})
-                    response = requests.delete(f'http://api:4000/r/reviews/{review_id}')
+                    response = requests.delete(f'http://api:4000/r/reviews/{student_id}/{position_id}]')
                     if response.status_code == 200:
                         st.success("Review deleted successfully!")
                         st.rerun()
