@@ -5,6 +5,7 @@ from modules.nav import SideBarLinks
 
 # Page configuration
 st.set_page_config(page_title="My Reviews", layout="wide")
+st.session_state['authenticated'] = True
 
 # Header
 # Create a two-column layout with the button on the far right
