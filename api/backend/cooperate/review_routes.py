@@ -15,7 +15,7 @@ reviews = Blueprint('reviews', __name__)
 @reviews.route('/reviews', methods=['GET'])
 def get_reviews():
     query = '''
-        SELECT Summary
+        SELECT *
         FROM Reviews
     '''
     
