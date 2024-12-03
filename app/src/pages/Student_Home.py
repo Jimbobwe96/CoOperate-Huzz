@@ -77,8 +77,9 @@ with col_right:
                 "z": {"b": "456", "c": "goodbye"}}
 
         # Display reviews from the data fetched
+        limited_reviews = data[:3]
         if isinstance(data, list): 
-            for review in data:
+            for review in limited_reviews:
                 review_id = review.get('ReviewID', 'N/A')
                 student_id = review.get('StudentID', 'N/A')
                 date = review.get('Date', 'N/A')
