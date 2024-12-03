@@ -257,9 +257,9 @@ INSERT INTO CoopList (StudentID, CompanyID, PositionID, appliedGPA, prevExpCount
 
 -- Reviews
 INSERT INTO Reviews (StudentID, Date, Culture, Satisfaction, Compensation, LearningOpportunity, WorkLifeBalance, Summary, PositionID) VALUES
-(1, CURRENT_TIMESTAMP, 3, 4, 4, 5, 3, NULL, 1),
-(2, CURRENT_TIMESTAMP, 4, 3, 2, 1, 4, NULL, 1),
-(3, CURRENT_TIMESTAMP, 2, 3, 4, 2, 2, NULL, 2);
+(1, CURRENT_TIMESTAMP, 3, 4, 4, 5, 3, "Text 1", 1),
+(2, CURRENT_TIMESTAMP, 4, 3, 2, 1, 4, "Great!!!", 1),
+(3, CURRENT_TIMESTAMP, 2, 3, 4, 2, 2, "Phenom", 2);
 
 -- Activity Logs
 INSERT INTO Activity_Logs (AdminID, ActionType, Details) VALUES
