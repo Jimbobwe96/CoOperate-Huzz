@@ -163,7 +163,7 @@ def get_spec_student_reviews(studentID, positionID):
 #------------------------------------------------------------
 # TODO
 @reviews.route('/reviews/<studentID>/<positionID>', methods=['POST'])
-def add_student_reviews_new(studentID, positionID):
+def add_student_reviews(studentID, positionID):
     query = f'''
         INSERT INTO Reviews (StudentID, Date, Culture, Satisfaction, Compensation,
           LearningOpportunity, WorkLifeBalance, Summary, PositionID)
@@ -191,7 +191,7 @@ def add_student_reviews_new(studentID, positionID):
 #------------------------------------------------------------
 # TODO
 @reviews.route('/reviews/<student_id>/<position_id>', methods=['DELETE'])
-def del_student_reviews(student_id, position_id):
+def del_student_reviews_new(student_id, position_id):
     query = f'''
         DELETE FROM Reviews
         WHERE StudentID = {int(student_id)} 
