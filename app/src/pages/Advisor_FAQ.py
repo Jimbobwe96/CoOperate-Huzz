@@ -1,18 +1,39 @@
 import streamlit as st
 
 # Configure Streamlit page
-st.set_page_config(page_title="Internship Advisor - Answer Questions", page_icon="❓", layout="wide")
+st.set_page_config(
+    page_title="Internship Advisor - Answer Questions", 
+    page_icon="❓", 
+    layout="wide"
+)
+
+# Create a two-column layout with the button on the far right
+col1, col2 = st.columns([9, 1])  # Adjust proportions as needed
+with col2:
+    if st.button('Home', 
+                type='secondary', 
+                use_container_width=False):
+        st.switch_page('pages/Advisor_Home.py')
 
 # Page title
 st.title("Answer Student Questions")
 st.write("This section allows you to address common questions students may have about internships.")
 
-# Add example question input and response functionality
-question = st.text_input("Enter the student's question:", "")
-if question:
-    st.write(f"Answer for the question '{question}':")
-    st.text_area("Response:", "Provide your answer here...")
+# FAQs Section
+st.subheader("Frequently Asked Questions")
+sample_questions = [
+    "What is the process to apply for an internship?",
+    "How do I prepare for my internship interview?",
+    "Can I switch internships mid-way if it's not a good fit?",
+    "What is the expected duration of most internships?",
+    "Are internships paid or unpaid?"
+]
 
-# Back to home button
-if st.button("Home"):
-    st.switch_page("pages/Advisor_Home.py") 
+# Display FAQs
+for i, question in enumerate(sample_questions, 1):
+    with st.expander(f"Q{i}: {question}"):
+        st.text_area(
+            label=f"Response to: {question}",
+            value="Type your answer here...",
+            key=f"faq_response_{i}"
+        )
