@@ -15,7 +15,7 @@ with col2:
     if st.button('Add Review', 
                 type='secondary', 
                 use_container_width=False):
-        st.switch_page('pages/Student_All_Reviews.py')
+        st.switch_page('pages/Add_Student_Review.py')
 with col3:
     if st.button('Back', 
                 type='secondary', 
