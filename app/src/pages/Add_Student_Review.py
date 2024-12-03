@@ -12,28 +12,6 @@ st.title('Add New Review')
 
 st.write('\n\n')
 
-# Fetch categories from API
-# This has to be outside the form so the list of categories is 
-# populated when form is displayed. 
-# try:
-#     # Access /p/categories with a GET request
-#     reviews_response = requests.get('http://api:4000/r/reviews')
-    
-#     # 200 means the request was successful
-#     if reviews_response.status_code == 200:
-#         # pull the data from the response object as json
-#         reviews_data = reviews_response.json()
-#         # create a list of categories from the json. The initial [""] is so 
-#         # there isn't a default category selected in the product category select widget
-#         reviews_options = [""] + [reviews['value'] for review in reviews_data]
-#     else:
-#         # means we got back some HTTP code besides 200
-#         st.error("Failed to fetch categories")
-#         reviews_options = []
-# except requests.exceptions.RequestException as e:
-#     st.error(f"Error connecting to categories API: {str(e)}")
-#     reviews_options = []
-
 # Create a Streamlit form widget
 with st.form("add_review_form"):
 

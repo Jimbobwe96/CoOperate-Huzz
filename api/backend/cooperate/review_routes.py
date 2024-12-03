@@ -40,6 +40,51 @@ def get_reviews():
 
 #------------------------------------------------------------
 # TODO
+@reviews.route('/reviews', methods=['POST'])
+def add_new_review():
+
+    # In a POST request, there is a 
+    # collecting data from the request object 
+    the_data = request.json
+    current_app.logger.info(the_data)
+
+    #extracting the variable
+    student_id = the_data['StudentID']
+    culture = the_data['Culture']
+    satisfaction = the_data['Satisfaction']
+    compensation = the_data['Compensation']
+    learning_oppurtunity = the_data['LearningOpportunity']
+    work_life_balance = the_data['WorkLifeBalance']
+    summary = the_data['Summary']
+    position_id = the_data['PositionID']
+    
+    query = f'''
+        INSERT INTO Reviews (StudentID,
+                            Culture,
+                            Satisfaction,
+                            Compensation,
+                            LearningOpportunity,
+                            WorkLifeBalance,
+                            Summary,
+                            PositionID)
+        VALUES ('{student_id}', '{culture}', '{satisfaction}', '{compensation}', '{learning_oppurtunity}', '{work_life_balance}', '{summary}', '{position_id}')
+    '''
+ 
+    current_app.logger.info(query)
+
+    # executing and committing the insert statement 
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    response = make_response("Successfully added product")
+    response.status_code = 200
+    return response
+    
+    
+
+#------------------------------------------------------------
+# TODO
 @reviews.route('/reviews/<studentID>', methods=['GET'])
 def get_student_reviews(studentID):
     query = f'''
