@@ -18,10 +18,10 @@ with header_col1:
     st.markdown("<h3 style='margin: 0;'>CoOperate</h3>", unsafe_allow_html=True)
 
 with header_col3:
-    st.markdown(
+        st.markdown(
         """
         <div style="display: flex; align-items: center; gap: 10px; justify-content: flex-end;">
-            <a href="/" style="text-decoration: none;">
+            <a href="/" target="_self" style="text-decoration: none;">
                 <div style="
                     padding: 10px;
                     border: 1px solid #ccc;
@@ -35,7 +35,7 @@ with header_col3:
                     Sign Out
                 </div>
             </a>
-            <a href="Student_Profile" style="text-decoration: none;">
+            <a href="/Student_Profile" target="_self" style="text-decoration: none;">
                 <img src="https://img.icons8.com/ios-filled/50/000000/user.png" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ccc;">
             </a>
         </div>
@@ -108,13 +108,3 @@ if page == 'Home':
             type = 'secondary', 
             use_container_width=False):
         st.switch_page('pages/Student_All_Reviews.py')
-
-
-elif page == 'Company_Profile':
-    # Import and display the Company_Profile page
-    # Ensure Company_Profile.py is in the same directory
-    import Company_Profile as cp
-    cp.display_profile()
-
-else:
-    st.error("Page not found.")
