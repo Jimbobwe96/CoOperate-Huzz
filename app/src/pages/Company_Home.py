@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Top navigation bar with Home button and logo
-col1, col2 = st.columns([9, 1])  # Adjust proportions as needed
+col1, col2 = st.columns([12.5, 1])  # Adjust proportions as needed
 
 with col1:
     st.markdown("""
@@ -34,7 +34,7 @@ with col1:
         }
         </style>
         <div class="top-bar">
-            <h1>CoOperate</h1>
+            <h3>CoOperate</h3>
         </div>
     """, unsafe_allow_html=True)
 

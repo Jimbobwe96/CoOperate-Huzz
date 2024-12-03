@@ -3,8 +3,13 @@ import streamlit as st
 # Set up page configuration
 st.set_page_config(page_title="Admin Dashboard - Flagged Reviews", layout="wide")
 
-st.title("Review Flagged Reviews")
-st.write("Here are reviews flagged by users or the system.")
+col1, col2 = st.columns([25, 2]) 
+with col1:
+    st.title("Review Flagged Reviews")
+with col2:
+    if st.button('Home', type='secondary', use_container_width=False):
+        st.switch_page('pages/Admin_Home.py')
+
 
 # Example flagged reviews
 flagged_reviews = [
@@ -20,6 +25,3 @@ for review in flagged_reviews:
     st.button("Approve", key=f"approve_{review['id']}")
     st.button("Reject", key=f"reject_{review['id']}")
 
-# Navigation buttons
-if st.button("Home"):
-    st.switch_page("pages/Admin_Home.py")

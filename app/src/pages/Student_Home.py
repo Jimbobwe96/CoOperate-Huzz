@@ -58,7 +58,7 @@ if page == 'Home':
         st.image(
             "https://static1.gensler.com/uploads/hero_element/20772/thumb_desktop/thumbs/221201_US-Workplace-Survey_1_1669939238_1024x576.jpg",
             use_container_width=True,
-            caption="Helping students achieve their goals",
+            caption="Helping Students Find Great Co-Ops!",
             width=500,  # Reduced image width
         )
 
@@ -67,6 +67,11 @@ if page == 'Home':
 
     # Right column: Featured Reviews centered with text
     with col_right:
+        st.markdown(
+        "<h3 style='margin: 0; text-align: center; font-weight: bold; font-size: 150%;'>Featured Reviews</h3>",
+        unsafe_allow_html=True
+)
+
         # Fetch data from the API or use dummy data if the request fails
         try:
             data = requests.get('http://api:4000/r/reviews').json()
