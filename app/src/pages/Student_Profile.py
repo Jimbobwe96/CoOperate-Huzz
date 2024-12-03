@@ -15,7 +15,8 @@ with col2:
 with col3:
     st.write("")  # Empty space
 with col4:
-    st.button("Sign out")
+    if st.button('Sign Out', type='secondary', use_container_width=False):
+        st.switch_page('Home.py')
 
 # Body Layout
 col1, col2 = st.columns([1, 3])
