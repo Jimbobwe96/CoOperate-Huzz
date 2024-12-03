@@ -4,38 +4,42 @@ from streamlit_extras.app_logo import add_logo
 from modules.nav import SideBarLinks
 
 # Page configuration
-st.set_page_config(page_title="All Reviews", layout="wide")
+st.set_page_config(page_title="My Reviews", layout="wide")
 
 # Header
 # Create a two-column layout with the button on the far right
-col1, col2, col3 = st.columns([8, 1, 1])  # Adjust proportions as needed
+col1, col2, col3 = st.columns([9, 1, 1])  # Adjust proportions as needed
 with col1:
-    st.markdown("# All Reviews")
+    st.markdown("# My Reviews")
 with col2:
-    if st.button('My Reviews', 
+    if st.button('Add Review', 
                 type='secondary', 
                 use_container_width=False):
-        st.switch_page('pages/Student_My_Reviews.py')
+        st.switch_page('pages/Student_All_Reviews.py')
 with col3:
-    if st.button('Home', 
+    if st.button('Back', 
                 type='secondary', 
                 use_container_width=False):
-        st.switch_page('pages/Student_Home.py')
+        st.switch_page('pages/Student_All_Reviews.py')
 
 # Fetch data from the API or use dummy data if the request fails
 try:
     data = requests.get('http://api:4000/r/reviews').json()
 except:
     st.write("**Important**: Could not connect to sample api, so using dummy data.")
-    data = {
-        "a":{"b": "123", "c": "hello"},
-        "z": {"b": "456", "c": "goodbye"}}
+    data = [
+        {"ReviewID": "123", "Date": "2024-01-01", "Culture": "Positive", "Satisfaction": "High",
+         "Compensation": "Fair", "LearningOpportunity": "Good", "WorkLifeBalance": "Excellent",
+         "Summary": "Great experience", "PositionID": "P123"},
+        {"ReviewID": "456", "Date": "2024-02-01", "Culture": "Negative", "Satisfaction": "Low",
+         "Compensation": "Poor", "LearningOpportunity": "Limited", "WorkLifeBalance": "Bad",
+         "Summary": "Challenging experience", "PositionID": "P456"}
+    ]
 
 # Display reviews from the data fetched
 if isinstance(data, list): 
     for review in data:
         review_id = review.get('ReviewID', 'N/A')
-        student_id = review.get('StudentID', 'N/A')
         date = review.get('Date', 'N/A')
         culture = review.get('Culture', 'N/A')
         satisfaction = review.get('Satisfaction', 'N/A')
@@ -43,11 +47,9 @@ if isinstance(data, list):
         learning_opportunity = review.get('LearningOpportunity', 'N/A')
         work_life_balance = review.get('WorkLifeBalance', 'N/A')
         summary = review.get('Summary', 'N/A')
-        flagged = review.get('Flagged', 'N/A')
-        resolved_by = review.get('ResolvedBy', 'N/A')
         position_id = review.get('PositionID', 'N/A')
 
-        # Display in a formatted way
+        # Display the review content
         st.markdown(
             f"""
             <div style="
@@ -73,5 +75,12 @@ if isinstance(data, list):
             """,
             unsafe_allow_html=True
         )
-
-
+        
+        # Add action buttons below the review
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            if st.button(f"Edit Review {review_id}"):
+                st.write(f"Edit Review {review_id} clicked.")
+        with col2:
+            if st.button(f"Delete Review {review_id}"):
+                st.write(f"Delete Review {review_id} clicked.")

@@ -102,9 +102,15 @@ if page == 'Home':
                 unsafe_allow_html=True
             )
 
-    # Footer with "All Reviews" link
+    # Footer with "All Reviews" linked text
     st.markdown("---")
-    if st.button('All Reviews', 
-            type = 'secondary', 
-            use_container_width=False):
-        st.switch_page('pages/Student_All_Reviews.py')
+    st.markdown(
+        """
+        <div style="text-align: left; margin-top: 20px;">
+            <a href="/Student_All_Reviews" target="_self" style="text-decoration: none; font-size: 24px; color: #000000; font-weight: bold;">
+                All Reviews
+            </a>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
