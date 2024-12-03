@@ -7,10 +7,6 @@ from modules.nav import SideBarLinks
 # Page configuration
 st.set_page_config(page_title="CoOperate", layout="wide")
 
-# Initialize session state for navigation
-if 'page' not in st.session_state:
-    st.session_state.page = 'Home'
-
 # Header section
 header_col1, header_col3 = st.columns([1, 1])
 
@@ -46,15 +42,14 @@ with header_col3:
 # Divider
 st.markdown("---")
 
-# Check session state to handle navigation
-page = st.session_state.page
 
-if page == 'Home':
+
+
     # Main content for the Home page
-    col_left, col_right = st.columns([2, 1])
+col_left, col_right = st.columns([2, 1])
 
     # Left column: Slightly smaller static image
-    with col_left:
+with col_left:
         st.image(
             "https://static1.gensler.com/uploads/hero_element/20772/thumb_desktop/thumbs/221201_US-Workplace-Survey_1_1669939238_1024x576.jpg",
             use_container_width=True,
@@ -63,10 +58,10 @@ if page == 'Home':
         )
 
     # Decrease gap between image and reviews
-    st.markdown("<div style='margin-bottom: 5px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='margin-bottom: 5px;'></div>", unsafe_allow_html=True)
 
     # Right column: Featured Reviews centered with text
-    with col_right:
+with col_right:
         st.markdown(
         "<h3 style='margin: 0; text-align: center; font-weight: bold; font-size: 150%;'>Featured Reviews</h3>",
         unsafe_allow_html=True
@@ -115,9 +110,9 @@ if page == 'Home':
                     unsafe_allow_html=True
                 )
 
-    # Footer with "All Reviews" linked text
-    st.markdown("---")
-    st.markdown(
+# Footer with "All Reviews" linked text
+st.markdown("---")
+st.markdown(
         """
         <div style="text-align: left; margin-top: 20px;">
             <a href="/Student_All_Reviews" target="_self" style="text-decoration: none; font-size: 24px; color: #000000; font-weight: bold;">
