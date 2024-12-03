@@ -11,24 +11,11 @@ st.set_page_config(page_title="CoOperate", layout="wide")
 if 'page' not in st.session_state:
     st.session_state.page = 'Home'
 
-# Function to handle search input
-def handle_search():
-    # Always redirect to the Company_Profile page
-    st.session_state.page = 'pages/Company_Profile.py'
-
-# Header section with functional search bar
-header_col1, header_col2, header_col3 = st.columns([1, 2, 1])
+# Header section
+header_col1, header_col3 = st.columns([1, 1])
 
 with header_col1:
     st.markdown("<h3 style='margin: 0;'>CoOperate</h3>", unsafe_allow_html=True)
-
-with header_col2:
-    search_input = st.text_input(
-        "",
-        placeholder="Search for reviews...",
-        key='search_input',
-        on_change=handle_search
-    )
 
 with header_col3:
     st.markdown(
@@ -82,19 +69,6 @@ if page == 'Home':
     with col_right:
         st.markdown("<h4 style='font-size: 24px; text-align: center;'>Featured Reviews</h4>", unsafe_allow_html=True)
 
-        review_style = """
-            <div style="
-                border: 1px solid #ccc;
-                border-radius: 8px;
-                padding: 30px;
-                margin: 20px auto; 
-                width: 90%;
-                background-color: #f9f9f9;
-                box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            ">
-                <p style="font-size: 20px; text-align: center; margin: 0;"><strong>{title}</strong>: {content}</p>
-            </div>
-        """
         data = {} 
         try:
             data = requests.get('http://api:4000/r/reviews').json()
@@ -107,19 +81,34 @@ if page == 'Home':
             "summary": ["Text 1", "Great!!!", "Phenom"]
         }
 
-        # Display the data as text with dynamic review titles
+        # Display the data as text with dynamic review titles and styled boxes
         for index, item in enumerate(data["summary"]):
-            if index == 0:
-                st.markdown("### Review 1")
-            elif index == 1:
-                st.markdown("### Review 2")
-            elif index == 2:
-                st.markdown("### Review 3")
-            st.write(item)
+            review_title = f"Review {index + 1}"
+            st.markdown(
+                f"""
+                <div style="
+                    border: 1px solid #ccc;
+                    border-radius: 8px;
+                    padding: 15px;
+                    margin: 10px auto; 
+                    background-color: #f9f9f9;
+                    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+                    text-align: center;
+                ">
+                    <h4 style="margin: 0; font-size: 20px;">{review_title}</h4>
+                    <p style="font-size: 16px; margin: 10px 0 0 0;">{item}</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
-    # Footer links
+    # Footer with "All Reviews" link
     st.markdown("---")
-    st.markdown("<h5>Hotlinks to Helpful Resources</h5>", unsafe_allow_html=True)
+    if st.button('All Reviews', 
+            type = 'secondary', 
+            use_container_width=False):
+        st.switch_page('pages/Student_All_Reviews.py')
+
 
 elif page == 'Company_Profile':
     # Import and display the Company_Profile page
