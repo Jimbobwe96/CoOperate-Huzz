@@ -82,3 +82,8 @@ with col_2:
                 type = 'secondary', 
                 use_container_width=True):
         st.switch_page("pages/Admin_Flag_Review.py")
+
+    if st.button("All Reviews", 
+                type = 'secondary', 
+                use_container_width=True):
+        st.switch_page("pages/Admin_Flag_Review.py")
