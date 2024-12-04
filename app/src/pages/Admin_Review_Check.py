@@ -1,26 +1,34 @@
 import streamlit as st
 import requests
+import logging
+logger = logging.getLogger(__name__)
+from streamlit_extras.app_logo import add_logo
+from modules.nav import SideBarLinks
 
-# Set up page configuration
-st.set_page_config(page_title="Admin Dashboard - Flagged Reviews", layout="wide")
+# Page configuration
+st.set_page_config(page_title="My Reviews", layout="wide")
 
-col1, col2 = st.columns([25, 2]) 
+# Header
+# Create a two-column layout with the button on the far right
+col1, col2, col3 = st.columns([9, 1, 1])  # Adjust proportions as needed
 with col1:
-    st.title("Review Flagged Reviews")
+    st.markdown("# All Reviews")
 with col2:
-    if st.button('Home', type='secondary', use_container_width=False):
+    if st.button('Flagged Reviews', 
+                type='secondary', 
+                use_container_width=False):
+        st.session_state['authenticated'] = True
+        st.session_state['role'] = 'admin'
+        st.switch_page('pages/Admin_Flag_Review.py')
+with col3:
+    if st.button('Back', 
+                type='secondary', 
+                use_container_width=False):
         st.switch_page('pages/Admin_Home.py')
 
-admin_id = st.session_state['admin_id']
-# Example flagged reviews
-flagged_reviews = [
-    {"id": 1, "review": "This product is terrible!", "flag_reason": "Inappropriate language"},
-    {"id": 2, "review": "Best service ever, but too expensive!", "flag_reason": "Suspicious activity"},
-    {"id": 3, "review": "I hate this company.", "flag_reason": "Negative sentiment"},
-]
-
+# Fetch data from the API or use dummy data if the request fails
 try:
-    data = requests.get('http://api:4000/r/reviews/flagged').json()
+    data = requests.get('http://api:4000/r/reviews').json()
 except:
     st.write("**Important**: Could not connect to sample api, so using dummy data.")
     data = [
@@ -32,6 +40,7 @@ except:
          "Summary": "Challenging experience", "PositionID": "P456"}
     ]
 
+# Display reviews from the data fetched
 if isinstance(data, list): 
     for review in data:
         review_id = review.get('ReviewID', 'N/A')
@@ -44,6 +53,7 @@ if isinstance(data, list):
         summary = review.get('Summary', 'N/A')
         position_id = review.get('PositionID', 'N/A')
 
+        # Display the review content
         st.markdown(
             f"""
             <div style="
@@ -69,24 +79,19 @@ if isinstance(data, list):
             """,
             unsafe_allow_html=True
         )
-        approve_button = st.button("Approve Review: " + str(review_id))
-        reject_button = st.button("Reject Review: " + str(review_id))
-
-        if approve_button:
+        
+        # Add action buttons below the review
+        flag_button = st.button("Flag Review " + str(review_id))
+        # col1 = st.columns([1])
+        # with col1:
+        if flag_button:
             try:
-                response = requests.put(f'http://api:4000/r/reviews/{str(review_id)}/admin/{str(admin_id)}/approve')
+                response = requests.put(f'http://api:4000/r/reviews/{review_id}/flag')
                 if response.status_code == 200:
-                    st.success("Review approved!")
-                    st.rerun()
+                    st.success("Review flagged successfully!")
                 else:
-                    st.error(f"Error approving review: {response.text}")
+                    st.error(f"Error deleting review: {response.text}")
             except requests.exceptions.RequestException as e:
                 st.error(f"Error connecting to server: {str(e)}")
-
-for review in flagged_reviews:
-    st.subheader(f"Review ID: {review['id']}")
-    st.write(f"**Review:** {review['review']}")
-    st.write(f"**Reason for flagging:** {review['flag_reason']}")
-    st.button("Approve", key=f"approve_{review['id']}")
-    st.button("Reject", key=f"reject_{review['id']}")
+                    
 
