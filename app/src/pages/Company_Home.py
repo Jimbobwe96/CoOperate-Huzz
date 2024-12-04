@@ -1,6 +1,18 @@
 import streamlit as st
 
-# Top navigation bar with Home button and logo
+# Initialize session state for company details
+if "company_details" not in st.session_state:
+    st.session_state["company_details"] = "Add company details here..."
+
+# Function to handle editing
+def edit_details():
+    st.session_state["edit_mode"] = True
+
+def save_details(new_details):
+    st.session_state["company_details"] = new_details
+    st.session_state["edit_mode"] = False
+
+# Top navigation bar
 col1, col2 = st.columns([12.5, 1])  # Adjust proportions as needed
 
 with col1:
@@ -24,13 +36,12 @@ with col1:
             height: 40px;
             border-radius: 50%;
         }
-        /* Remove spacing between buttons */
         .button-row .stButton button {
-            margin: 0;  /* Remove margins */
-            padding: 8px 16px;  /* Adjust padding if needed */
+            margin: 0;
+            padding: 8px 16px;
         }
         .button-row .stButton {
-            margin: 0;  /* Remove margins around stButton containers */
+            margin: 0;
         }
         </style>
         <div class="top-bar">
@@ -49,32 +60,35 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Company Profile")
-    st.text_area("Add company details here...", height=200)
     
-    # Use a container with CSS class for styling
-    with st.container():
-        st.markdown('<div class="button-row">', unsafe_allow_html=True)
-        # Place buttons side by side using columns
-        button_col1, button_col2 = st.columns([1, 1])
-        with button_col1:
-            st.button("Edit Profile", key='edit_profile')
-        with button_col2:
-            st.button("Delete Profile", key='delete_profile')
-        st.markdown('</div>', unsafe_allow_html=True)
+    if "edit_mode" in st.session_state and st.session_state["edit_mode"]:
+        # Editing mode
+        new_details = st.text_area("Edit company details", 
+                                   st.session_state["company_details"], 
+                                   height=200)
+        if st.button("Save"):
+            save_details(new_details)
+        if st.button("Cancel"):
+            st.session_state["edit_mode"] = False
+    else:
+        # Display mode
+        st.text_area("Company Details", 
+                     st.session_state["company_details"], 
+                     height=200, disabled=True)
+        if st.button("Edit Profile", key='edit_profile'):
+            edit_details()
+
+    # Optionally add a delete button
+    if st.button("Delete Profile", key='delete_profile'):
+        st.session_state["company_details"] = "Add company details here..."
 
 with col2:
     st.subheader("Job Postings")
-    if st.button('Software Developer', 
-                 type='secondary', 
-                 use_container_width=True):
+    if st.button('Software Developer', type='secondary', use_container_width=True):
         st.switch_page('pages/Advisor_Home.py')
     st.write(" ") 
-    if st.button('Data Scientist', 
-                 type='secondary', 
-                 use_container_width=True):
+    if st.button('Data Scientist', type='secondary', use_container_width=True):
         st.switch_page('pages/Advisor_Home.py')
     st.write(" ")
-    if st.button('John', 
-                 type='secondary', 
-                 use_container_width=True):
+    if st.button('John', type='secondary', use_container_width=True):
         st.switch_page('pages/Advisor_Home.py')
