@@ -22,9 +22,9 @@ with col3:
         st.switch_page('pages/Home.py')
 
 # Fetch data from the API
-STUDENT_ID = 1  # Replace with dynamic ID logic
+student_id = 1  # Replace with dynamic ID logic
 try:
-    profile = requests.get(f'http://localhost:4000/profiles/{STUDENT_ID}').json()
+    profile = requests.get(f'http://api:4000/s/students/{student_id}').json()
 except:
     st.error("Could not connect to the API. Using dummy data for demonstration.")
     profile = {
