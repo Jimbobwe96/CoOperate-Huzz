@@ -48,7 +48,7 @@ def get_students():
 #------------------------------------------------------------
 # TODO
 @students.route('/students/<AdvisorID>', methods=['GET'])
-def get_student_reviews(AdvisorID):
+def get_advisor_student(AdvisorID):
     query = f'''
         SELECT *
         FROM students
@@ -76,7 +76,7 @@ def get_student_reviews(AdvisorID):
 #------------------------------------------------------------
 # TODO
 @students.route('/students/<StudentID>', methods=['GET'])
-def get_student_reviews(StudentID):
+def get_student(StudentID):
     query = f'''
         SELECT *
         FROM students
