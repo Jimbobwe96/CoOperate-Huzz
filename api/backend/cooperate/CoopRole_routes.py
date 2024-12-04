@@ -8,13 +8,13 @@ from backend.db_connection import db
 #------------------------------------------------------------
 # Create a new Blueprint object, which is a collection of 
 # routes.
-CoopRole = Blueprint('CoopRole', __name__)
+cooprole = Blueprint('cooprole', __name__)
 
 #------------------------------------------------------------
 
 # gets all of the listed roles 
-@CoopRole.route('/CoopRole', methods=['GET'])
-def get_CoopRole():
+@cooprole.route('/cooprole', methods=['GET'])
+def get_cooprole():
     query = '''
         SELECT  Name, 
                 Title, 
@@ -48,7 +48,7 @@ def get_CoopRole():
 #------------------------------------------------------------
 
 # gets all of the listed roles for a specific company
-@CoopRole.route('/CoopRole/<CompanyID>', methods=['GET'])
+@cooprole.route('/cooprole/<CompanyID>', methods=['GET'])
 def get_company_roles(CompanyID):
     query = f'''
         SELECT *
