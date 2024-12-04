@@ -6,6 +6,8 @@ from backend.products.products_routes import products
 from backend.simple.simple_routes import simple_routes
 from backend.cooperate.review_routes import reviews
 from backend.cooperate.student_routes import students
+from backend.cooperate.skill_routes import skills
+from backend.cooperate.experiences_routes import experiences
 import os
 from dotenv import load_dotenv
 
@@ -41,11 +43,13 @@ def create_app():
     # Register the routes from each Blueprint with the app object
     # and give a url prefix to each
     app.logger.info('current_app(): registering blueprints with Flask app object.')   
-    app.register_blueprint(simple_routes)
-    app.register_blueprint(customers,   url_prefix='/c')
-    app.register_blueprint(products,    url_prefix='/p')
-    app.register_blueprint(reviews,    url_prefix='/r')
-    app.register_blueprint(students,   url_prefix='/s')
+    # app.register_blueprint(simple_routes)
+    # app.register_blueprint(customers,   url_prefix='/c')
+    # app.register_blueprint(products,    url_prefix='/p')
+    app.register_blueprint(reviews,     url_prefix='/r')
+    app.register_blueprint(students,    url_prefix='/s')
+    app.register_blueprint(skills,      url_prefix='/sk')
+    app.register_blueprint(experiences, url_prefix='/e')
 
     # Don't forget to return the app object
     return app

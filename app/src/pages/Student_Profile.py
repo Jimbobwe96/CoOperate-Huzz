@@ -76,10 +76,10 @@ st.markdown(
 
 st.markdown("   ")
 
-# skills 
+# Skills Information 
 student_id = 1
 try:
-    skill = requests.get(f'http://api:4000/StudentSkills/{student_id}').json()
+    skill = requests.get(f'http://api:4000/sk/skills/{student_id}').json()
 except:
     st.error("Could not connect to the API. Using dummy data for demonstration.")
     skill = {
@@ -123,7 +123,7 @@ st.markdown(
 # experience 
 student_id = 1
 try:
-    exp = requests.get(f'http://api:4000/Experiences/{student_id}').json()
+    exp = requests.get(f'http://api:4000/e/experiences/{student_id}').json()
 except:
     st.error("Could not connect to the API. Using dummy data for demonstration.")
     exp = {

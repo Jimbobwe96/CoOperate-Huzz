@@ -8,40 +8,40 @@ from backend.db_connection import db
 #------------------------------------------------------------
 # Create a new Blueprint object, which is a collection of 
 # routes.
-StudentSkills = Blueprint('StudentSkills', __name__)
+skills = Blueprint('skills', __name__)
 
 #------------------------------------------------------------
 
-# Define the Blueprint for StudentSkills routes
-StudentSkills = Blueprint('StudentSkills', __name__)
-
 # 1. GET all skills for a student
-@StudentSkills.route('/StudentSkills/<int:StudentID>', methods=['GET'])
-def get_student_skills(StudentID):
-    """
-    Retrieve all skills and their proficiency levels for a specific student.
-    """
-    query = '''
+@skills.route('/skills/<student_id>', methods=['GET'])
+def get_student_skills(student_id):
+    # """
+    # Retrieve all skills and their proficiency levels for a specific student.
+    # """
+    query = f'''
         SELECT Skill.SkillName, StudentSkills.Proficiency
         FROM StudentSkills
         JOIN Skill ON StudentSkills.SkillID = Skill.SkillID
-        WHERE StudentSkills.StudentID = :student_id
+        WHERE StudentSkills.StudentID = {str(student_id)}
     '''
-    # Execute the query and fetch all results
-    result = db.session.execute(query, {"student_id": StudentID}).fetchall()
 
-    # Convert the result into a list of dictionaries
-    skills = [{"SkillName": row[0], "Proficiency": row[1]} for row in result]
+    cursor = db.get_db().cursor()
+    # Execute the query and fetch all results
+    cursor.execute(query)
+
+    theData = cursor.fetchall()
+    response = make_response(jsonify(theData))
+    response.status_code = 200
 
     # Return the data as JSON
-    return jsonify(skills)
+    return response
 
 
 #------------------------------------------------------------
 
-# 2. POST add a skill for a student
-@StudentSkills.route('/StudentSkills', methods=['POST'])
-def add_student_skill():
+# 2. POST add a new skill to the list
+@skills.route('/skills', methods=['POST'])
+def add_skill():
     """
     Add a new skill and its proficiency level for a specific student.
     """
@@ -71,7 +71,7 @@ def add_student_skill():
 #------------------------------------------------------------
 
 # 3. PUT update a student's skill proficiency
-@StudentSkills.route('/StudentSkills/<int:StudentID>/<int:SkillID>', methods=['PUT'])
+@skills.route('/StudentSkills/<int:StudentID>/<int:SkillID>', methods=['PUT'])
 def update_student_skill(StudentID, SkillID):
     """
     Update the proficiency level of a specific skill for a student.
@@ -101,7 +101,7 @@ def update_student_skill(StudentID, SkillID):
 #------------------------------------------------------------
 
 # 4. DELETE a skill for a student
-@StudentSkills.route('/StudentSkills/<int:StudentID>/<int:SkillID>', methods=['DELETE'])
+@skills.route('/StudentSkills/<int:StudentID>/<int:SkillID>', methods=['DELETE'])
 def delete_student_skill(StudentID, SkillID):
     """
     Remove a specific skill for a student.
@@ -121,3 +121,29 @@ def delete_student_skill(StudentID, SkillID):
 
     # Return a success message
     return jsonify({"message": "Skill deleted successfully"}), 200
+
+#------------------------------------------------------------
+
+# gets all of the required skills of a given role
+@skills.route('/skills/<position_id>', methods=['GET'])
+def get_role_requiredskills(position_id):
+    query = f'''
+        SELECT CoopRole.Title,
+               Skill.SkillName
+        FROM CoopRole
+        JOIN RequiredSkills ON CoopRole.PositionID = RequiredSkills.PositionID
+        JOIN Skill ON RequiredSkills.SkillID = Skill.SkillID
+        WHERE CoopRole.PositionID = {str(position_id)}
+    '''
+    cursor = db.get_db().cursor()
+    # Execute the query and fetch all results
+    cursor.execute(query)
+
+    theData = cursor.fetchall()
+    response = make_response(jsonify(theData))
+    response.status_code = 200
+
+    # Return the data as JSON
+    return response
+
+#------------------------------------------------------------

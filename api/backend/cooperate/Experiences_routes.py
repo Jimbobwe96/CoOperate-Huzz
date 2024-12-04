@@ -32,17 +32,17 @@ data_store = {
 #------------------------------------------------------------
 # Create a new Blueprint object, which is a collection of 
 # routes.
-Experiences = Blueprint('Experiences', __name__)
+experiences = Blueprint('experiences', __name__)
 
 #------------------------------------------------------------
 
 # gets all of the experiences of a given student
-@Experiences.route('/Experiences/<StudentID>', methods=['GET'])
-def get_student_experiences(studentID):
+@experiences.route('/experiences/<student_id>', methods=['GET'])
+def get_student_experiences(student_id):
     query = f'''
         SELECT *
         FROM Experiences
-        WHERE StudentID = {str(studentID)}
+        WHERE StudentID = {str(student_id)}
     '''
     
     # get a cursor object from the database
@@ -67,7 +67,7 @@ def get_student_experiences(studentID):
 #------------------------------------------------------------
 
 # post a specific student's experiences
-@Experiences.route('/Experiences/<StudentID>', methods=['POST'])
+@experiences.route('/experiences/<StudentID>', methods=['POST'])
 def post_student_experience(studentID):
     query = f'''
         INSERT INTO EXPERIENCES (StudentID, Title, Industry, StartTime, EndTime,
@@ -96,14 +96,14 @@ def post_student_experience(studentID):
 #------------------------------------------------------------
 
 # delete a specific  experiences
-@Experiences.route('/Experiences/<int:Experience_id>', methods=['DELETE'])
+@experiences.route('/experiences/<int:Experience_id>', methods=['DELETE'])
 def delete_student_experiences(Experience_id):
     return 'Experience sucessfully deleted', 200
 
 #------------------------------------------------------------
 
 # edit a specific experience
-@Experiences.route('/Experiences/<int:Experience_id>', methods=['PUT'])
+@experiences.route('/experiences/<int:Experience_id>', methods=['PUT'])
 def update_experience(Experience_id):
     # Check if the experience exists in the data store
     if Experience_id not in data_store:
