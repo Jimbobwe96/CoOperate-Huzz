@@ -185,25 +185,24 @@ if st.button("Act as a Student", key="student"):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'student'
     st.session_state['first_name'] = 'John'
-    logger.info("Logging in as a Student")
-    st.experimental_rerun()
+    st.switch_page('pages/Student_Home.py')
 
 if st.button("Act as a Co-Op Advisor", key="advisor"):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'coop_advisor'
     st.session_state['first_name'] = 'Mohammad'
-    st.experimental_rerun()
+    st.switch_page('pages/Advisor_Home.py')
 
 if st.button("Act as a Company", key="company"):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'administrator'
     st.session_state['first_name'] = 'Google'
-    st.experimental_rerun()
+    st.switch_page('pages/Company_Home.py')
 
 if st.button("Act as an Admin", key="admin"):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'Admin'
     st.session_state['admin_id'] = 1
-    st.experimental_rerun()
+    st.switch_page('pages/Admin_Home.py')
 
 st.markdown('</div>', unsafe_allow_html=True)
