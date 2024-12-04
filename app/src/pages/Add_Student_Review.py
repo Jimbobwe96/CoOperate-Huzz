@@ -29,6 +29,7 @@ with st.form("add_review_form"):
     
     # Add the submit button (which every form needs)
     submit_button = st.form_submit_button("Add Review")
+    back_button = st.form_submit_button("Cancel")
     
     # Validate all fields are filled when form is submitted
     if submit_button:
@@ -75,3 +76,5 @@ with st.form("add_review_form"):
                     st.error(f"Error adding review: {response.text}")
             except requests.exceptions.RequestException as e:
                 st.error(f"Error connecting to server: {str(e)}")
+    if back_button:
+        st.switch_page("pages/Student_My_Reviews.py")

@@ -71,5 +71,6 @@ if st.button('Act as an Admin',
              use_container_width=True):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'Admin'
+    st.session_state['admin_id'] = 1
     st.switch_page('pages/Admin_Home.py')
 
