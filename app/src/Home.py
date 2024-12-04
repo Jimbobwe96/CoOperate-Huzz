@@ -167,7 +167,7 @@ st.markdown(
     """
     <div class="overlay">
         <h1>CoOperate</h1>
-        <p>Unleashing Potential Together</p>
+        <p>Get informed</p>
     </div>
     """,
     unsafe_allow_html=True
