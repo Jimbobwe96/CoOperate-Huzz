@@ -203,6 +203,7 @@ if st.button("Act as a Company", key="company"):
 if st.button("Act as an Admin", key="admin"):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'Admin'
+    st.session_state['admin_id'] = 1
     st.experimental_rerun()
 
 st.markdown('</div>', unsafe_allow_html=True)

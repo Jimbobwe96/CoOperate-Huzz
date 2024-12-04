@@ -86,4 +86,4 @@ with col_2:
     if st.button("All Reviews", 
                 type = 'secondary', 
                 use_container_width=True):
-        st.switch_page("pages/Admin_Flag_Review.py")
+        st.switch_page("pages/Admin_Review_Check.py")

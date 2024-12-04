@@ -128,9 +128,9 @@ def update_review(reviewID):
         # SQL query for updating the review
         query = '''
             UPDATE Reviews
-            SET culture = %s, satisfaction = %s, compensation = %s, 
-                learning_opportunity = %s, worklife_balance = %s, summary = %s
-            WHERE reviewID = %s
+            SET culture = %s, Satisfaction = %s, Compensation = %s, 
+                LearningOpportunity = %s, WorklifeBalance = %s, Summary = %s
+            WHERE ReviewID = %s
         '''
         # Get a cursor object from the database
         cursor = db.get_db().cursor()
@@ -191,4 +191,92 @@ def get_position_reviews(positionID):
     # set the proper HTTP Status code of 200 (meaning all good)
     response.status_code = 200
     # send the response back to the client
+    return response
+
+#------------------------------------------------------------
+@reviews.route('/reviews/<review_id>/flag', methods=['PUT'])
+def flag_by_reviewid(review_id):
+    query = f'''
+        UPDATE Reviews
+        SET Flagged = 1
+        WHERE ReviewID = {int(review_id)}
+    '''
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    # use cursor to query the database for a list of products
+    cursor.execute(query)
+
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    response = make_response("Successfully flagged review")
+    response.status_code = 200
+    return response
+
+#------------------------------------------------------------
+@reviews.route('/reviews/flagged', methods=['GET'])
+def get_flagged_reviews():
+    query = '''
+        SELECT * 
+        FROM Reviews
+        WHERE Flagged = 1
+    '''
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    # use cursor to query the database for a list of products
+    cursor.execute(query)
+
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    theData = cursor.fetchall()
+
+    response = make_response(jsonify(theData))
+    response.status_code = 200
+    return response
+
+#------------------------------------------------------------
+@reviews.route('/reviews/<review_id>/admin/<admin_id>/approve', methods=['PUT'])
+def update_approved(review_id,admin_id):
+    query = f'''
+        UPDATE Reviews
+        SET Flagged = 0, ResolvedBy = {int(admin_id)}
+        WHERE ReviewID = {int(review_id)};
+    '''
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    # use cursor to query the database for a list of products
+    cursor.execute(query)
+
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    response = make_response("Successfully flagged review")
+    response.status_code = 200
+    log_update_approved(review_id, admin_id)
+    return response
+
+#------------------------------------------------------------
+@reviews.route('/reviews/{review_id}/admin/{admin_id}/approve', methods=['POST'])
+def log_update_approved(review_id,admin_id):
+    query = f'''
+        INSERT INTO Activity_Logs (AdminID, ActionType, Details)
+        VALUES ({int(admin_id)}, 'Approved review #' + {str(review_id)}, 'Incorrectly flagged review')
+    '''
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    # use cursor to query the database for a list of products
+    cursor.execute(query)
+
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    response = make_response("Successfully logged action")
+    response.status_code = 200
     return response
