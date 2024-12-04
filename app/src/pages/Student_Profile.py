@@ -19,7 +19,7 @@ with col2:
         st.switch_page('pages/Edit_Profile.py')
 with col3:
     if st.button('Back', type='secondary', use_container_width=False):
-        st.switch_page('pages/Home.py')
+        st.switch_page('Home.py')
 
 # Fetch data from the API
 student_id = 1 

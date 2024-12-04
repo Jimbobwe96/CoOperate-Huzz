@@ -6,29 +6,6 @@ from flask import current_app
 from backend.db_connection import db
 from datetime import date
 
-
-## dummy data
-data_store = {
-    1: {
-        "StudentID": 101,
-        "Title": "Software Engineer",
-        "Industry": "Technology",
-        "StartTime": date(2022, 6, 1),
-        "EndTime": date(2023, 6, 1),
-        "Company": "TechCorp",
-        "ExperienceID": 1
-    },
-    2: {
-        "StudentID": 102,
-        "Title": "Data Analyst",
-        "Industry": "Finance",
-        "StartTime": date(2021, 1, 15),
-        "EndTime": date(2022, 1, 15),
-        "Company": "DataSolutions",
-        "ExperienceID": 2
-    }
-}
-
 #------------------------------------------------------------
 # Create a new Blueprint object, which is a collection of 
 # routes.
