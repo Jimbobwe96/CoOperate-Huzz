@@ -107,7 +107,7 @@ def get_student_reviews(StudentID):
 
 # returns all the advisor infomration to the given students advisor
 @students.route('/students/<studentID>/advisor', methods=['GET'])
-def get_company(studentID):
+def get_student_advisor_info(studentID):
     query = f'''
         SELECT a.FirstName, a.LastName, a.Email
         FROM students s JOIN advisors a on s.advisorID = a.advisorID
