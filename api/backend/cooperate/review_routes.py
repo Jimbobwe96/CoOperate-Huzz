@@ -1,8 +1,4 @@
-from flask import Blueprint
-from flask import request
-from flask import jsonify
-from flask import make_response
-from flask import current_app
+from flask import request, jsonify, make_response, Blueprint, current_app
 from backend.db_connection import db
 import logging
 logger = logging.getLogger(__name__)
@@ -87,12 +83,12 @@ def add_new_review():
 
 #------------------------------------------------------------
 # TODO
-@reviews.route('/reviews/<studentID>', methods=['GET'])
-def get_student_reviews(studentID):
+@reviews.route('/reviews/<reviewID>', methods=['GET'])
+def get_student_reviews(reviewID):
     query = f'''
         SELECT *
         FROM Reviews
-        WHERE StudentID = {str(studentID)}
+        WHERE reviewID = {str(reviewID)}
     '''
     # get a cursor object from the database
     cursor = db.get_db().cursor()
@@ -109,9 +105,53 @@ def get_student_reviews(studentID):
     return response
 
 #------------------------------------------------------------
-# TODO
-@reviews.route('/reviews/<review_id>', methods=['DELETE'])
-def del_student_reviews(review_id):
+
+# PUT route for updating a review
+@reviews.route('/reviews/<reviewID>', methods=['PUT'])
+def update_review(reviewID):
+    try:
+        # Get the JSON payload from the request
+        review_data = request.json
+
+        # Extract relevant fields
+        culture = review_data.get('culture')
+        satisfaction = review_data.get('satisfaction')
+        compensation = review_data.get('compensation')
+        learning_opportunity = review_data.get('learning_opportunity')
+        worklife_balance = review_data.get('worklife_balance')
+        summary = review_data.get('summary')
+
+        # Validate input (ensure all fields are provided and valid)
+        if not all(isinstance(val, int) for val in [culture, satisfaction, compensation, learning_opportunity, worklife_balance]) or not isinstance(summary, str):
+            return make_response(jsonify({'error': 'Invalid input data'}), 400)
+
+        # SQL query for updating the review
+        query = '''
+            UPDATE Reviews
+            SET culture = %s, satisfaction = %s, compensation = %s, 
+                learning_opportunity = %s, worklife_balance = %s, summary = %s
+            WHERE reviewID = %s
+        '''
+        # Get a cursor object from the database
+        cursor = db.get_db().cursor()
+
+        # Execute the query with parameters to avoid SQL injection
+        cursor.execute(query, (culture, satisfaction, compensation, learning_opportunity, worklife_balance, summary, reviewID))
+        db.get_db().commit()  # Commit the changes to the database
+
+        # Check if any row was updated
+        if cursor.rowcount == 0:
+            return make_response(jsonify({'error': 'Review not found'}), 404)
+
+        # Return a success response
+        return make_response(jsonify({'message': 'Review updated successfully'}), 200)
+    except Exception as e:
+        # Handle unexpected errors
+        return make_response(jsonify({'error': str(e)}), 500)
+    
+#------------------------------------------------------------
+@reviews.route('/reviews/<reviewID>', methods=['DELETE'])
+def del_by_reviewid(review_id):
     query = f'''
         DELETE FROM Reviews
         WHERE ReviewID = {int(review_id)}
@@ -132,25 +172,18 @@ def del_student_reviews(review_id):
     return response
 
 #------------------------------------------------------------
-# TODO
-@reviews.route('/reviews/<studentID>/<positionID>', methods=['GET'])
-def get_spec_student_reviews(studentID, positionID):
+@reviews.route('/reviews/<positionID>', methods=['GET'])
+def get_position_reviews(positionID):
     query = f'''
         SELECT *
         FROM Reviews
-        WHERE StudentID = {str(studentID)}
-        AND PositionID = {str(positionID)}
+        WHERE positionID = {str(positionID)}
     '''
     # get a cursor object from the database
     cursor = db.get_db().cursor()
 
     # use cursor to query the database for a list of products
     cursor.execute(query)
-
-    # fetch all the data from the cursor
-    # The cursor will return the data as a 
-    # Python Dictionary
-    theData = cursor.fetchall()
 
     # Create a HTTP Response object and add results of the query to it
     # after "jasonify"-ing it.
@@ -158,56 +191,4 @@ def get_spec_student_reviews(studentID, positionID):
     # set the proper HTTP Status code of 200 (meaning all good)
     response.status_code = 200
     # send the response back to the client
-    return response
-
-#------------------------------------------------------------
-# TODO
-@reviews.route('/reviews/<studentID>/<positionID>', methods=['POST'])
-def add_student_reviews(studentID, positionID):
-    query = f'''
-        INSERT INTO Reviews (StudentID, Date, Culture, Satisfaction, Compensation,
-          LearningOpportunity, WorkLifeBalance, Summary, PositionID)
-        VALUES ()
-    '''
-    # get a cursor object from the database
-    cursor = db.get_db().cursor()
-
-    # use cursor to query the database for a list of products
-    cursor.execute(query)
-
-    # fetch all the data from the cursor
-    # The cursor will return the data as a 
-    # Python Dictionary
-    theData = cursor.fetchall()
-
-    # Create a HTTP Response object and add results of the query to it
-    # after "jasonify"-ing it.
-    response = make_response(jsonify(theData))
-    # set the proper HTTP Status code of 200 (meaning all good)
-    response.status_code = 200
-    # send the response back to the client
-    return response
-
-#------------------------------------------------------------
-# TODO
-@reviews.route('/reviews/<student_id>/<position_id>', methods=['DELETE'])
-def del_student_reviews_new(student_id, position_id):
-    query = f'''
-        DELETE FROM Reviews
-        WHERE StudentID = {int(student_id)} 
-        AND PositionID = {int(position_id)}
-    '''
-    logger.info(query)
-    # get a cursor object from the database
-    cursor = db.get_db().cursor()
-
-    # use cursor to query the database for a list of products
-    cursor.execute(query)
-
-    cursor = db.get_db().cursor()
-    cursor.execute(query)
-    db.get_db().commit()
-    
-    response = make_response("Successfully deleted review")
-    response.status_code = 200
     return response
