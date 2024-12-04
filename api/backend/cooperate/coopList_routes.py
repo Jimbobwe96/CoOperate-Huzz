@@ -13,7 +13,7 @@ coopList = Blueprint('coopList', __name__)
 #------------------------------------------------------------
 
 # returns all of the previous students and their stats that have had a given position 
-@coopList.route('/CoopList/<PositionID>', methods=['GET'])
+@coopList.route('/coopList/<PositionID>', methods=['GET'])
 def get_student_reviews(positionID):
     query = f'''
         SELECT *
