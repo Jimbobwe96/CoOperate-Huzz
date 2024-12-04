@@ -24,7 +24,7 @@ with col3:
 # Fetch data from the API
 student_id = 1 
 try:
-    profile = requests.get(f'http://api:4000/s/students/{student_id}').json()
+    profile = requests.get(f'http://api:4000/s/students/{str(student_id)}').json()
 except:
     st.error("Could not connect to the API. Using dummy data for demonstration.")
     profile = {
