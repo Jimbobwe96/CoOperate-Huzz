@@ -51,7 +51,7 @@ def get_students():
 def get_advisor_student(AdvisorID):
     query = f'''
         SELECT *
-        FROM students
+        FROM Students
         WHERE StudentID = {str(AdvisorID)}
     '''
     # get a cursor object from the database
@@ -79,7 +79,7 @@ def get_advisor_student(AdvisorID):
 def get_student(StudentID):
     query = f'''
         SELECT *
-        FROM students
+        FROM Students
         WHERE StudentID = {str(StudentID)}
     '''
     # get a cursor object from the database
@@ -108,7 +108,7 @@ def get_student(StudentID):
 def get_student_advisor_info(studentID):
     query = f'''
         SELECT a.FirstName, a.LastName, a.Email
-        FROM students s JOIN advisors a on s.advisorID = a.advisorID
+        FROM Students s JOIN advisors a on s.advisorID = a.advisorID
         WHERE StudentID = {str(studentID)}
     '''
     # get a cursor object from the database

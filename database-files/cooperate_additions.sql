@@ -1,4 +1,4 @@
--- USE CoOperate;
+USE CoOperate;
 
 -- Advisors
 insert into Advisors (FirstName, LastName, College, Email) values ('Felita', 'Goulden', 'College of Science', 'fgoulden0@northeastern.edu');
