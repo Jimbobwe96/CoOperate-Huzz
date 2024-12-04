@@ -42,3 +42,4 @@ def get_reviews():
     response.status_code = 200
     # send the response back to the client
     return response
+

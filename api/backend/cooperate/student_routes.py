@@ -13,7 +13,7 @@ students = Blueprint('students', __name__)
 #------------------------------------------------------------
 # TODO
 @students.route('/students', methods=['GET'])
-def get_products():
+def get_students():
     query = '''
         SELECT  StudentID, 
                 FirstName, 
@@ -44,16 +44,16 @@ def get_products():
     # send the response back to the client
     return response
 
+
 #------------------------------------------------------------
 # TODO
-@students.route('/students/<advisorID>', methods=['GET'])
-def get_students_for_advisor(advisorID):
+@students.route('/students/<AdvisorID>', methods=['GET'])
+def get_student_reviews(AdvisorID):
     query = f'''
         SELECT *
-        FROM Students s
-        WHERE s.AdvisorID = {str(advisorID)}
+        FROM students
+        WHERE StudentID = {str(AdvisorID)}
     '''
-    
     # get a cursor object from the database
     cursor = db.get_db().cursor()
 
@@ -75,14 +75,13 @@ def get_students_for_advisor(advisorID):
 
 #------------------------------------------------------------
 # TODO
-@students.route('/students/<student_id>', methods=['GET'])
-def get_spec_student(student_id):
+@students.route('/students/<StudentID>', methods=['GET'])
+def get_student_reviews(StudentID):
     query = f'''
         SELECT *
-        FROM Students s
-        WHERE s.StudentID = {str(student_id)}
+        FROM students
+        WHERE StudentID = {str(StudentID)}
     '''
-    
     # get a cursor object from the database
     cursor = db.get_db().cursor()
 
@@ -101,3 +100,34 @@ def get_spec_student(student_id):
     response.status_code = 200
     # send the response back to the client
     return response
+
+#------------------------------------------------------------
+
+# returns all the advisor infomration to the given students advisor
+@students.route('/students/<studentID>/advisor', methods=['GET'])
+def get_student_advisor_info(studentID):
+    query = f'''
+        SELECT a.FirstName, a.LastName, a.Email
+        FROM students s JOIN advisors a on s.advisorID = a.advisorID
+        WHERE StudentID = {str(studentID)}
+    '''
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    # use cursor to query the database for a list of products
+    cursor.execute(query)
+
+    # fetch all the data from the cursor
+    # The cursor will return the data as a 
+    # Python Dictionary
+    theData = cursor.fetchall()
+
+    # Create a HTTP Response object and add results of the query to it
+    # after "jasonify"-ing it.
+    response = make_response(jsonify(theData))
+    # set the proper HTTP Status code of 200 (meaning all good)
+    response.status_code = 200
+    # send the response back to the client
+    return response
+
+#------------------------------------------------------------
