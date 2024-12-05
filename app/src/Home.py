@@ -200,6 +200,7 @@ if st.button("Act as a Company", key="company"):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'administrator'
     st.session_state['first_name'] = 'Google'
+    st.session_state['CompanyID'] = 1
     st.switch_page('pages/Company_Home.py')
 
 if st.button("Act as an Admin", key="admin"):
