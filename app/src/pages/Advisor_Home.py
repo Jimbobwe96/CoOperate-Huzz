@@ -7,11 +7,11 @@ st.set_page_config(
     layout="wide"
 )
 
-# Apply custom CSS for a stunning design
+# Apply custom CSS for stunning design
 st.markdown(
     """
     <style>
-    /* Page gradient background */
+    /* Gradient background */
     .stApp {
         background: linear-gradient(135deg, #6a11cb, #2575fc);
         background-size: 400% 400%;
@@ -26,25 +26,59 @@ st.markdown(
         100% { background-position: 0% 50%; }
     }
 
-    /* Title styling */
-    .title {
-        font-size: 3rem;
+    /* Header styling */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        margin-bottom: 30px;
+    }
+
+    .header-title {
+        font-size: 2.5rem;
         font-weight: 900;
-        margin-bottom: 20px;
-        text-align: center;
-        text-transform: uppercase;
         color: #ffffff;
+        text-transform: uppercase;
         letter-spacing: 3px;
         text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
     }
 
-    /* Subtitle styling */
-    .subtitle {
-        font-size: 1.2rem;
-        color: #f0f0f0;
+    .header-buttons {
+        display: flex;
+        gap: 15px;
+    }
+
+    .signout, .profile {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: bold;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 25px;
         text-align: center;
-        margin-bottom: 40px;
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        text-decoration: none;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .signout:hover, .profile:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+        transform: scale(1.05);
+    }
+
+    .profile-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
     }
 
     /* Card styling */
@@ -122,9 +156,23 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Page title and subtitle
-st.markdown('<div class="title">Co-op Advisor Portal</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Empowering advisors to connect and guide students effectively</div>', unsafe_allow_html=True)
+# Header section with profile and signout
+st.markdown(
+    """
+    <div class="header">
+        <div class="header-title">Co-op Advisor Portal</div>
+        <div class="header-buttons">
+            <a href="/Student_Profile" class="profile">
+                <div class="profile-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Profile" style="width: 24px; height: 24px;">
+                </div>
+            </a>
+            <a href="/" class="signout">Sign Out</a>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Main content layout
 col1, col2, col3 = st.columns(3)
