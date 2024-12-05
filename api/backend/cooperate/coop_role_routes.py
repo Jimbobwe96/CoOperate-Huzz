@@ -93,16 +93,16 @@ def get_coop_role_info_reviews(position_id):
             CONCAT(cr.City, ', ', cr.Country) 'Location',
             cr.Pay 'Pay',
             cr.RequiredGPA 'Required GPA',
-            AVG(r.Culture) 'Culture',
-            AVG(r.Satisfaction) 'Satisfaction',
-            AVG(r.Compensation) 'Compensation',
-            AVG(r.LearningOpportunity) 'Learning',
-            AVG(r.WorkLifeBalance) 'Work Life Balance'
+            ROUND(AVG(r.Culture),2) 'Culture',
+            ROUND(AVG(r.Satisfaction),2) 'Satisfaction',
+            ROUND(AVG(r.Compensation),2) 'Compensation',
+            ROUND(AVG(r.LearningOpportunity),2) 'Learning',
+            ROUND(AVG(r.WorkLifeBalance),2) 'Work Life Balance'
         FROM CoopRole `cr`
         JOIN Company `c` ON c.CompanyID = cr.CompanyID
         JOIN Reviews `r` ON r.PositionID = cr.PositionID
+        WHERE cr.PositionID = {position_id}
         GROUP BY c.Name, cr.Title, CONCAT(cr.City, ', ', cr.Country), cr.Pay, cr.RequiredGPA
-        HAVING PositionID = {position_id}
     '''
     
     # get a cursor object from the database

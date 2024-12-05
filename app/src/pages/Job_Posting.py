@@ -68,15 +68,31 @@ if data:
                     <p style="font-size: 16px; margin: 10px 0 0 0;">{role}</p>
                     <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Location:</strong> {location}</p>
                     <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Pay:</strong> {pay}</p>
-                    <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Average Culture Rating:</strong> {culture}</p>
-                    <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Average Satisfaction Rating:</strong> {satisfaction}</p>
-                    <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Average Compensation Rating:</strong> {compensation}</p>
-                    <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Average Learning Rating:</strong> {learning}</p>
-                    <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Average W/L Balance Rating:</strong> {balance}</p>
                                                                               
                 </div>
                 """,
                 unsafe_allow_html=True
-            )      
+            ) 
+            
+            culture_score = (float(culture)/5.00)
+            satisfaction_score = (float(satisfaction)/5.00)
+            compensation_score = (float(compensation)/5.00)
+            learning_score = (float(learning)/5.00)
+            balance_score = (float(balance)/5.00)
+            overall_score = (((float(culture) + float(satisfaction) + float(compensation) + float(learning) + float(balance)) / 5) / 5)
+
+            st.write("Average Culture:" + culture)
+            st.progress(culture_score)
+            st.write("Average Satisfaction:" + satisfaction)
+            st.progress(satisfaction_score)
+            st.write("Average Compensation:" + compensation)
+            st.progress(compensation_score)
+            st.write("Average Learning:" + learning)
+            st.progress(learning_score)
+            st.write("Average Work Life Balance:" + balance)
+            st.progress(balance_score)
+            st.write("Overall Rating:" + str(overall_score * 5))
+            st.progress(overall_score)
+
 else:
         st.write("No data available to display.")

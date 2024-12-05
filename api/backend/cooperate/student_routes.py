@@ -135,51 +135,30 @@ def get_student_advisor_info(studentID):
 # PUT route for updating a review
 @students.route('/students/<StudentID>', methods=['PUT'])
 def update_student(StudentID):
-    try:
-        # Get the JSON payload from the request
-        data = request.json
+    # Get the JSON payload from the request
+    data = request.json
 
-        # Extract relevant fields
-        first_name = data.get('FirstName')
-        last_name = data.get('LastName')
-        major = data.get('Major')
-        current_year = data.get('CurrentYear')
-        gpa = data.get('GPA')
-        home_college = data.get('HomeCollege')
+    # Extract relevant fields
+    major = data.get('major')
+    current_year = data.get('cur_year')
+    gpa = data.get('gpa')
+    home_college = data.get('home_college')
 
-        # Validate input
-        if not all([first_name, last_name, major, current_year, home_college]) or not isinstance(gpa, (int, float)):
-            return make_response(jsonify({'error': 'Invalid input data'}), 400)
+    # SQL query
+    query = f'''
+        UPDATE Students
+        SET Major = '{major}', 
+            GPA = '{gpa}', CurrentYear = '{current_year}', HomeCollege = '{home_college}'
+        WHERE StudentID = '{StudentID}'
+    '''
 
-        # SQL query
-        query = '''
-            UPDATE Students
-            SET FirstName = %s, LastName = %s, Major = %s, 
-                GPA = %s, CurrentYear = %s, HomeCollege = %s
-            WHERE StudentID = %s
-        '''
+    # Get a cursor object from the database
+    cursor = db.get_db().cursor()
 
-        # Get a cursor object from the database
-        cursor = db.get_db().cursor()
+    cursor.execute(query)
 
-        # Log query and parameters
-        current_app.logger.debug(f"Executing Query: {query}")
-        current_app.logger.debug(f"With Parameters: {first_name}, {last_name}, {major}, {gpa}, {current_year}, {home_college}, {StudentID}")
-
-        # Execute the query
-        cursor.execute(query, (first_name, last_name, major, gpa, current_year, home_college, StudentID))
-        db.get_db().commit()
-
-        # Log row count
-        current_app.logger.debug(f"Rows affected: {cursor.rowcount}")
-
-        # If no rows were updated, return 404
-        if cursor.rowcount == 0:
-            return make_response(jsonify({'error': 'Student not found'}), 404)
-
-        # Return success
-        return make_response(jsonify({'message': 'Student updated successfully'}), 200)
-    except Exception as e:
-        # Log the error
-        current_app.logger.error(f"Error: {e}")
-        return make_response(jsonify({'error': str(e)}), 500)
+    db.get_db().commit()
+    
+    response = make_response("Successfully updated profile")
+    response.status_code = 200
+    return response
