@@ -96,6 +96,7 @@ def get_student_reviews(reviewID):
 
     # use cursor to query the database for a list of products
     cursor.execute(query)
+    theData = cursor.fetchall()
 
     # Create a HTTP Response object and add results of the query to it
     # after "jasonify"-ing it.
