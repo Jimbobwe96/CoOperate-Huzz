@@ -14,6 +14,8 @@ def sign_out():
     # Redirect to the home page
     st.switch_page('Home.py')  # Ensure 'Home.py' exists and is correctly named in the pages directory
 
+st.session_state['admin_id'] = 1
+
 # Apply custom CSS for styling with an animated gradient background
 st.markdown("""
     <style>
@@ -155,7 +157,7 @@ st.markdown("""
 header_col1, header_col2 = st.columns([3, 1], gap='small')
 
 with header_col1:
-    st.markdown("<h2 style='text-align: left; font-weight: bold; color: #000000;'>CoOperate</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: left; font-weight: bold; color: #000000;'>CoOperate Admin Page</h2>", unsafe_allow_html=True)
 
 with header_col2:
     # Streamlit's button for Sign Out
@@ -218,7 +220,7 @@ with admin_cols[3]:
             <div>
     """, unsafe_allow_html=True)
     if st.button("Go to Activity Log"):
-        st.switch_page("Admin_Activity")  # Ensure this page exists without the '.py' extension
+        st.switch_page("pages/Admin_Activity.py")  # Ensure this page exists without the '.py' extension
     st.markdown("""
             </div>
         </div>

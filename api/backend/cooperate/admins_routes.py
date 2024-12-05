@@ -104,9 +104,8 @@ def get_all_reviews_to_check():
     # get a cursor object from the database
     cursor = db.get_db().cursor()
     cursor.execute(query)
-
-    db.get_db().commit()
+    theData = cursor.fetchall()
         
-    response = make_response("Successfully logged action")
+    response = make_response(jsonify(theData))
     response.status_code = 200
     return response
