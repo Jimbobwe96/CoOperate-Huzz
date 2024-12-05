@@ -176,7 +176,7 @@ if isinstance(data, list):
                 response = requests.put(f'http://api:4000/r/reviews/{review["ReviewID"]}/flag')
                 if response.status_code == 200:
                     st.success("Review flagged successfully!")
-                    st.experimental_rerun()
+                    st.rerun()
                 else:
                     st.error(f"Error flagging review: {response.text}")
             except requests.exceptions.RequestException as e:

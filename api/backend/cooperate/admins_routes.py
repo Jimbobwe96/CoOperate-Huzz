@@ -98,7 +98,7 @@ def get_all_reviews_to_check():
     query = f'''
         SELECT * 
         FROM Reviews
-        WHERE ResolvedBy IS NULL
+        WHERE ResolvedBy IS NULL OR Flagged = 0
     '''
 
     # get a cursor object from the database
