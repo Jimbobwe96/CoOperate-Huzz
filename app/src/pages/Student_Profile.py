@@ -8,18 +8,12 @@ st.set_page_config(page_title="Student Profile", layout="wide")
 
 # Header
 # Create a two-column layout with buttons on the right
-col1, col2, col3 = st.columns([9, 1, 1])  # Adjust proportions as needed
+col1, col2 = st.columns([10, 1])  # Adjust proportions as needed
 with col1:
     st.markdown("# Student Profile")
 with col2:
-    if st.button('Edit Profile', type='secondary', use_container_width=False):
-        logger.info("Edit Profile button clicked.")
-        st.session_state['authenticated'] = True
-        st.session_state['role'] = 'student'
-        st.switch_page('pages/Edit_Profile.py')
-with col3:
     if st.button('Back', type='secondary', use_container_width=False):
-        st.switch_page('Home.py')
+        st.switch_page('pages/Student_Home.py')
 
 # Fetch data from the API
 student_id = 1 
@@ -74,6 +68,57 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+col1, col2, col3 = st.columns([1, 1, 6])
+
+with col1:
+    if st.button('Edit Profile', type='secondary', use_container_width=True):
+        # Create a form for editing profile details
+        with st.form("edit_profile_form"):
+            st.text_input("First Name", first_name, key="edit_first_name")
+            st.text_input("Last Name", last_name, key="edit_last_name")
+            st.text_input("Major", major, key="edit_major")
+            st.number_input("GPA", value=gpa, min_value=0.0, max_value=4.0, step=0.1, key="edit_gpa")
+            st.number_input("Current Year", value=current_year, min_value=1, max_value=4, step=1, key="edit_current_year")
+            st.text_input("Home College", home_college, key="edit_home_college")
+            
+            # Submit button for the form
+            submitted = st.form_submit_button("Save Changes")
+
+        if submitted:
+            # Collect updated data
+            updated_data = {
+                "FirstName": st.session_state["edit_first_name"],
+                "LastName": st.session_state["edit_last_name"],
+                "Major": st.session_state["edit_major"],
+                "GPA": st.session_state["edit_gpa"],
+                "CurrentYear": st.session_state["edit_current_year"],
+                "HomeCollege": st.session_state["edit_home_college"]
+            }
+
+            try:
+                # Make PUT request to update the profile
+                response = requests.put(f'http://api:4000/s/students/{student_id}', json=updated_data)
+                if response.status_code == 200:
+                    st.success("Profile updated successfully!")
+                    
+                    # Refresh the updated profile data
+                    updated_profile = requests.get(f'http://api:4000/s/students/{student_id}').json()
+                    
+                    # Update local variables with new profile data
+                    first_name = updated_profile.get("FirstName", "N/A")
+                    last_name = updated_profile.get("LastName", "N/A")
+                    major = updated_profile.get("Major", "N/A")
+                    gpa = updated_profile.get("GPA", "N/A")
+                    current_year = updated_profile.get("CurrentYear", "N/A")
+                    home_college = updated_profile.get("HomeCollege", "N/A")
+                else:
+                    st.error(f"Error updating profile: {response.text}")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Error connecting to server: {str(e)}")
+
+with col2:
+    st.button('Delete Profile', type ='secondary', use_container_width=True)
+
 st.markdown("   ")
 
 # Skills Information 
@@ -119,6 +164,14 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
+col1, col2, col3 = st.columns([1, 1, 6])
+
+with col1:
+    st.button('Edit Skill', type='secondary', use_container_width=True)
+
+with col2:
+    st.button('Delete Skill', type ='secondary', use_container_width=True)
 
 # experience 
 student_id = 1
@@ -175,6 +228,13 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+col1, col2, col3 = st.columns([1, 1, 6])
+
+with col1:
+    st.button('Edit Experience', type='secondary', use_container_width=True)
+
+with col2:
+    st.button('Delete Experience', type ='secondary', use_container_width=True)
 
 
 
@@ -182,69 +242,3 @@ st.markdown(
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # Display skills
-# st.markdown("## Skills")
-# for skill in profile['skills']:
-#     st.markdown(
-#         f"""
-#         <div style="
-#             border: 1px solid #ddd;
-#             border-radius: 8px;
-#             padding: 10px;
-#             margin: 5px auto;
-#             background-color: #fff;
-#         ">
-#             <p style="margin: 0;"><strong>{skill['SkillName']}</strong> (Proficiency: {skill['Proficiency']})</p>
-#         </div>
-#         """,
-#         unsafe_allow_html=True
-#     )
-
-# # Display experiences
-# st.markdown("## Experiences")
-# for exp in profile['experiences']:
-#     st.markdown(
-#         f"""
-#         <div style="
-#             border: 1px solid #ddd;
-#             border-radius: 8px;
-#             padding: 10px;
-#             margin: 5px auto;
-#             background-color: #fff;
-#         ">
-#             <h4 style="margin-bottom: 5px;">{exp['Title']} at {exp['Company']}</h4>
-#             <p style="margin: 0;"><strong>Start:</strong> {exp['StartTime']} | <strong>End:</strong> {exp['EndTime']}</p>
-#         </div>
-#         """,
-#         unsafe_allow_html=True
-#     )
-
-# # Add action buttons for experiences
-# st.markdown("## Actions")
-# for i, exp in enumerate(profile['experiences']):
-#     col1, col2 = st.columns([1, 1])
-#     with col1:
-#         if st.button(f"Edit Experience {i+1}"):
-#             st.write(f"Edit Experience {i+1} clicked.")  # Replace with logic to edit experience
-#     with col2:
-#         if st.button(f"Delete Experience {i+1}"):
-#             st.write(f"Delete Experience {i+1} clicked.")  # Replace with logic to delete experience

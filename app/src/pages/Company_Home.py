@@ -1,80 +1,81 @@
 import streamlit as st
 
-# Top navigation bar with Home button and logo
-col1, col2 = st.columns([12.5, 1])  # Adjust proportions as needed
+# Configure the Streamlit page
+st.set_page_config(
+    page_title="Company Dashboard",
+    page_icon="🏢",
+    layout="wide"
+)
 
-with col1:
-    st.markdown("""
-        <style>
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            margin-bottom: 20px;
-        }
-        .top-bar h1 {
-            margin: 0;
-            font-size: 1.5em;
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
-        }
-        .top-bar img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-        /* Remove spacing between buttons */
-        .button-row .stButton button {
-            margin: 0;  /* Remove margins */
-            padding: 8px 16px;  /* Adjust padding if needed */
-        }
-        .button-row .stButton {
-            margin: 0;  /* Remove margins around stButton containers */
-        }
-        </style>
-        <div class="top-bar">
-            <h3>CoOperate</h3>
-        </div>
-    """, unsafe_allow_html=True)
-
+col1, col2 = st.columns([10, 2])
 with col2:
-    if st.button('Sign Out', 
-                 type='secondary', 
-                 use_container_width=False):
+    if st.button('Home', 
+                type='secondary', 
+                use_container_width=False):
         st.switch_page('Home.py')
 
-# Main content layout
+# Apply custom CSS for styling with the animated theme and positioning
+st.markdown("""
+    <style>
+    /* Full-page gradient background */
+    .stApp {
+        background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+    }
+
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Title styling */
+    .title {
+        font-size: 3rem;
+        color: #ffffff;
+        text-align: center;
+        margin: 20px 0;
+        font-family: 'Roboto', sans-serif;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Subtitle styling */
+    .subtitle {
+        font-size: 1.5rem;
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 40px;
+        font-family: 'Roboto', sans-serif;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    </style>
+""", unsafe_allow_html=True)
+
+# Header with animation overlay
+st.markdown("""
+    <div class="title">Company Dashboard</div>
+    <div class="subtitle">Manage your company profile and job postings seamlessly</div>
+""", unsafe_allow_html=True)
+
 col1, col2 = st.columns(2)
 
+# Left Column: Company Profile
 with col1:
-    st.subheader("Company Profile")
+    st.markdown("<h2>Company Profile</h2>", unsafe_allow_html=True)
     st.text_area("Add company details here...", height=200)
-    
-    # Use a container with CSS class for styling
-    with st.container():
-        st.markdown('<div class="button-row">', unsafe_allow_html=True)
-        # Place buttons side by side using columns
-        button_col1, button_col2 = st.columns([1, 1])
-        with button_col1:
-            st.button("Edit Profile", key='edit_profile')
-        with button_col2:
-            st.button("Delete Profile", key='delete_profile')
-        st.markdown('</div>', unsafe_allow_html=True)
+    if st.button("Edit Profile"):
+        st.write("Edit profile functionality coming soon!")
+    if st.button("Delete Profile"):
+        st.write("Delete profile functionality coming soon!")
 
+# Right Column: Job Postings
 with col2:
-    st.subheader("Job Postings")
-    if st.button('Software Developer', 
-                 type='secondary', 
-                 use_container_width=True):
-        st.switch_page('pages/Advisor_Home.py')
-    st.write(" ") 
-    if st.button('Data Scientist', 
-                 type='secondary', 
-                 use_container_width=True):
-        st.switch_page('pages/Advisor_Home.py')
-    st.write(" ")
-    if st.button('John', 
-                 type='secondary', 
-                 use_container_width=True):
-        st.switch_page('pages/Advisor_Home.py')
+    st.markdown("<h2>Job Postings</h2>", unsafe_allow_html=True)
+    job_buttons = ["Software Developer", "Data Scientist", "Project Manager"]
+    for job in job_buttons:
+        if st.button(job):
+            st.write(f"Redirecting to details about {job}...")
+
+st.markdown('</div>', unsafe_allow_html=True)

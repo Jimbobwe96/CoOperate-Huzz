@@ -29,62 +29,73 @@ with col3:
 
 # Fetch data from the API or use dummy data if the request fails
 try:
-    data = requests.get('http://api:4000/r/reviews').json()
-except:
-    st.write("**Important**: Could not connect to sample api, so using dummy data.")
+    response = requests.get('http://api:4000/r/reviews')
+    if response.status_code == 200:
+        data = response.json()  # Assuming the API returns a JSON list of reviews
+    else:
+        st.error(f"Error fetching data from API: {response.status_code}")
+        data = []
+except Exception as e:
+    st.write("**Important**: Could not connect to sample API, so using dummy data.")
     data = [
         {"ReviewID": "123", "Date": "2024-01-01", "Culture": "Positive", "Satisfaction": "High",
          "Compensation": "Fair", "LearningOpportunity": "Good", "WorkLifeBalance": "Excellent",
-         "Summary": "Great experience", "PositionID": "P123"},
+         "Summary": "Great experience", "PositionID": "P123", "Student_ID": 1},
         {"ReviewID": "456", "Date": "2024-02-01", "Culture": "Negative", "Satisfaction": "Low",
          "Compensation": "Poor", "LearningOpportunity": "Limited", "WorkLifeBalance": "Bad",
-         "Summary": "Challenging experience", "PositionID": "P456"}
+         "Summary": "Challenging experience", "PositionID": "P456", "Student_ID": 2}
     ]
+# Filter reviews for Student_ID = 1
+filtered_data = [review for review in data if review.get("StudentID") == 1]
 
-# Display reviews from the data fetched
-if isinstance(data, list): 
-    for review in data:
-        review_id = review.get('ReviewID', 'N/A')
-        date = review.get('Date', 'N/A')
-        culture = review.get('Culture', 'N/A')
-        satisfaction = review.get('Satisfaction', 'N/A')
-        compensation = review.get('Compensation', 'N/A')
-        learning_opportunity = review.get('LearningOpportunity', 'N/A')
-        work_life_balance = review.get('WorkLifeBalance', 'N/A')
-        summary = review.get('Summary', 'N/A')
-        position_id = review.get('PositionID', 'N/A')
+# Display the filtered review
+if filtered_data:
+    # Assuming there's only one review for Student_ID = 1
+    review = filtered_data[0]
+    review_id = review.get('ReviewID', 'N/A')
+    date = review.get('Date', 'N/A')
+    culture = review.get('Culture', 'N/A')
+    satisfaction = review.get('Satisfaction', 'N/A')
+    compensation = review.get('Compensation', 'N/A')
+    learning_opportunity = review.get('LearningOpportunity', 'N/A')
+    work_life_balance = review.get('WorkLifeBalance', 'N/A')
+    summary = review.get('Summary', 'N/A')
+    position_id = review.get('PositionID', 'N/A')
 
-        # Display the review content
-        st.markdown(
-            f"""
-            <div style="
-                border: 1px solid #ccc;
-                border-radius: 8px;
-                padding: 15px;
-                margin: 10px auto; 
-                background-color: #f9f9f9;
-                box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            ">
-                <div style="position: absolute; top: 10px; right: 15px; font-size: 14px; color: #555;">
-                    <strong>{date}</strong>
-                </div>
-                <h4 style="margin: 0; font-size: 20px;">Review ID: {review_id}</h4>
-                <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Culture:</strong> {culture}</p>
-                <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Satisfaction:</strong> {satisfaction}</p>
-                <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Compensation:</strong> {compensation}</p>
-                <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Learning Opportunity:</strong> {learning_opportunity}</p>
-                <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Work-Life Balance:</strong> {work_life_balance}</p>
-                <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Summary:</strong> {summary}</p>
-                <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Position ID:</strong> {position_id}</p>
+    # Display the review content
+    st.markdown(
+        f"""
+        <div style="
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px auto; 
+            background-color: #f9f9f9;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        ">
+            <div style="position: absolute; top: 10px; right: 15px; font-size: 14px; color: #555;">
+                <strong>{date}</strong>
             </div>
-            """,
-            unsafe_allow_html=True
-        )
+            <h4 style="margin: 0; font-size: 20px;">Review ID: {review_id}</h4>
+            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Culture:</strong> {culture}</p>
+            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Satisfaction:</strong> {satisfaction}</p>
+            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Compensation:</strong> {compensation}</p>
+            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Learning Opportunity:</strong> {learning_opportunity}</p>
+            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Work-Life Balance:</strong> {work_life_balance}</p>
+            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Summary:</strong> {summary}</p>
+            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Position ID:</strong> {position_id}</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+else:
+    st.write("No reviews found for Student_ID = 1.")
+
         
         # Add action buttons below the review
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            if st.button(f"Edit Review {review_id}"):
+col1, col2 = st.columns([1, 1])
+with col1:
+            if st.button(f"Edit Review"):
                 try:
                     response = requests.delete('http://api:4000/r/reviews/<reviewID>')
                     if response.status_code == 200:
@@ -94,9 +105,9 @@ if isinstance(data, list):
                 except requests.exceptions.RequestException as e:
                     st.error(f"Error connecting to server: {str(e)}")
                     
-                st.write(f"Edit Review {review_id} clicked.")
-        with col2:
-            if st.button(f"Delete Review {review_id}"):
+                st.write(f"Edit Review clicked.")
+with col2:
+            if st.button(f"Delete Review "):
                 try:
                     logger.info({review_id})
                     response = requests.delete(f'http://api:4000/r/reviews/{student_id}/{position_id}]')

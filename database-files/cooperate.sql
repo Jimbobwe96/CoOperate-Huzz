@@ -266,3 +266,4 @@ INSERT INTO Activity_Logs (AdminID, ActionType, Details) VALUES
 (1, 'Data Analysis', NULL),
 (2, 'Review Checking', NULL),
 (3, 'Review Checking', NULL);
+
