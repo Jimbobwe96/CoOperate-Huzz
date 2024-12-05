@@ -59,7 +59,7 @@ def get_company_roles(CompanyID):
             cr.RequiredGPA 'Required GPA'
         FROM Company `c`
         JOIN CoopRole `cr` ON c.CompanyID = cr.CompanyID
-        WHERE CompanyID = {str(CompanyID)}
+        WHERE c.CompanyID = {str(CompanyID)}
     '''
     
     # get a cursor object from the database
