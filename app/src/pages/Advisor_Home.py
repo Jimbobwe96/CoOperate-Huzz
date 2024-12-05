@@ -162,12 +162,7 @@ st.markdown(
     <div class="header">
         <div class="header-title">Co-op Advisor Portal</div>
         <div class="header-buttons">
-            <a href="/Student_Profile" class="profile">
-                <div class="profile-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Profile" style="width: 24px; height: 24px;">
-                </div>
-            </a>
-            <a href="/" class="signout">Sign Out</a>
+            <a href="/" target="_self" class="signout">Sign Out</a>
         </div>
     </div>
     """,
@@ -184,7 +179,7 @@ with col1:
         <div class="card">
             <h3>Answer Student Questions</h3>
             <p>Provide timely answers to student inquiries and guide them through their co-op journey.</p>
-            <a href="/pages/Advisor_FAQ.py" class="button">Go to FAQ</a>
+            <a href="Advisor_FAQ" target="_self" class="button">Go to FAQ</a>
         </div>
         """,
         unsafe_allow_html=True,
@@ -197,7 +192,7 @@ with col2:
         <div class="card">
             <h3>Compatibility Assessment</h3>
             <p>Analyze and match students to co-op opportunities that suit their skills and interests.</p>
-            <a href="/pages/Advisor_Comp.py" class="button">Start Assessment</a>
+            <a href="Advisor_Comp" target="_self" class="button">Start Assessment</a>
         </div>
         """,
         unsafe_allow_html=True,
@@ -210,7 +205,7 @@ with col3:
         <div class="card">
             <h3>Track Student Progress</h3>
             <p>Monitor student progress and ensure they stay on track with their co-op goals.</p>
-            <a href="/pages/Advisor_Progress.py" class="button">Track Progress</a>
+            <a href="Advisor_Progress" target="_self" class="button">Track Progress</a>
         </div>
         """,
         unsafe_allow_html=True,

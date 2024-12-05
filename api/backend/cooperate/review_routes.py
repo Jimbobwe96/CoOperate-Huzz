@@ -36,6 +36,7 @@ def get_reviews():
     # send the response back to the client
     return response
 
+
 #------------------------------------------------------------
 # TODO
 @reviews.route('/reviews', methods=['POST'])
