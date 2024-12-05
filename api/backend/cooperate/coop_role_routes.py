@@ -56,7 +56,8 @@ def get_company_roles(CompanyID):
             cr.Title 'Role',
             CONCAT(cr.City, ', ', cr.Country) 'Location',
             cr.Pay 'Pay',
-            cr.RequiredGPA 'Required GPA'
+            cr.RequiredGPA 'Required GPA',
+            cr.PositionID 'PositionID'
         FROM Company `c`
         JOIN CoopRole `cr` ON c.CompanyID = cr.CompanyID
         WHERE c.CompanyID = {str(CompanyID)}
