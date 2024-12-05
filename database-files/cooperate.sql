@@ -174,7 +174,7 @@ INSERT INTO Advisors (AdvisorID, FirstName, LastName, College, Email) VALUES
 
 -- Students
 INSERT INTO Students (StudentID, FirstName, LastName, GPA, Major, CurrentYear, HomeCollege, AdvisorID, Email) VALUES
-(1, 'Jennifer', 'Lee', 3.35, 'Sub', 8, 'Juarez Ltd', 1, 'courtneypatterson@lyons.com'),
+(1, 'Jennifer', 'Lee', 3.35, 'Sub', 3, 'Juarez Ltd', 1, 'courtneypatterson@lyons.com'),
 (2, 'Katherine', 'Franklin', 2.63, 'Therapist, drama', 1, 'Roberts and Sons', 4, 'thomasbauer@bowman.com'),
 (3, 'Jacob', 'Robles', 2.33, 'Accountant, chartered certified', 5, 'Wilson-Sims', 2, 'lisachapman@hampton-lawson.org'),
 (4, 'Joseph', 'Wells', 3.09, 'Podiatrist', 2, 'Fernandez-Smith', 2, 'brentwhitehead@bridges.com'),
