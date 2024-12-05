@@ -14,67 +14,68 @@ def sign_out():
     # Redirect to the home page
     st.switch_page("Home.py")
 
-# Apply custom CSS for styling
+# Apply custom CSS for styling with the animated theme
 st.markdown("""
     <style>
-    /* Gradient Background */
+    /* Full-page gradient background */
     .stApp {
-        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
         background-size: 400% 400%;
-        animation: gradientAnimation 15s ease infinite;
-        font-family: 'Poppins', sans-serif;
-        color: #ffffff;
+        animation: gradient 15s ease infinite;
     }
 
-    @keyframes gradientAnimation {
+    @keyframes gradient {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
     }
 
-    /* Navigation Bar */
-    .top-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 30px;
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-        margin-bottom: 30px;
-    }
-
-    .top-bar h3 {
-        font-size: 2rem;
-        font-weight: bold;
+    /* Title styling */
+    .title {
+        font-size: 3rem;
         color: #ffffff;
-        margin: 0;
+        text-align: center;
+        margin: 20px 0;
+        font-family: 'Roboto', sans-serif;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     }
 
-    .top-bar button {
-        font-size: 1rem;
-        font-weight: bold;
-        padding: 10px 20px;
-        background: rgba(255, 255, 255, 0.2);
+    /* Subtitle styling */
+    .subtitle {
+        font-size: 1.5rem;
         color: #ffffff;
+        text-align: center;
+        margin-bottom: 40px;
+        font-family: 'Roboto', sans-serif;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Translucent button styling */
+    div.stButton > button {
+        background: rgba(255, 255, 255, 0.3);
+        color: #ffffff;
+        padding: 20px 40px;
+        margin: 15px 0;
+        font-size: 1.8rem;
+        font-weight: bold;
+        width: 100%;
         border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 20px;
         cursor: pointer;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
+        border-radius: 12px;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+        font-family: 'Roboto', sans-serif;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     }
 
-    .top-bar button:hover {
-        background: rgba(255, 255, 255, 0.4);
-        transform: scale(1.05);
-        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    div.stButton > button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.5);
     }
 
-    /* Main Content Styling */
+    /* Content section */
     .content {
         padding: 30px;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.2);
         border-radius: 15px;
         box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
         color: #ffffff;
@@ -86,60 +87,16 @@ st.markdown("""
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     }
 
-    .content button {
-        font-size: 1.5rem; /* Larger font size */
-        font-weight: bold;
-        padding: 20px 40px; /* Bigger buttons */
-        background: rgba(255, 255, 255, 0.2); /* Translucent background */
-        color: #ffffff; /* Bright white text */
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-        border: 2px solid rgba(255, 255, 255, 0.4);
-        border-radius: 20px; /* Rounded corners */
-        cursor: pointer;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-        margin-bottom: 20px;
-        width: 100%; /* Full-width buttons */
-        max-width: 400px; /* Limit width for readability */
-    }
-
-    .content button:hover {
-        background: rgba(255, 255, 255, 0.4); /* Highlight on hover */
-        transform: scale(1.1); /* Subtle hover effect */
-        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Footer Styling */
-    .footer {
-        text-align: center;
-        font-size: 0.9rem;
-        margin-top: 30px;
-        opacity: 0.8;
-    }
-
-    .footer a {
-        color: #ffffff;
-        text-decoration: underline;
-    }
-
-    .footer a:hover {
-        color: #f0f0f0;
-    }
     </style>
 """, unsafe_allow_html=True)
 
-# Top Navigation Bar
+# Header with animation overlay
 st.markdown("""
-    <div class="top-bar">
-        <h3>Company Dashboard</h3>
-    </div>
+    <div class="title">Company Dashboard</div>
+    <div class="subtitle">Manage your company profile and job postings seamlessly</div>
 """, unsafe_allow_html=True)
 
-# Sign Out Button
-if st.button("Sign Out"):
-    sign_out()
-
-# Main Content
+# Main Content Section
 st.markdown('<div class="content">', unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
@@ -163,9 +120,6 @@ with col2:
 
 st.markdown('</div>', unsafe_allow_html=True)
 
-# Footer
-st.markdown("""
-    <div class="footer">
-        Powered by <a href="/">Company Dashboard</a>. Designed for seamless management.
-    </div>
-""", unsafe_allow_html=True)
+# Sign Out Button
+if st.button("Sign Out"):
+    sign_out()
