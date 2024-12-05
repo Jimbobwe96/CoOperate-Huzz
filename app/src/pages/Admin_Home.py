@@ -190,7 +190,7 @@ with admin_cols[1]:
             <div>
     """, unsafe_allow_html=True)
     if st.button("Go to Flagged Reviews"):
-        st.switch_page("Admin_Flag_Review")  # Ensure this page exists without the '.py' extension
+        st.switch_page("pages/Admin_Flag_Review.py")  # Ensure this page exists without the '.py' extension
     st.markdown("""
             </div>
         </div>
@@ -204,7 +204,7 @@ with admin_cols[2]:
             <div>
     """, unsafe_allow_html=True)
     if st.button("Go to All Reviews"):
-        st.switch_page('pages/Admin_Flag_Review.py')  # Updated Redirect as per your request
+        st.switch_page('pages/Admin_Review_Check.py')  # Updated Redirect as per your request
     st.markdown("""
             </div>
         </div>
