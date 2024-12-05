@@ -140,6 +140,7 @@ with col2:
             location = item.get('Location', 'N/A')
             pay = item.get('Pay', 'N/A')
             required_gpa = item.get('RequiredGPA', 'N/A')
+            position_id = item.get('PositionID', 'N/A')
 
             # Display the review content
             st.markdown(
@@ -162,6 +163,7 @@ with col2:
                 unsafe_allow_html=True
             )
             if st.button(f"View Reviews for {role}", key=f"view_reviews_{role}"):
+                st.session_state['passed_position_id'] = position_id
                 st.switch_page('pages/Job_Posting.py')        
     else:
         st.write("No data available to display.")
