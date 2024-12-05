@@ -110,45 +110,40 @@ def get_student_reviews(reviewID):
 # PUT route for updating a review
 @reviews.route('/reviews/<reviewID>', methods=['PUT'])
 def update_review(reviewID):
-    try:
-        # Get the JSON payload from the request
-        review_data = request.json
+    # In a POST request, there is a 
+    # collecting data from the request object 
+    the_data = request.json
+    current_app.logger.info(the_data)
 
-        # Extract relevant fields
-        culture = review_data.get('culture')
-        satisfaction = review_data.get('satisfaction')
-        compensation = review_data.get('compensation')
-        learning_opportunity = review_data.get('learning_opportunity')
-        worklife_balance = review_data.get('worklife_balance')
-        summary = review_data.get('summary')
+    #extracting the variable
+    culture = the_data['culture']
+    satisfaction = the_data['satisfaction']
+    compensation = the_data['compensation']
+    learning_oppurtunity = the_data['learning_oppurtunity']
+    work_life_balance = the_data['work_life_balance']
+    summary = the_data['summary']
+    
+    query = f'''
+        UPDATE Reviews 
+        SET Culture = '{culture}',
+            Satisfaction = '{satisfaction}',
+            Compensation = '{compensation}',
+            LearningOpportunity = '{learning_oppurtunity}',
+            WorkLifeBalance = '{work_life_balance}',
+            Summary = '{summary}'
+        WHERE ReviewID = {reviewID}
+    '''
+ 
+    current_app.logger.info(query)
 
-        # Validate input (ensure all fields are provided and valid)
-        if not all(isinstance(val, int) for val in [culture, satisfaction, compensation, learning_opportunity, worklife_balance]) or not isinstance(summary, str):
-            return make_response(jsonify({'error': 'Invalid input data'}), 400)
-
-        # SQL query for updating the review
-        query = '''
-            UPDATE Reviews
-            SET culture = %s, Satisfaction = %s, Compensation = %s, 
-                LearningOpportunity = %s, WorklifeBalance = %s, Summary = %s
-            WHERE ReviewID = %s
-        '''
-        # Get a cursor object from the database
-        cursor = db.get_db().cursor()
-
-        # Execute the query with parameters to avoid SQL injection
-        cursor.execute(query, (culture, satisfaction, compensation, learning_opportunity, worklife_balance, summary, reviewID))
-        db.get_db().commit()  # Commit the changes to the database
-
-        # Check if any row was updated
-        if cursor.rowcount == 0:
-            return make_response(jsonify({'error': 'Review not found'}), 404)
-
-        # Return a success response
-        return make_response(jsonify({'message': 'Review updated successfully'}), 200)
-    except Exception as e:
-        # Handle unexpected errors
-        return make_response(jsonify({'error': str(e)}), 500)
+    # executing and committing the insert statement 
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    response = make_response("Successfully edited review")
+    response.status_code = 200
+    return response
     
 #------------------------------------------------------------
 @reviews.route('/reviews/<reviewID>', methods=['DELETE'])
