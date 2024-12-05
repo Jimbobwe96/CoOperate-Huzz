@@ -96,16 +96,8 @@ else:
 col1, col2 = st.columns([1, 1])
 with col1:
             if st.button(f"Edit Review"):
-                try:
-                    response = requests.delete('http://api:4000/r/reviews/<reviewID>')
-                    if response.status_code == 200:
-                        st.success("Review deleted successfully!")
-                    else:
-                        st.error(f"Error deleting review: {response.text}")
-                except requests.exceptions.RequestException as e:
-                    st.error(f"Error connecting to server: {str(e)}")
-                    
-                st.write(f"Edit Review clicked.")
+                st.session_state['passed_review_id'] = review_id
+                st.switch_page("pages/Edit_Review_Form.py")
 with col2:
             if st.button(f"Delete Review "):
                 try:
