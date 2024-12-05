@@ -1,153 +1,36 @@
+import requests
 import streamlit as st
+import pandas as pd
 
-# Configure Streamlit page
-st.set_page_config(
-    page_title="Advisor - Data", 
-    layout="wide"
-)
+try:
+    position_id = 1
+    response = requests.get(f'http://api:4000/cr/coop_role/{str(position_id)}')
+    if response.status_code == 200:
+        data = response.json()  # Assuming the API returns a JSON list of reviews
+    else:
+        st.error(f"Error fetching data from API: {response.status_code}")
+        data = []
+except Exception as e:
+    st.write("**Important**: Could not connect to sample API, so using dummy data.")
+    data = [
+        {"Company": "Joe", "Role": "Joe", "Location": "MA", "Pay": 9999,
+         "Required GPA": 3.0, "Culture": 3, "Satisfaction": 4,
+         "Compensation": 2, "Learning": 2, "Work Life Balance": 1},
+    ]
 
-col1, col2 = st.columns([9, 1])
-with col2:
-    if st.button("Back"):
-        st.switch_page('pages/Advisor_Home.py')
-
-# Apply custom CSS for the theme
-st.markdown(
-    """
-    <style>
-    /* Gradient background */
-    .stApp {
-        background: linear-gradient(135deg, #6a11cb, #2575fc);
-        background-size: 400% 400%;
-        animation: gradientAnimation 15s ease infinite;
-        font-family: 'Poppins', sans-serif;
-        color: #ffffff;
-    }
-
-    @keyframes gradientAnimation {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    /* Header styling */
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-        margin-bottom: 30px;
-    }
-
-    .header-title {
-        font-size: 2.5rem;
-        font-weight: 900;
-        color: #ffffff;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
-    }
-
-    .header-buttons {
-        display: flex;
-        gap: 15px;
-    }
-
-    .home-button {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: bold;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 25px;
-        text-align: center;
-        text-decoration: none;
-        background-color: rgba(255, 255, 255, 0.2);
-        color: #ffffff;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-    }
-
-    .home-button:hover {
-        background-color: rgba(255, 255, 255, 0.4);
-        transform: scale(1.05);
-    }
-
-    /* FAQ styling */
-    .faq-container {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
-        margin-bottom: 20px;
-    }
-
-    .faq-container h2 {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #ffffff;
-        margin-bottom: 10px;
-        text-align: center;
-    }
-
-    .faq-container .expander {
-        background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-        padding: 10px;
-        margin-bottom: 10px;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-    }
-
-    .faq-container .expander:hover {
-        transform: scale(1.02);
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-# Header section with Home button
-st.markdown(
-    """
-    <div class="header">
-        <div class="header-title">Internship Advisor</div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-# Page title
-st.markdown("<h2 class='faq-container'>Answer Student Questions</h2>", unsafe_allow_html=True)
-st.markdown(
-    """
-    <p style="text-align:center; color: rgba(255, 255, 255, 0.8);">
-    This section allows you to address common questions students may have about internships.
-    </p>
-    """,
-    unsafe_allow_html=True,
-)
-
-# FAQs Section
-st.markdown("<div class='faq-container'>", unsafe_allow_html=True)
-st.subheader("Frequently Asked Questions")
-
-sample_questions = [
-    "What is the process to apply for an internship?",
-    "How do I prepare for my internship interview?",
-    "Can I switch internships mid-way if it's not a good fit?",
-    "What is the expected duration of most internships?",
-    "Are internships paid or unpaid?"
-]
-
-# Display FAQs with expander style
-for i, question in enumerate(sample_questions, 1):
-    with st.expander(f"Q{i}: {question}", expanded=False):
-        st.text_area(
-            label=f"Response to: {question}",
-            value="Type your answer here...",
-            key=f"faq_response_{i}"
-        )
-st.markdown("</div>", unsafe_allow_html=True)
+# Aggregate the data for bar chart
+if data:
+    # Convert the list of dictionaries to a DataFrame
+    df = pd.DataFrame(data)
+    
+    # Select only numeric columns for bar chart
+    numeric_columns = ["Culture", "Satisfaction", "Compensation", "Learning", "Work Life Balance"]
+    
+    # Aggregate the data for the bar chart
+    bar_chart_data = df[numeric_columns].mean().reset_index()
+    bar_chart_data.columns = ["Category", "Average Rating"]
+    
+    # Plot the bar chart
+    st.bar_chart(bar_chart_data.set_index("Category"))
+else:
+    st.write("No data available to display.")
