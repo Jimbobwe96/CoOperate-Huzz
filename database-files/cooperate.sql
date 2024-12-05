@@ -367,16 +367,57 @@ INSERT INTO Students (StudentID, FirstName, LastName, GPA, Major, CurrentYear, H
 
 -- Skills
 INSERT INTO Skill (SkillID, SkillName) VALUES
-(1, 'Java'),
-(2, 'Excel'),
-(3, 'Word'),
-(4, 'SQL'),
-(5, 'KQL'),
-(6, 'Azure'),
-(7, 'Streamlit'),
-(8, 'Docker'),
-(9, 'Python'),
-(10, 'JavaScript');
+    -- Technical Skills
+    ('Data Analysis'),
+    ('Statistical Analysis'),
+    ('Machine Learning'),
+    ('Project Management'),
+    ('Technical Writing'),
+    ('Research'),
+    ('Laboratory Skills'),
+    ('Data Visualization'),
+    ('Information Literacy'),
+    ('API Development'),
+
+    -- Soft Skills
+    ('Communication'),
+    ('Teamwork'),
+    ('Time Management'),
+    ('Leadership'),
+    ('Critical Thinking'),
+    ('Problem Solving'),
+    ('Adaptability'),
+    ('Creativity'),
+    ('Interpersonal Skills'),
+    ('Conflict Resolution'),
+    ('Organization'),
+    ('Attention to Detail'),
+    ('Initiative'),
+    ('Dependability'),
+    ('Public Speaking'),
+    ('Collaboration'),
+    ('Emotional Intelligence'),
+    ('Networking'),
+    ('Negotiation'),
+    ('Mentoring'),
+
+    -- Academic Skills
+    ('Study Skills'),
+    ('Exam Preparation'),
+    ('Note-Taking'),
+    ('Learning Strategies'),
+    ('Academic Research'),
+    ('Citation Management'),
+    ('Ethical Reasoning'),
+    ('Cultural Competency'),
+    ('Diversity Awareness'),
+    ('Teaching'),
+    ('Presentation Skills'),
+    ('Data Management'),
+    ('Quantitative Reasoning'),
+    ('Qualitative Analysis'),
+    ('Information Synthesis');
+
 
 -- Company
 INSERT INTO Company (CompanyID, Name, Industry, Headquarters, Size) VALUES
@@ -439,12 +480,607 @@ INSERT INTO Admin (AdminID, FirstName, LastName, Email, Role) VALUES
 (3, 'Michael', 'Gutierrez', 'benjaminvasquez@yahoo.com', 'Operations Manager');
 
 -- Student Skills
+-- Batch 1: Students 1 to 25
 INSERT INTO StudentSkills (StudentID, SkillID, Proficiency) VALUES
-(1, 1, 8),
-(1, 2, 6),
-(3, 8, 4),
-(3, 9, 10),
-(4, 3, 7);
+    -- Student 1
+    (1, 1, 8),
+    (1, 26, 7),
+
+    -- Student 2
+    (2, 2, 6),
+    (2, 27, 5),
+
+    -- Student 3
+    (3, 3, 9),
+    (3, 28, 4),
+
+    -- Student 4
+    (4, 4, 7),
+    (4, 29, 6),
+
+    -- Student 5
+    (5, 5, 8),
+    (5, 30, 5),
+
+    -- Student 6
+    (6, 6, 7),
+    (6, 31, 9),
+
+    -- Student 7
+    (7, 7, 5),
+    (7, 32, 6),
+
+    -- Student 8
+    (8, 8, 9),
+    (8, 33, 7),
+
+    -- Student 9
+    (9, 9, 6),
+    (9, 34, 8),
+
+    -- Student 10
+    (10, 10, 7),
+    (10, 35, 5),
+
+    -- Student 11
+    (11, 11, 8),
+    (11, 36, 6),
+
+    -- Student 12
+    (12, 12, 7),
+    (12, 37, 9),
+
+    -- Student 13
+    (13, 13, 5),
+    (13, 38, 8),
+
+    -- Student 14
+    (14, 14, 6),
+    (14, 39, 7),
+
+    -- Student 15
+    (15, 15, 9),
+    (15, 40, 5),
+
+    -- Student 16
+    (16, 16, 8),
+    (16, 41, 6),
+
+    -- Student 17
+    (17, 17, 7),
+    (17, 42, 9),
+
+    -- Student 18
+    (18, 18, 5),
+    (18, 43, 8),
+
+    -- Student 19
+    (19, 19, 6),
+    (19, 44, 7),
+
+    -- Student 20
+    (20, 20, 8),
+    (20, 45, 5),
+
+    -- Student 21
+    (21, 21, 7),
+    (21, 46, 6),
+
+    -- Student 22
+    (22, 22, 9),
+    (22, 47, 7),
+
+    -- Student 23
+    (23, 23, 5),
+    (23, 48, 8),
+
+    -- Student 24
+    (24, 24, 6),
+    (24, 49, 9),
+
+    -- Student 25
+    (25, 25, 8),
+    (25, 50, 5),
+
+    -- Student 26
+    (26, 1, 7),
+    (26, 26, 8),
+
+    -- Student 27
+    (27, 2, 6),
+    (27, 27, 7),
+
+    -- Student 28
+    (28, 3, 9),
+    (28, 28, 5),
+
+    -- Student 29
+    (29, 4, 7),
+    (29, 29, 6),
+
+    -- Student 30
+    (30, 5, 8),
+    (30, 30, 5),
+
+    -- Student 31
+    (31, 6, 7),
+    (31, 31, 9),
+
+    -- Student 32
+    (32, 7, 5),
+    (32, 32, 6),
+
+    -- Student 33
+    (33, 8, 9),
+    (33, 33, 7),
+
+    -- Student 34
+    (34, 9, 6),
+    (34, 34, 8),
+
+    -- Student 35
+    (35, 10, 7),
+    (35, 35, 5),
+
+    -- Student 36
+    (36, 11, 8),
+    (36, 36, 6),
+
+    -- Student 37
+    (37, 12, 7),
+    (37, 37, 9),
+
+    -- Student 38
+    (38, 13, 5),
+    (38, 38, 8),
+
+    -- Student 39
+    (39, 14, 6),
+    (39, 39, 7),
+
+    -- Student 40
+    (40, 15, 9),
+    (40, 40, 5),
+
+    -- Student 41
+    (41, 16, 8),
+    (41, 41, 6),
+
+    -- Student 42
+    (42, 17, 7),
+    (42, 42, 9),
+
+    -- Student 43
+    (43, 18, 5),
+    (43, 43, 8),
+
+    -- Student 44
+    (44, 19, 6),
+    (44, 44, 7),
+
+    -- Student 45
+    (45, 20, 8),
+    (45, 45, 5),
+
+    -- Student 46
+    (46, 21, 7),
+    (46, 46, 6),
+
+    -- Student 47
+    (47, 22, 9),
+    (47, 47, 7),
+
+    -- Student 48
+    (48, 23, 5),
+    (48, 48, 8),
+
+    -- Student 49
+    (49, 24, 6),
+    (49, 49, 9),
+
+    -- Student 50
+    (50, 25, 8),
+    (50, 50, 5)
+
+    -- Student 51
+    (51, 1, 7),
+    (51, 26, 8),
+
+    -- Student 52
+    (52, 2, 6),
+    (52, 27, 7),
+
+    -- Student 53
+    (53, 3, 9),
+    (53, 28, 5),
+
+    -- Student 54
+    (54, 4, 7),
+    (54, 29, 6),
+
+    -- Student 55
+    (55, 5, 8),
+    (55, 30, 5),
+
+    -- Student 56
+    (56, 6, 7),
+    (56, 31, 9),
+
+    -- Student 57
+    (57, 7, 5),
+    (57, 32, 6),
+
+    -- Student 58
+    (58, 8, 9),
+    (58, 33, 7),
+
+    -- Student 59
+    (59, 9, 6),
+    (59, 34, 8),
+
+    -- Student 60
+    (60, 10, 7),
+    (60, 35, 5),
+
+    -- Student 61
+    (61, 11, 8),
+    (61, 36, 6),
+
+    -- Student 62
+    (62, 12, 7),
+    (62, 37, 9),
+
+    -- Student 63
+    (63, 13, 5),
+    (63, 38, 8),
+
+    -- Student 64
+    (64, 14, 6),
+    (64, 39, 7),
+
+    -- Student 65
+    (65, 15, 9),
+    (65, 40, 5),
+
+    -- Student 66
+    (66, 16, 8),
+    (66, 41, 6),
+
+    -- Student 67
+    (67, 17, 7),
+    (67, 42, 9),
+
+    -- Student 68
+    (68, 18, 5),
+    (68, 43, 8),
+
+    -- Student 69
+    (69, 19, 6),
+    (69, 44, 7),
+
+    -- Student 70
+    (70, 20, 8),
+    (70, 45, 5),
+
+    -- Student 71
+    (71, 21, 7),
+    (71, 46, 6),
+
+    -- Student 72
+    (72, 22, 9),
+    (72, 47, 7),
+
+    -- Student 73
+    (73, 23, 5),
+    (73, 48, 8),
+
+    -- Student 74
+    (74, 24, 6),
+    (74, 49, 9),
+
+    -- Student 75
+    (75, 25, 8),
+    (75, 50, 5),
+
+    -- Student 76
+    (76, 1, 7),
+    (76, 26, 8),
+
+    -- Student 77
+    (77, 2, 6),
+    (77, 27, 7),
+
+    -- Student 78
+    (78, 3, 9),
+    (78, 28, 5),
+
+    -- Student 79
+    (79, 4, 7),
+    (79, 29, 6),
+
+    -- Student 80
+    (80, 5, 8),
+    (80, 30, 5),
+
+    -- Student 81
+    (81, 6, 7),
+    (81, 31, 9),
+
+    -- Student 82
+    (82, 7, 5),
+    (82, 32, 6),
+
+    -- Student 83
+    (83, 8, 9),
+    (83, 33, 7),
+
+    -- Student 84
+    (84, 9, 6),
+    (84, 34, 8),
+
+    -- Student 85
+    (85, 10, 7),
+    (85, 35, 5),
+
+    -- Student 86
+    (86, 11, 8),
+    (86, 36, 6),
+
+    -- Student 87
+    (87, 12, 7),
+    (87, 37, 9),
+
+    -- Student 88
+    (88, 13, 5),
+    (88, 38, 8),
+
+    -- Student 89
+    (89, 14, 6),
+    (89, 39, 7),
+
+    -- Student 90
+    (90, 15, 9),
+    (90, 40, 5),
+
+    -- Student 91
+    (91, 16, 8),
+    (91, 41, 6),
+
+    -- Student 92
+    (92, 17, 7),
+    (92, 42, 9),
+
+    -- Student 93
+    (93, 18, 5),
+    (93, 43, 8),
+
+    -- Student 94
+    (94, 19, 6),
+    (94, 44, 7),
+
+    -- Student 95
+    (95, 20, 8),
+    (95, 45, 5),
+
+    -- Student 96
+    (96, 21, 7),
+    (96, 46, 6),
+
+    -- Student 97
+    (97, 22, 9),
+    (97, 47, 7),
+
+    -- Student 98
+    (98, 23, 5),
+    (98, 48, 8),
+
+    -- Student 99
+    (99, 24, 6),
+    (99, 49, 9),
+
+    -- Student 100
+    (100, 25, 8),
+    (100, 50, 5),
+
+    -- Student 101
+    (101, 1, 7),
+    (101, 26, 8),
+
+    -- Student 102
+    (102, 2, 6),
+    (102, 27, 7),
+
+    -- Student 103
+    (103, 3, 9),
+    (103, 28, 5),
+
+    -- Student 104
+    (104, 4, 7),
+    (104, 29, 6),
+
+    -- Student 105
+    (105, 5, 8),
+    (105, 30, 5),
+
+    -- Student 106
+    (106, 6, 7),
+    (106, 31, 9),
+
+    -- Student 107
+    (107, 7, 5),
+    (107, 32, 6),
+
+    -- Student 108
+    (108, 8, 9),
+    (108, 33, 7),
+
+    -- Student 109
+    (109, 9, 6),
+    (109, 34, 8),
+
+    -- Student 110
+    (110, 10, 7),
+    (110, 35, 5),
+
+    -- Student 111
+    (111, 11, 8),
+    (111, 36, 6),
+
+    -- Student 112
+    (112, 12, 7),
+    (112, 37, 9),
+
+    -- Student 113
+    (113, 13, 5),
+    (113, 38, 8),
+
+    -- Student 114
+    (114, 14, 6),
+    (114, 39, 7),
+
+    -- Student 115
+    (115, 15, 9),
+    (115, 40, 5),
+
+    -- Student 116
+    (116, 16, 8),
+    (116, 41, 6),
+
+    -- Student 117
+    (117, 17, 7),
+    (117, 42, 9),
+
+    -- Student 118
+    (118, 18, 5),
+    (118, 43, 8),
+
+    -- Student 119
+    (119, 19, 6),
+    (119, 44, 7),
+
+    -- Student 120
+    (120, 20, 8),
+    (120, 45, 5),
+
+    -- Student 121
+    (121, 21, 7),
+    (121, 46, 6),
+
+    -- Student 122
+    (122, 22, 9),
+    (122, 47, 7),
+
+    -- Student 123
+    (123, 23, 5),
+    (123, 48, 8),
+
+    -- Student 124
+    (124, 24, 6),
+    (124, 49, 9),
+
+    -- Student 125
+    (125, 25, 8),
+    (125, 50, 5),
+
+    -- Student 126
+    (126, 1, 7),
+    (126, 26, 8),
+
+    -- Student 127
+    (127, 2, 6),
+    (127, 27, 7),
+
+    -- Student 128
+    (128, 3, 9),
+    (128, 28, 5),
+
+    -- Student 129
+    (129, 4, 7),
+    (129, 29, 6),
+
+    -- Student 130
+    (130, 5, 8),
+    (130, 30, 5),
+
+    -- Student 131
+    (131, 6, 7),
+    (131, 31, 9),
+
+    -- Student 132
+    (132, 7, 5),
+    (132, 32, 6),
+
+    -- Student 133
+    (133, 8, 9),
+    (133, 33, 7),
+
+    -- Student 134
+    (134, 9, 6),
+    (134, 34, 8),
+
+    -- Student 135
+    (135, 10, 7),
+    (135, 35, 5),
+
+    -- Student 136
+    (136, 11, 8),
+    (136, 36, 6),
+
+    -- Student 137
+    (137, 12, 7),
+    (137, 37, 9),
+
+    -- Student 138
+    (138, 13, 5),
+    (138, 38, 8),
+
+    -- Student 139
+    (139, 14, 6),
+    (139, 39, 7),
+
+    -- Student 140
+    (140, 15, 9),
+    (140, 40, 5),
+
+    -- Student 141
+    (141, 16, 8),
+    (141, 41, 6),
+
+    -- Student 142
+    (142, 17, 7),
+    (142, 42, 9),
+
+    -- Student 143
+    (143, 18, 5),
+    (143, 43, 8),
+
+    -- Student 144
+    (144, 19, 6),
+    (144, 44, 7),
+
+    -- Student 145
+    (145, 20, 8),
+    (145, 45, 5),
+
+    -- Student 146
+    (146, 21, 7),
+    (146, 46, 6),
+
+    -- Student 147
+    (147, 22, 9),
+    (147, 47, 7),
+
+    -- Student 148
+    (148, 23, 5),
+    (148, 48, 8),
+
+    -- Student 149
+    (149, 24, 6),
+    (149, 49, 9),
+
+    -- Student 150
+    (150, 25, 8),
+    (150, 50, 5);
 
 -- Co-op Role
 INSERT INTO CoopRole (CompanyID, Title, City, Country, Pay, RequiredGPA) VALUES
