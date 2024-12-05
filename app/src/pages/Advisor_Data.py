@@ -2,8 +2,7 @@ import streamlit as st
 
 # Configure Streamlit page
 st.set_page_config(
-    page_title="Internship Advisor - Answer Questions", 
-    page_icon="❓", 
+    page_title="Advisor - Data", 
     layout="wide"
 )
 
