@@ -19,7 +19,7 @@ with col3:
                 use_container_width=False):
         st.switch_page('pages/Company_Home.py')
 
-company_id = st.session_state['company_id']
+position_id = st.session_state['company_id']
 try:
     response = requests.get(f'http://api:4000/cr/cooprole/{position_id}')
     if response.status_code == 200:
