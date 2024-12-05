@@ -41,16 +41,8 @@ st.markdown(
         100% { background-position: 0% 50%; }
     }
 
-    /* Main Content Styling */
-    .main-content {
-        padding: 20px;
-    }
-
     /* Header Styling */
     .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         padding: 20px 0;
         border-bottom: 2px solid rgba(255, 255, 255, 0.3);
     }
@@ -58,26 +50,32 @@ st.markdown(
         font-size: 2.5rem;
         color: #ffffff;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        margin: 0;
     }
-    .header-buttons button {
-        background: rgba(255, 255, 255, 0.3);
-        border: none;
+
+    /* Streamlit Button Styling Override */
+    .custom-buttons {
+        display: flex;
+        gap: 15px;
+    }
+    .custom-buttons > button {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.4);
         color: #ffffff;
-        padding: 20px 40px;
-        margin-left: 10px;
-        border-radius: 12px;
+        padding: 12px 24px;
+        border-radius: 10px;
         cursor: pointer;
-        font-size: 1.8rem;
+        font-size: 1.2rem;
         font-weight: bold;
         transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(3px);
         font-family: 'Roboto', sans-serif;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
-    .header-buttons button:hover {
-        transform: translateY(-5px);
-        box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.5);
-        background: rgba(255, 255, 255, 0.5);
+    .custom-buttons > button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.4);
     }
 
     /* Review Card Styling */
@@ -120,7 +118,7 @@ st.markdown(
         color: #ffffff;
     }
 
-    /* Button Styling Override */
+    /* Button Styling Override for Streamlit Buttons */
     .stButton > button {
         width: 100%;
         max-width: 300px;
@@ -128,16 +126,21 @@ st.markdown(
 
     /* Responsive Design */
     @media (max-width: 768px) {
-        .header {
+        .header-container {
+            display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
-        .header-buttons {
+        .custom-buttons {
             margin-top: 10px;
+            width: 100%;
+            flex-direction: column;
+            gap: 10px;
         }
-        .header-buttons button {
+        .custom-buttons > button {
             width: 100%;
             max-width: none;
+            margin-left: 0;
         }
     }
     </style>
@@ -148,16 +151,25 @@ st.markdown(
 # Main content container
 st.markdown('<div class="main-content">', unsafe_allow_html=True)
 
-# Header Section
-st.markdown("""
-    <div class="header">
-        <h1>All Reviews</h1>
-        <div class="header-buttons">
-            <button onclick="window.location.href='/pages/Student_My_Reviews.py'">My Reviews</button>
-            <button onclick="window.location.href='/pages/Student_Home.py'">Home</button>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
+# Header Section using Streamlit Columns
+header_cols = st.columns([3, 1])
+
+with header_cols[0]:
+    st.markdown('<div class="header"><h1>All Reviews</h1></div>', unsafe_allow_html=True)
+
+with header_cols[1]:
+    # Container for buttons with custom CSS class
+    st.markdown('<div class="custom-buttons">', unsafe_allow_html=True)
+    # My Reviews Button
+    if st.button("My Reviews"):
+        st.session_state['authenticated'] = True
+        st.session_state['role'] = 'student'
+        st.session_state['first_name'] = 'John'
+        st.switch_page('Student_My_Reviews.py')  # Use the exact page name defined in your multipage app
+    # Sign Out Button
+    if st.button("Sign Out"):
+        st.switch_page('Home.py')  # Use the exact page name defined in your multipage app
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Fetch data from the API or use dummy data if the request fails
 try:
