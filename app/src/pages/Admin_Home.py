@@ -178,7 +178,7 @@ with admin_cols[0]:
             <div>
     """, unsafe_allow_html=True)
     if st.button("Go to Aggregated Scores"):
-        st.switch_page("Admin_Agg_Score")  # Ensure this page exists without the '.py' extension
+        st.switch_page("pages/Admin_Agg_Score.py")  
     st.markdown("""
             </div>
         </div>
