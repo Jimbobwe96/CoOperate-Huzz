@@ -146,7 +146,7 @@ def update_review(reviewID):
     return response
     
 #------------------------------------------------------------
-@reviews.route('/reviews/<reviewID>', methods=['DELETE'])
+@reviews.route('/reviews/<review_id>', methods=['DELETE'])
 def del_by_reviewid(review_id):
     query = f'''
         DELETE FROM Reviews
