@@ -67,7 +67,49 @@ col1, col2 = st.columns(2)
 # Left Column: Company Profile
 with col1:
     st.markdown("<h2>Company Profile</h2>", unsafe_allow_html=True)
-    st.text_area("Add company details here...", height=200)
+
+    company_id = st.session_state['company_id']
+    try:
+        response = requests.get(f'http://api:4000/c/company/{company_id}')
+        if response.status_code == 200:
+            data = response.json()  # Assuming the API returns a JSON list of reviews
+        else:
+            st.error(f"Error fetching data from API: {response.status_code}")
+            data = []
+    except Exception as e:
+        st.write("**Important**: Could not connect to sample API, so using dummy data.")
+        data = [
+            {"Name": "Sample Company", "Industry": "Johnson", "Headquarters": "Boston"},
+        ]
+
+    # Loop through the list and display each review
+    if data:  # Check if data is not empty
+        for item in data:
+            name = item.get('Name', 'N/A')
+            industry = item.get('Industry', 'N/A')
+            headquarters = item.get('Headquarters', 'N/A')
+
+            # Display the review content
+            st.markdown(
+                f"""
+                <div style="
+                    border: 1px solid #ccc;
+                    border-radius: 8px;
+                    padding: 15px;
+                    margin: 10px auto; 
+                    background-color: #f9f9f9;
+                    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+                ">
+                    <h4 style="margin: 0; font-size: 20px;">{name}</h4>
+                    <p style="font-size: 16px; margin: 10px 0 0 0;">{industry}</p>
+                    <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Located In:</strong> {headquarters}</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+    else:
+        st.write("No data available to display.")
+
     if st.button("Edit Profile"):
         st.write("Edit profile functionality coming soon!")
     if st.button("Delete Profile"):
