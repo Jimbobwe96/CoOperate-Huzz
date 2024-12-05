@@ -155,7 +155,7 @@ st.markdown("""
 header_col1, header_col2 = st.columns([3, 1], gap='small')
 
 with header_col1:
-    st.markdown('<div class="title">Admin - Home</div>', unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: left; font-weight: bold; color: #000000;'>CoOperate</h2>", unsafe_allow_html=True)
 
 with header_col2:
     # Streamlit's button for Sign Out

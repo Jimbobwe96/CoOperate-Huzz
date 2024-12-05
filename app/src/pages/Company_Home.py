@@ -7,14 +7,14 @@ st.set_page_config(
     layout="wide"
 )
 
-# Function to handle sign-out redirection
-def sign_out():
-    # Clear any session state if applicable
-    st.session_state.clear()
-    # Redirect to the home page
-    st.switch_page("Home.py")
+col1, col2 = st.columns([10, 2])
+with col2:
+    if st.button('Home', 
+                type='secondary', 
+                use_container_width=False):
+        st.switch_page('Home.py')
 
-# Apply custom CSS for styling with the animated theme
+# Apply custom CSS for styling with the animated theme and positioning
 st.markdown("""
     <style>
     /* Full-page gradient background */
@@ -50,43 +50,6 @@ st.markdown("""
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
     }
 
-    /* Translucent button styling */
-    div.stButton > button {
-        background: rgba(255, 255, 255, 0.3);
-        color: #ffffff;
-        padding: 20px 40px;
-        margin: 15px 0;
-        font-size: 1.8rem;
-        font-weight: bold;
-        width: 100%;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        cursor: pointer;
-        border-radius: 12px;
-        transition: transform 0.2s ease, box-shadow 0.3s ease;
-        font-family: 'Roboto', sans-serif;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    }
-
-    div.stButton > button:hover {
-        transform: translateY(-5px);
-        box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.5);
-    }
-
-    /* Content section */
-    .content {
-        padding: 30px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 15px;
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
-        color: #ffffff;
-    }
-
-    .content h2 {
-        font-size: 2rem;
-        margin-bottom: 20px;
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    }
-
     </style>
 """, unsafe_allow_html=True)
 
@@ -95,9 +58,6 @@ st.markdown("""
     <div class="title">Company Dashboard</div>
     <div class="subtitle">Manage your company profile and job postings seamlessly</div>
 """, unsafe_allow_html=True)
-
-# Main Content Section
-st.markdown('<div class="content">', unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
 
@@ -119,7 +79,3 @@ with col2:
             st.write(f"Redirecting to details about {job}...")
 
 st.markdown('</div>', unsafe_allow_html=True)
-
-# Sign Out Button
-if st.button("Sign Out"):
-    sign_out()
