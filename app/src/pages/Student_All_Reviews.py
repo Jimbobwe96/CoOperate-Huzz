@@ -165,7 +165,7 @@ with header_cols[1]:
         st.session_state['authenticated'] = True
         st.session_state['role'] = 'student'
         st.session_state['first_name'] = 'John'
-        st.switch_page('Student_My_Reviews.py')  # Use the exact page name defined in your multipage app
+        st.switch_page('pages/Student_My_Reviews.py')  # Use the exact page name defined in your multipage app
     # Sign Out Button
     if st.button("Sign Out"):
         st.switch_page('Home.py')  # Use the exact page name defined in your multipage app
