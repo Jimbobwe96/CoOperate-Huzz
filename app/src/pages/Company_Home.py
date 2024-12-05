@@ -161,5 +161,7 @@ with col2:
                 """,
                 unsafe_allow_html=True
             )
+            if st.button(f"View Reviews for {role}", key=f"view_reviews_{role}"):
+                st.switch_page('pages/Job_Posting.py')        
     else:
         st.write("No data available to display.")
