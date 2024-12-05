@@ -19,8 +19,9 @@ with col3:
                 use_container_width=False):
         st.switch_page('pages/Company_Home.py')
 
+position_id = st.session_state['company_id']
 try:
-    response = requests.get('http://api:4000/cr/cooprole')
+    response = requests.get(f'http://api:4000/cr/cooprole/{position_id}')
     if response.status_code == 200:
         data = response.json()  # Assuming the API returns a JSON list of reviews
     else:

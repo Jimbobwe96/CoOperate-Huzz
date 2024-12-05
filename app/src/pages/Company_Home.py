@@ -1,5 +1,7 @@
 import streamlit as st
 
+st.session_state['company_id'] = 1
+
 # Configure the Streamlit page
 st.set_page_config(
     page_title="Company Dashboard",
@@ -75,6 +77,3 @@ with col2:
     st.markdown("<h2>Job Postings</h2>", unsafe_allow_html=True)
     if st.button("Job 1"):
         st.switch_page('pages/Job_Posting.py')
-
-
-
