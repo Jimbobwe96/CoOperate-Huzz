@@ -380,8 +380,6 @@ INSERT INTO Skill (SkillID, SkillName) VALUES
 
 -- Company
 INSERT INTO Company (CompanyID, Name, Industry, Headquarters, Size) VALUES
--- Company
-INSERT INTO Company (CompanyID, Name, Industry, Headquarters, Size) VALUES
 (1, 'Smith-Harris', 'Retail', 'Lake Leslie', 'L'),
 (2, 'Moore Inc', 'Healthcare', 'Morrisfort', 'L'),
 (3, 'Burns, Perry and Ramirez', 'Healthcare', 'Gregorymouth', 'S'),
