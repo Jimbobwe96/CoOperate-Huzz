@@ -259,7 +259,35 @@ INSERT INTO CoopList (StudentID, CompanyID, PositionID, appliedGPA, prevExpCount
 INSERT INTO Reviews (StudentID, Date, Culture, Satisfaction, Compensation, LearningOpportunity, WorkLifeBalance, Summary, PositionID) VALUES
 (1, CURRENT_TIMESTAMP, 3, 4, 4, 5, 3, "I Love It", 1),
 (2, CURRENT_TIMESTAMP, 4, 3, 2, 1, 4, "Great!!!", 1),
-(3, CURRENT_TIMESTAMP, 2, 3, 4, 2, 2, "Phenom", 2);
+(3, CURRENT_TIMESTAMP, 2, 3, 4, 2, 2, "Phenom", 2),
+(4, CURRENT_TIMESTAMP, 5, 5, 5, 5, 5, "Exceptional Experience", 2),
+(5, CURRENT_TIMESTAMP, 1, 2, 3, 1, 2, "Challenging but Rewarding", 3),
+(6, CURRENT_TIMESTAMP, 4, 4, 4, 3, 4, "Good overall", 1),
+(7, CURRENT_TIMESTAMP, 3, 2, 1, 2, 3, "Needs Improvement", 2),
+(8, CURRENT_TIMESTAMP, 5, 5, 5, 5, 5, "Unparalleled Opportunities", 4);
+(9, CURRENT_TIMESTAMP, 3, 4, 4, 3, 3, "Great culture and support", 1),
+(10, CURRENT_TIMESTAMP, 4, 5, 5, 4, 5, "Amazing experience!", 2),
+(11, CURRENT_TIMESTAMP, 2, 3, 2, 3, 2, "Could use improvement", 3),
+(12, CURRENT_TIMESTAMP, 5, 5, 5, 5, 5, "Best job I’ve had", 4),
+(13, CURRENT_TIMESTAMP, 3, 2, 1, 2, 3, "Some struggles but okay", 1),
+(14, CURRENT_TIMESTAMP, 4, 3, 3, 4, 4, "Learning opportunities abound", 2),
+(15, CURRENT_TIMESTAMP, 2, 4, 3, 3, 3, "Fair work-life balance", 3),
+(16, CURRENT_TIMESTAMP, 5, 5, 4, 5, 5, "Supportive management", 4),
+(17, CURRENT_TIMESTAMP, 3, 3, 2, 3, 3, "Decent overall", 1),
+(18, CURRENT_TIMESTAMP, 4, 5, 5, 5, 5, "Highly recommend!", 2),
+(19, CURRENT_TIMESTAMP, 2, 2, 2, 3, 2, "Challenging environment", 3),
+(20, CURRENT_TIMESTAMP, 5, 4, 5, 5, 5, "Dynamic and engaging", 4),
+(21, CURRENT_TIMESTAMP, 4, 4, 3, 4, 4, "Solid company", 1),
+(22, CURRENT_TIMESTAMP, 3, 3, 4, 3, 3, "Work-life balance could improve", 2),
+(23, CURRENT_TIMESTAMP, 5, 5, 5, 5, 5, "Absolutely fantastic", 3),
+(24, CURRENT_TIMESTAMP, 4, 3, 3, 4, 4, "Room for growth", 4),
+(25, CURRENT_TIMESTAMP, 2, 3, 2, 2, 2, "Not ideal for everyone", 1),
+(26, CURRENT_TIMESTAMP, 5, 5, 4, 5, 5, "Excellent mentors", 2),
+(27, CURRENT_TIMESTAMP, 4, 4, 3, 4, 4, "Good for career starters", 3),
+(28, CURRENT_TIMESTAMP, 3, 2, 2, 3, 3, "Challenging but rewarding", 4),
+(29, CURRENT_TIMESTAMP, 5, 5, 5, 5, 5, "Life-changing experience", 1),
+(30, CURRENT_TIMESTAMP, 4, 3, 3, 4, 4, "Supportive team environment", 2);
+
 
 -- Activity Logs
 INSERT INTO Activity_Logs (AdminID, ActionType, Details) VALUES
