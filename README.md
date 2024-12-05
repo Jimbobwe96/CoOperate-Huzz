@@ -1,5 +1,8 @@
 # CoOperate Database System
 
+## Team Members
+Sean Fitzgerald, Jimmy Mayer, Andrew Lengyel, Max Grotstein
+
 ## Overview
 CoOperate is a comprehensive database system designed to manage cooperative education (co-op) programs for educational institutions. The system facilitates the connection between students, advisors, companies, and administrative staff while tracking co-op experiences, skills, and reviews.
 
