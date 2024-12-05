@@ -168,24 +168,11 @@ with header_col2:
 st.markdown('<div class="content">', unsafe_allow_html=True)
 
 # Create a Streamlit columns layout for admin tools (e.g., 4 tools => 4 columns)
-admin_cols = st.columns(4, gap='large')  # Adjust the number based on the number of tools
+admin_cols = st.columns(3, gap='medium')  # Adjust the number based on the number of tool
 
-# Admin Tool 1: Aggregated Scores
-with admin_cols[0]:
-    st.markdown(f"""
-        <div class="admin-card">
-            <h3>📊 Aggregated Scores</h3>
-            <div>
-    """, unsafe_allow_html=True)
-    if st.button("Go to Aggregated Scores"):
-        st.switch_page("pages/Admin_Agg_Score.py")  
-    st.markdown("""
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
 
 # Admin Tool 2: Flagged Reviews
-with admin_cols[1]:
+with admin_cols[0]:
     st.markdown(f"""
         <div class="admin-card">
             <h3>🚩 Flagged Reviews</h3>
@@ -199,7 +186,7 @@ with admin_cols[1]:
     """, unsafe_allow_html=True)
 
 # Admin Tool 3: All Reviews
-with admin_cols[2]:
+with admin_cols[1]:
     st.markdown(f"""
         <div class="admin-card">
             <h3>📝 All Reviews</h3>
@@ -213,7 +200,7 @@ with admin_cols[2]:
     """, unsafe_allow_html=True)
 
 # Admin Tool 4: Activity Log
-with admin_cols[3]:
+with admin_cols[2]:
     st.markdown(f"""
         <div class="admin-card">
             <h3>📜 Activity Log</h3>
