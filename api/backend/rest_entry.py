@@ -10,6 +10,7 @@ from backend.cooperate.skill_routes import skills
 from backend.cooperate.experiences_routes import experiences
 from backend.cooperate.admins_routes import admins
 from backend.cooperate.coop_role_routes import coop_role
+from backend.cooperate.company_routes import company
 import os
 from dotenv import load_dotenv
 
@@ -54,6 +55,7 @@ def create_app():
     app.register_blueprint(experiences, url_prefix='/e')
     app.register_blueprint(admins,      url_prefix='/a')
     app.register_blueprint(coop_role,   url_prefix='/cr')
+    app.register_blueprint(company,   url_prefix='/c')
 
     # Don't forget to return the app object
     return app
