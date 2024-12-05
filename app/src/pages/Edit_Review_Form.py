@@ -9,18 +9,50 @@ st.set_page_config(layout = 'wide')
 st.title('Edit Review')
 
 st.write('\n\n')
+review_id = st.session_state['passed_review_id']
+
+try:
+    review_response = requests.get(f'http://api:4000/r/reviews/{review_id}')
+    
+    # 200 means the request was successful
+    if review_response.status_code == 200:
+        # pull the data from the response object as json
+        cur_review_data = review_response.json()
+    else:
+        # means we got back some HTTP code besides 200
+        st.error("Failed to fetch review info")
+except requests.exceptions.RequestException as e:
+    st.error(f"Error connecting to categories API: {str(e)}")
+
+if cur_review_data:
+    for value in cur_review_data:
+        def_culture = value.get('Culture')
+        def_satisfaction = value.get('Satisfaction')
+        def_compensation = value.get('Compensation')
+        def_learning_oppurtunity = value.get('LearningOpportunity')
+        def_work_life_balance = value.get('WorkLifeBalance')
+        def_summary = value.get('Summary')
 
 # Create a Streamlit form widget
 with st.form("edit_review_form"):
 
+    # try:
+    #     review = requests.get(f'http://api:4000/r/reviews/{review_id}')
+    #     if review.status_code == 200:
+    #                     st.success("Review info pulled successfully!")
+    #     else:
+    #         st.error(f"Error editing review: {review.text}")
+    # except requests.exceptions.RequestException as e:
+    #     st.error(f"Error connecting to server: {str(e)}")
+
 # Create the various input widgets needed for 
     # each piece of information you're eliciting from the user
-    culture = st.number_input("Culture", min_value=0)
-    satisfaction = st.number_input("Satisfaction", min_value=1, max_value=5)
-    compensation = st.number_input("Compensation", min_value=1, max_value=5)
-    learning_oppurtunity = st.number_input("Learning Oppurtunity", min_value=1, max_value=5)
-    work_life_balance = st.number_input("Work/Life Balance", min_value=1, max_value=5)
-    summary = st.text_input("Summary of Experience")
+    culture = st.number_input("Culture", min_value=1, value=def_culture)
+    satisfaction = st.number_input("Satisfaction", min_value=1, max_value=5, value=def_satisfaction)
+    compensation = st.number_input("Compensation", min_value=1, max_value=5, value=def_compensation)
+    learning_oppurtunity = st.number_input("Learning Oppurtunity", min_value=1, max_value=5, value=def_learning_oppurtunity)
+    work_life_balance = st.number_input("Work/Life Balance", min_value=1, max_value=5, value=def_work_life_balance)
+    summary = st.text_input("Summary of Experience", value=def_summary)
     # Notice here, we are using a selectbox widget.  The options for the 
     # select are provided with the 'options' parameter.
     # product_category = st.selectbox("Product Category", options=category_options, index=0)
@@ -48,7 +80,7 @@ with st.form("edit_review_form"):
                 "summary": summary
             }
 
-            review_id = st.session_state['passed_review_id']
+            
 
             
             # printing out the data - will show up in the Docker Desktop logs tab

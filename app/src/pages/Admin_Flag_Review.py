@@ -10,6 +10,11 @@ st.set_page_config(
     layout="wide"
 )
 
+col1, col2 = st.columns([9, 1])
+with col2:
+    if st.button("Back"):
+        st.switch_page('pages/Admin_Home.py')
+
 # Apply custom CSS for styling
 st.markdown(
     """
@@ -45,26 +50,6 @@ st.markdown(
         text-transform: uppercase;
         letter-spacing: 3px;
         text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
-    }
-
-    .home-button {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: bold;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 25px;
-        text-align: center;
-        text-decoration: none;
-        background-color: rgba(255, 255, 255, 0.2);
-        color: #ffffff;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-    }
-
-    .home-button:hover {
-        background-color: rgba(255, 255, 255, 0.4);
-        transform: scale(1.05);
     }
 
     /* Review card styling */
@@ -125,7 +110,6 @@ st.markdown(
     """
     <div class="header">
         <div class="header-title">Admin Dashboard</div>
-        <a href="/" class="home-button">🏠 Home</a>
     </div>
     """,
     unsafe_allow_html=True,

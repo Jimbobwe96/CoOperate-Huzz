@@ -187,7 +187,7 @@ st.markdown('<p class="subtitle">Connecting Students, Advisors, Companies, and A
 if st.button("Act as a Student", key="student"):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'student'
-    st.session_state['first_name'] = 'John'
+    st.session_state['student_id'] = 1
     st.switch_page('pages/Student_Home.py')
 
 if st.button("Act as a Co-Op Advisor", key="advisor"):

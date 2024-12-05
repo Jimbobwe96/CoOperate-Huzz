@@ -23,7 +23,9 @@ with col3:
 
 # Fetch data from the API or use dummy data if the request fails
 try:
-    response = requests.get('http://api:4000/r/reviews')
+    position_id = st.session_state['passed_position_id']
+    logger.info(position_id)
+    response = requests.get(f'http://api:4000/cr/coop_role/{position_id}')
     if response.status_code == 200:
         data = response.json()  # Assuming the API returns a JSON list of reviews
     else:
@@ -32,58 +34,65 @@ try:
 except Exception as e:
     st.write("**Important**: Could not connect to sample API, so using dummy data.")
     data = [
-        {"ReviewID": "123", "Date": "2024-01-01", "Culture": "Positive", "Satisfaction": "High",
-         "Compensation": "Fair", "LearningOpportunity": "Good", "WorkLifeBalance": "Excellent",
-         "Summary": "Great experience", "PositionID": "P123", "Student_ID": 1},
-        {"ReviewID": "456", "Date": "2024-02-01", "Culture": "Negative", "Satisfaction": "Low",
-         "Compensation": "Poor", "LearningOpportunity": "Limited", "WorkLifeBalance": "Bad",
-         "Summary": "Challenging experience", "PositionID": "P456", "Student_ID": 2}
+        {"Company": "Joe", "Role": "Joe", "Location": "MA", "Pay": 9999,
+         "Required GPA": 3.0, "Culture": 3, "Satisfaction": 4,
+         "Compensation": 2, "Learning": 2, "Work Life Balance": 1},
     ]
-# Filter reviews for Student_ID = 1
-filtered_data = [review for review in data if review.get("PositionID") == 1]
 
-# Display the filtered review
-if filtered_data:
-    # Assuming there's only one review for Student_ID = 1
-    review = filtered_data[0]
-    review_id = review.get('ReviewID', 'N/A')
-    date = review.get('Date', 'N/A')
-    culture = review.get('Culture', 'N/A')
-    satisfaction = review.get('Satisfaction', 'N/A')
-    compensation = review.get('Compensation', 'N/A')
-    learning_opportunity = review.get('LearningOpportunity', 'N/A')
-    work_life_balance = review.get('WorkLifeBalance', 'N/A')
-    summary = review.get('Summary', 'N/A')
-    position_id = review.get('PositionID', 'N/A')
+     # Loop through the list and display each review
+if data:  
+        for review in data:
+            company = review.get('Company', 'N/A')
+            role = review.get('Role', 'N/A')
+            location = review.get('Location', 'N/A')
+            pay = review.get('Pay', 'N/A')
+            required_gpa = review.get('Required GPA', 'N/A')
+            culture = review.get('Culture', 'N/A')
+            satisfaction = review.get('Satisfaction', 'N/A')
+            compensation = review.get('Compensation', 'N/A')
+            learning = review.get('Learning', 'N/A')
+            balance = review.get('Work Life Balance', 'N/A')
 
-    # Display the review content
-    st.markdown(
-        f"""
-        <div style="
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px auto; 
-            background-color: #f9f9f9;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        ">
-            <div style="position: absolute; top: 10px; right: 15px; font-size: 14px; color: #555;">
-                <strong>{date}</strong>
-            </div>
-            <h4 style="margin: 0; font-size: 20px;">Review ID: {review_id}</h4>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Culture:</strong> {culture}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Satisfaction:</strong> {satisfaction}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Compensation:</strong> {compensation}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Learning Opportunity:</strong> {learning_opportunity}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Work-Life Balance:</strong> {work_life_balance}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Summary:</strong> {summary}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Position ID:</strong> {position_id}</p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+            # Display the review content
+            st.markdown(
+                f"""
+                <div style="
+                    border: 1px solid #ccc;
+                    border-radius: 8px;
+                    padding: 15px;
+                    margin: 10px auto; 
+                    background-color: #f9f9f9;
+                    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+                ">
+                    <h4 style="margin: 0; font-size: 20px;">{company}</h4>
+                    <p style="font-size: 16px; margin: 10px 0 0 0;">{role}</p>
+                    <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Location:</strong> {location}</p>
+                    <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Pay:</strong> {pay}</p>
+                                                                              
+                </div>
+                """,
+                unsafe_allow_html=True
+            ) 
+            
+            culture_score = (float(culture)/5.00)
+            satisfaction_score = (float(satisfaction)/5.00)
+            compensation_score = (float(compensation)/5.00)
+            learning_score = (float(learning)/5.00)
+            balance_score = (float(balance)/5.00)
+            overall_score = (((float(culture) + float(satisfaction) + float(compensation) + float(learning) + float(balance)) / 5) / 5)
+
+            st.write("Average Culture:" + culture)
+            st.progress(culture_score)
+            st.write("Average Satisfaction:" + satisfaction)
+            st.progress(satisfaction_score)
+            st.write("Average Compensation:" + compensation)
+            st.progress(compensation_score)
+            st.write("Average Learning:" + learning)
+            st.progress(learning_score)
+            st.write("Average Work Life Balance:" + balance)
+            st.progress(balance_score)
+            st.write("Overall Rating:" + str(overall_score * 5))
+            st.progress(overall_score)
+
 else:
-    st.write("No reviews found for PositionID = 1.")
-
-        
-        
+        st.write("No data available to display.")

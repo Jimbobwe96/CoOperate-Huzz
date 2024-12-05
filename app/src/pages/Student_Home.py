@@ -3,6 +3,7 @@ import requests
 
 # Page configuration
 st.set_page_config(page_title="CoOperate", layout="wide")
+st.session_state['student_id'] = 1
 
 # Add custom CSS for styling
 st.markdown(

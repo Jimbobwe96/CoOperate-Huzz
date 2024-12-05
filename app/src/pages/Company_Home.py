@@ -12,7 +12,7 @@ st.set_page_config(
 
 col1, col2 = st.columns([10, 2])
 with col2:
-    if st.button('Home', 
+    if st.button('Sign Out', 
                 type='secondary', 
                 use_container_width=False):
         st.switch_page('Home.py')
@@ -120,7 +120,7 @@ with col2:
     st.markdown("<h2>Job Postings</h2>", unsafe_allow_html=True)
     company_id = st.session_state['company_id']
     try:
-        response = requests.get(f'http://api:4000/cr/coop_role/{company_id}')
+        response = requests.get(f'http://api:4000/cr/coop_role/company/{company_id}')
         if response.status_code == 200:
             data = response.json()  # Assuming the API returns a JSON list of reviews
         else:
@@ -139,7 +139,8 @@ with col2:
             role = item.get('Role', 'N/A')
             location = item.get('Location', 'N/A')
             pay = item.get('Pay', 'N/A')
-            required_gpa = item.get('RequiredGPA', 'N/A')
+            required_gpa = item.get('Required GPA', 'N/A')
+            position_id = item.get('PositionID', 'N/A')
 
             # Display the review content
             st.markdown(
@@ -161,5 +162,8 @@ with col2:
                 """,
                 unsafe_allow_html=True
             )
+            if st.button(f"View Reviews for {role}", key=f"view_reviews_{role}"):
+                st.session_state['passed_position_id'] = position_id
+                st.switch_page('pages/Job_Posting.py')        
     else:
         st.write("No data available to display.")

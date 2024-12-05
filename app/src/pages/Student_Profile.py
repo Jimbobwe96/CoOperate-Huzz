@@ -5,6 +5,7 @@ logger = logging.getLogger(__name__)
 
 # Page configuration
 st.set_page_config(page_title="Student Profile", layout="wide")
+st.session_state['student_id'] = 1
 
 # Header
 # Create a two-column layout with buttons on the right
@@ -73,49 +74,7 @@ col1, col2, col3 = st.columns([1, 1, 6])
 with col1:
     if st.button('Edit Profile', type='secondary', use_container_width=True):
         # Create a form for editing profile details
-        with st.form("edit_profile_form"):
-            st.text_input("First Name", first_name, key="edit_first_name")
-            st.text_input("Last Name", last_name, key="edit_last_name")
-            st.text_input("Major", major, key="edit_major")
-            st.number_input("GPA", value=gpa, min_value=0.0, max_value=4.0, step=0.1, key="edit_gpa")
-            st.number_input("Current Year", value=current_year, min_value=1, max_value=4, step=1, key="edit_current_year")
-            st.text_input("Home College", home_college, key="edit_home_college")
-            
-            # Submit button for the form
-            submitted = st.form_submit_button("Save Changes")
-
-        if submitted:
-            # Collect updated data
-            updated_data = {
-                "FirstName": st.session_state["edit_first_name"],
-                "LastName": st.session_state["edit_last_name"],
-                "Major": st.session_state["edit_major"],
-                "GPA": st.session_state["edit_gpa"],
-                "CurrentYear": st.session_state["edit_current_year"],
-                "HomeCollege": st.session_state["edit_home_college"]
-            }
-
-            try:
-                # Make PUT request to update the profile
-                response = requests.put(f'http://api:4000/s/students/{student_id}', json=updated_data)
-                if response.status_code == 200:
-                    st.success("Profile updated successfully!")
-                    
-                    # Refresh the updated profile data
-                    updated_profile = requests.get(f'http://api:4000/s/students/{student_id}').json()
-                    
-                    # Update local variables with new profile data
-                    first_name = updated_profile.get("FirstName", "N/A")
-                    last_name = updated_profile.get("LastName", "N/A")
-                    major = updated_profile.get("Major", "N/A")
-                    gpa = updated_profile.get("GPA", "N/A")
-                    current_year = updated_profile.get("CurrentYear", "N/A")
-                    home_college = updated_profile.get("HomeCollege", "N/A")
-                else:
-                    st.error(f"Error updating profile: {response.text}")
-            except requests.exceptions.RequestException as e:
-                st.error(f"Error connecting to server: {str(e)}")
-
+        st.switch_page('pages/Edit_Student_Profile.py')
 with col2:
     st.button('Delete Profile', type ='secondary', use_container_width=True)
 

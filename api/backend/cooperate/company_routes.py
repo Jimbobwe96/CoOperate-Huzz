@@ -50,8 +50,8 @@ def get_companies():
 def get_company(companyID):
     query = f'''
         SELECT *
-        FROM company
-        WHERE StudentID = {str(companyID)}
+        FROM Company
+        WHERE CompanyID = {str(companyID)}
     '''
     # get a cursor object from the database
     cursor = db.get_db().cursor()
