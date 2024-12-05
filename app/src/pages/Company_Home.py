@@ -139,7 +139,7 @@ with col2:
             role = item.get('Role', 'N/A')
             location = item.get('Location', 'N/A')
             pay = item.get('Pay', 'N/A')
-            required_gpa = item.get('RequiredGPA', 'N/A')
+            required_gpa = item.get('Required GPA', 'N/A')
             position_id = item.get('PositionID', 'N/A')
 
             # Display the review content
