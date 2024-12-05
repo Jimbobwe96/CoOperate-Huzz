@@ -21,7 +21,7 @@ if 'authenticated' not in st.session_state:
 
 logger.info("Loading the All Reviews page of the app")
 
-# Adding custom CSS and JavaScript for animations and smooth transitions
+# Adding custom CSS for styling
 st.markdown(
     """
     <style>
@@ -41,68 +41,9 @@ st.markdown(
         100% { background-position: 0% 50%; }
     }
 
-    /* Overlay Container */
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.85);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        color: white;
-        font-family: 'Roboto', sans-serif;
-        text-align: center;
-        animation: fadeOutOverlay 1.5s ease-in-out forwards;
-        animation-delay: 3.5s;
-    }
-
-    /* Overlay Animations */
-    .overlay h1 {
-        font-size: 4rem;
-        animation: zoomIn 1.5s ease-out forwards;
-        margin: 0;
-    }
-
-    .overlay p {
-        font-size: 1.5rem;
-        margin-top: 1rem;
-        opacity: 0;
-        animation: fadeInText 2s ease-out forwards;
-        animation-delay: 1.5s;
-    }
-
-    @keyframes zoomIn {
-        from { transform: scale(0.5); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes fadeInText {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    @keyframes fadeOutOverlay {
-        from { opacity: 1; }
-        to { opacity: 0; visibility: hidden; }
-    }
-
     /* Main Content Styling */
     .main-content {
-        display: none;
-        opacity: 0;
-        animation: fadeInContent 2s ease-in forwards;
-        animation-delay: 4s;
         padding: 20px;
-    }
-
-    @keyframes fadeInContent {
-        from { opacity: 0; }
-        to { opacity: 1; }
     }
 
     /* Header Styling */
@@ -200,34 +141,11 @@ st.markdown(
         }
     }
     </style>
-
-    <script>
-    // JavaScript to reveal main content after overlay fades out
-    document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(() => {
-            const mainContent = document.querySelector('.main-content');
-            if (mainContent) {
-                mainContent.style.display = 'block';
-            }
-        }, 4000); // Matches fade-out and fade-in timing
-    });
-    </script>
     """,
     unsafe_allow_html=True
 )
 
-# HTML for the opening animation overlay
-st.markdown(
-    """
-    <div class="overlay">
-        <h1>CoOperate</h1>
-        <p>All Reviews</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-# Main content (initially hidden)
+# Main content container
 st.markdown('<div class="main-content">', unsafe_allow_html=True)
 
 # Header Section
