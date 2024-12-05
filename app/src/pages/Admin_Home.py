@@ -83,7 +83,16 @@ with col_2:
                 use_container_width=True):
         st.switch_page("pages/Admin_Flag_Review.py")
 
+    st.markdown("  ")  # Spacer
+
     if st.button("All Reviews", 
                 type = 'secondary', 
                 use_container_width=True):
         st.switch_page("pages/Admin_Review_Check.py")
+
+    st.markdown("  ")  # Spacer
+
+    if st.button("Activity Log", 
+                type = 'secondary', 
+                use_container_width=True):
+        st.switch_page("pages/Admin_Activity.py")
