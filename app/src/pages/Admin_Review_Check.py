@@ -13,6 +13,11 @@ st.set_page_config(
     layout="wide"
 )
 
+col1, col2 = st.columns([9, 1])
+with col2:
+    if st.button("Back"):
+        st.switch_page('pages/Admin_Home.py')
+
 # Apply custom CSS for styling
 st.markdown(
     """
@@ -127,10 +132,6 @@ st.markdown(
     """
     <div class="header">
         <div class="header-title">All Reviews</div>
-        <div>
-            <a href="/" class="nav-button">⬅️ Back</a>
-            <a href="pages/Admin_Flag_Review.py" class="nav-button">🚩 Flagged Reviews</a>
-        </div>
     </div>
     """,
     unsafe_allow_html=True,

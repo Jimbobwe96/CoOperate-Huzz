@@ -13,6 +13,11 @@ st.set_page_config(
     layout="wide"
 )
 
+col1, col2 = st.columns([9, 1])
+with col2:
+    if st.button("Back"):
+        st.switch_page('pages/Admin_Home.py')
+
 # Apply custom CSS for the theme
 st.markdown(
     """
@@ -89,7 +94,6 @@ st.markdown(
     """
     <div class="header">
         <div class="header-title">Activity Log</div>
-        <a href="/" class="back-button">⬅️ Back</a>
     </div>
     """,
     unsafe_allow_html=True,

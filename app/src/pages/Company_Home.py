@@ -12,7 +12,7 @@ st.set_page_config(
 
 col1, col2 = st.columns([10, 2])
 with col2:
-    if st.button('Home', 
+    if st.button('Sign Out', 
                 type='secondary', 
                 use_container_width=False):
         st.switch_page('Home.py')

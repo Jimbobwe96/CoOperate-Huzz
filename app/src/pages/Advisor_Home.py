@@ -170,16 +170,16 @@ st.markdown(
 )
 
 # Main content layout
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 
 # Card 1: Answer Student Questions
 with col1:
     st.markdown(
         """
         <div class="card">
-            <h3>Answer Student Questions</h3>
-            <p>Provide timely answers to student inquiries and guide them through their co-op journey.</p>
-            <a href="Advisor_FAQ" target="_self" class="button">Go to FAQ</a>
+            <h3>Student Aggregated Data</h3>
+            <p>Check Out the Aggregated Data Of Students in Different Co-ops, and Make Decisions Based in the Data!</p>
+            <a href="/Advisor_Data" target="_self" class="button">Aggregated Data</a>
         </div>
         """,
         unsafe_allow_html=True,
@@ -193,19 +193,6 @@ with col2:
             <h3>Compatibility Assessment</h3>
             <p>Analyze and match students to co-op opportunities that suit their skills and interests.</p>
             <a href="Advisor_Comp" target="_self" class="button">Start Assessment</a>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-# Card 3: Track Student Progress
-with col3:
-    st.markdown(
-        """
-        <div class="card">
-            <h3>Track Student Progress</h3>
-            <p>Monitor student progress and ensure they stay on track with their co-op goals.</p>
-            <a href="Advisor_Progress" target="_self" class="button">Track Progress</a>
         </div>
         """,
         unsafe_allow_html=True,
