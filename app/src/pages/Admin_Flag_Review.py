@@ -1,5 +1,7 @@
 import streamlit as st
 import requests
+import logging
+logger = logging.getLogger(__name__)
 
 # Set up page configuration
 st.set_page_config(page_title="Admin Dashboard - Flagged Reviews", layout="wide")
@@ -12,12 +14,6 @@ with col2:
         st.switch_page('pages/Admin_Home.py')
 
 admin_id = st.session_state['admin_id']
-# Example flagged reviews
-flagged_reviews = [
-    {"id": 1, "review": "This product is terrible!", "flag_reason": "Inappropriate language"},
-    {"id": 2, "review": "Best service ever, but too expensive!", "flag_reason": "Suspicious activity"},
-    {"id": 3, "review": "I hate this company.", "flag_reason": "Negative sentiment"},
-]
 
 try:
     data = requests.get('http://api:4000/r/reviews/flagged').json()
@@ -82,11 +78,8 @@ if isinstance(data, list):
                     st.error(f"Error approving review: {response.text}")
             except requests.exceptions.RequestException as e:
                 st.error(f"Error connecting to server: {str(e)}")
-
-for review in flagged_reviews:
-    st.subheader(f"Review ID: {review['id']}")
-    st.write(f"**Review:** {review['review']}")
-    st.write(f"**Reason for flagging:** {review['flag_reason']}")
-    st.button("Approve", key=f"approve_{review['id']}")
-    st.button("Reject", key=f"reject_{review['id']}")
+        if reject_button:
+            st.session_state['store_review_id'] = review_id
+            logger.info(st.session_state['store_review_id'])
+            st.switch_page("pages/Admin_Reject_Review_Form.py")
 

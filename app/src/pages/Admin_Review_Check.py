@@ -28,7 +28,7 @@ with col3:
 
 # Fetch data from the API or use dummy data if the request fails
 try:
-    data = requests.get('http://api:4000/r/reviews').json()
+    data = requests.get('http://api:4000/a/admins/reviews').json()
 except:
     st.write("**Important**: Could not connect to sample api, so using dummy data.")
     data = [

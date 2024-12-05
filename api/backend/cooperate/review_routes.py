@@ -222,7 +222,7 @@ def get_flagged_reviews():
     query = '''
         SELECT * 
         FROM Reviews
-        WHERE Flagged = 1
+        WHERE Flagged = 1 AND ResolvedBy IS NULL
     '''
     # get a cursor object from the database
     cursor = db.get_db().cursor()
@@ -266,7 +266,7 @@ def update_approved(review_id,admin_id):
 def log_update_approved(review_id,admin_id):
     query = f'''
         INSERT INTO Activity_Logs (AdminID, ActionType, Details)
-        VALUES ({int(admin_id)}, 'Approved review #' + {str(review_id)}, 'Incorrectly flagged review')
+        VALUES ({int(admin_id)}, CONCAT('Approved review #', {str(review_id)}), 'Incorrectly flagged review')
     '''
     # get a cursor object from the database
     cursor = db.get_db().cursor()
