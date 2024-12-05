@@ -48,7 +48,7 @@ def get_coop_role():
 #------------------------------------------------------------
 
 # gets all of the listed roles for a specific company
-@coop_role.route('/coop_role/<CompanyID>', methods=['GET'])
+@coop_role.route('/coop_role/company/<CompanyID>', methods=['GET'])
 def get_company_roles(CompanyID):
     query = f'''
         SELECT
@@ -102,7 +102,7 @@ def get_coop_role_info_reviews(position_id):
         JOIN Company `c` ON c.CompanyID = cr.CompanyID
         JOIN Reviews `r` ON r.PositionID = cr.PositionID
         GROUP BY c.Name, cr.Title, CONCAT(cr.City, ', ', cr.Country), cr.Pay, cr.RequiredGPA
-        HAVING cr.PositionID = {position_id}
+        HAVING PositionID = {position_id}
     '''
     
     # get a cursor object from the database

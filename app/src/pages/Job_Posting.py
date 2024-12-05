@@ -24,6 +24,7 @@ with col3:
 # Fetch data from the API or use dummy data if the request fails
 try:
     position_id = st.session_state['passed_position_id']
+    logger.info(position_id)
     response = requests.get(f'http://api:4000/cr/coop_role/{position_id}')
     if response.status_code == 200:
         data = response.json()  # Assuming the API returns a JSON list of reviews
