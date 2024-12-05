@@ -2,87 +2,226 @@ import streamlit as st
 
 # Configure Streamlit page
 st.set_page_config(
-    page_title="Co-op Advisor - Home", 
-    page_icon="🌐", 
+    page_title="Co-op Advisor Portal",
+    page_icon="🌟",
     layout="wide"
 )
 
-# Apply custom CSS for styling
+# Apply custom CSS for stunning design
 st.markdown(
     """
     <style>
-    .title {
+    /* Gradient background */
+    .stApp {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        background-size: 400% 400%;
+        animation: gradientAnimation 15s ease infinite;
+        font-family: 'Poppins', sans-serif;
+        color: #ffffff;
+    }
+
+    @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Header styling */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        margin-bottom: 30px;
+    }
+
+    .header-title {
         font-size: 2.5rem;
+        font-weight: 900;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .header-buttons {
+        display: flex;
+        gap: 15px;
+    }
+
+    .signout, .profile {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
         font-weight: bold;
-        color: #2C3E50;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 25px;
+        text-align: center;
+        text-decoration: none;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .signout:hover, .profile:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+        transform: scale(1.05);
+    }
+
+    .profile-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Card styling */
+    .card {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .card h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffffff;
         margin-bottom: 10px;
+        text-align: center;
+        text-transform: uppercase;
     }
-    .subtitle {
-        font-size: 1.2rem;
-        color: #34495E;
-        margin-bottom: 20px;
+
+    .card p {
+        font-size: 1rem;
+        color: #ffffff;
+        text-align: center;
     }
+
+    /* Buttons styling */
     .button {
+        display: block;
         font-size: 1rem;
         font-weight: bold;
-        padding: 10px 20px;
-        background-color: #1ABC9C;
-        border: none;
-        color: white;
-        border-radius: 5px;
-        margin-top: 10px;
-        cursor: pointer;
+        padding: 15px 30px;
+        margin: 20px auto;
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: #ffffff;
+        border-radius: 25px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     }
+
     .button:hover {
-        background-color: #16A085;
+        background-color: rgba(255, 255, 255, 0.4);
+        transform: scale(1.05);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
     }
-    .image {
-        max-height: 900px;
-        width: 1100px;
+
+    /* Footer styling */
+    .footer {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #ffffff;
+        opacity: 0.8;
+    }
+
+    .footer a {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+
+    .footer a:hover {
+        color: #f0f0f0;
     }
     </style>
-    """, 
-    unsafe_allow_html=True
+    """,
+    unsafe_allow_html=True,
 )
 
-# Page title
-col1, col2 = st.columns([25, 2]) 
+# Header section with profile and signout
+st.markdown(
+    """
+    <div class="header">
+        <div class="header-title">Co-op Advisor Portal</div>
+        <div class="header-buttons">
+            <a href="/Student_Profile" class="profile">
+                <div class="profile-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Profile" style="width: 24px; height: 24px;">
+                </div>
+            </a>
+            <a href="/" class="signout">Sign Out</a>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Main content layout
+col1, col2, col3 = st.columns(3)
+
+# Card 1: Answer Student Questions
 with col1:
-    st.markdown('<div class="title">Co-op Advisor Portal</div>', unsafe_allow_html=True)
-with col2:
-    if st.button('Sign Out', type='secondary', use_container_width=False):
-        st.switch_page('Home.py')
-
-col_1, col_2 = st.columns([2, 1])
-
-# Left column: Static image
-with col_1:
     st.markdown(
         """
-        <img 
-        src="https://media.istockphoto.com/id/1278975231/photo/professor-helping-student-during-computer-class.jpg?s=612x612&w=0&k=20&c=tWPEUG8Nodw3g7kC_SbB8Zl--N8AuUPaGFEVUNKYyfM=" 
-        class="image" 
-        alt="Helping Students Achieve their Goals!" />
-        """, 
-        unsafe_allow_html=True
+        <div class="card">
+            <h3>Answer Student Questions</h3>
+            <p>Provide timely answers to student inquiries and guide them through their co-op journey.</p>
+            <a href="/pages/Advisor_FAQ.py" class="button">Go to FAQ</a>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
-# Right column: Buttons and title
-with col_2:
+# Card 2: Compatibility Assessment
+with col2:
     st.markdown(
-    "<div style='text-align: center; font-size: 24px; font-weight: bold;'>Advisor Tools</div>", 
-    unsafe_allow_html=True
+        """
+        <div class="card">
+            <h3>Compatibility Assessment</h3>
+            <p>Analyze and match students to co-op opportunities that suit their skills and interests.</p>
+            <a href="/pages/Advisor_Comp.py" class="button">Start Assessment</a>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
-    st.markdown("   ")
 
-    if st.button("Answer Student Questions",             
-                type = 'secondary', 
-                use_container_width=True):
-        st.switch_page("pages/Advisor_FAQ.py")
+# Card 3: Track Student Progress
+with col3:
+    st.markdown(
+        """
+        <div class="card">
+            <h3>Track Student Progress</h3>
+            <p>Monitor student progress and ensure they stay on track with their co-op goals.</p>
+            <a href="/pages/Advisor_Progress.py" class="button">Track Progress</a>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    st.markdown("  ")  # Spacer
-
-    if st.button("Compatibility Assessment", 
-                type = 'secondary', 
-                use_container_width=True):
-        st.switch_page("pages/Advisor_Comp.py")
+# Footer
+st.markdown(
+    """
+    <div class="footer">
+        Powered by <a href="/">CoOperate</a>. Designed for a seamless advising experience.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)

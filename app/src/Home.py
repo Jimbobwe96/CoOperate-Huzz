@@ -126,25 +126,28 @@ st.markdown(
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
     }
 
-    /* Translucent button styling */
+    /* Improved Translucent Button Styling with Larger Text */
     div.stButton > button {
-        background: rgba(255, 255, 255, 0.2); /* Translucent white */
-        color: white;
-        padding: 20px;
-        margin: 10px 0;
-        font-size: 1.5rem;
+        background: rgba(255, 255, 255, 0.3); /* Slightly darker translucent background */
+        color: #ffffff; /* Bright white text */
+        padding: 20px 40px; /* Increased padding for a more prominent button */
+        margin: 15px 0; /* Added more spacing between buttons */
+        font-size: 1.8rem; /* Larger text for better readability */
+        font-weight: bold; /* Bold text for emphasis */
         width: 100%;
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.4);
         cursor: pointer;
-        border-radius: 10px;
+        border-radius: 12px; /* Slightly more rounded edges */
         transition: transform 0.2s ease, box-shadow 0.3s ease;
         font-family: 'Roboto', sans-serif;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Stronger text shadow */
     }
 
     div.stButton > button:hover {
         transform: translateY(-5px);
-        box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.3);
+        box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.5); /* Enhanced hover shadow */
     }
+
     </style>
 
     <script>
