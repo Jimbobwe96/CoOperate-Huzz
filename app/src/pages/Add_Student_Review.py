@@ -16,7 +16,7 @@ with st.form("add_review_form"):
 # Create the various input widgets needed for 
     # each piece of information you're eliciting from the user
     student_id = st.text_input("Student ID")
-    culture = st.number_input("Culture", min_value=0)
+    culture = st.number_input("Culture", min_value=1, max_value=5)
     satisfaction = st.number_input("Satisfaction", min_value=1, max_value=5)
     compensation = st.number_input("Compensation", min_value=1, max_value=5)
     learning_oppurtunity = st.number_input("Learning Oppurtunity", min_value=1, max_value=5)

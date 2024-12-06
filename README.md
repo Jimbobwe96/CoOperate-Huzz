@@ -4,7 +4,7 @@
 Sean Fitzgerald, Jimmy Mayer, Andrew Lengyel, Max Grotstein
 
 ## Overview
-CoOperate is a comprehensive database system designed to manage cooperative education (co-op) programs for educational institutions. The system facilitates the connection between students, advisors, companies, and administrative staff while tracking co-op experiences, skills, and reviews.
+CoOperate is a comprehensive database system designed to manage cooperative education (co-op) programs for educational institutions. The system facilitates the connection between students, advisors, companies, and administrative staff while tracking co-op experiences, skills, and reviews. The primary focus of the app is to serve as a review board and general analytics resource for its users.
 
 ## Table of Contents
 - [Features](#features)
@@ -26,6 +26,12 @@ CoOperate is a comprehensive database system designed to manage cooperative educ
 - GPA and qualification tracking
 - Comprehensive reporting capabilities
 
+## Core Components
+Currently, there are three major components which will each run in their own Docker Containers:
+- Streamlit App in the ./app directory -> controls all of the front-end behvior
+- Flask REST api in the ./api directory -> controls all of the api functionality
+- SQL files for your data model and data base in the ./database-files directory -> serves as the central database for the app
+
 ## Database Schema
 
 ### Core Tables
@@ -38,11 +44,11 @@ CoOperate is a comprehensive database system designed to manage cooperative educ
 
 ### Supporting Tables
 - `Skill`: Maintains skill catalog
-- `StudentSkills`: Maps students to their skills with proficiency levels
+- `StudentSkills`: Maps students to their skills with associated proficiency levels
 - `RequiredSkills`: Maps required skills to co-op positions
-- `CoopList`: Tracks applications and placements
+- `CoopList`: Tracks interest, applications, and placements
 - `Admin`: Stores administrative user information
-- `Activity_Logs`: Tracks system activities
+- `Activity_Logs`: Tracks administrative activities
 
 ## Installation
 
@@ -51,55 +57,21 @@ CoOperate is a comprehensive database system designed to manage cooperative educ
 - Sufficient storage space for database (recommended: 1GB minimum)
 
 ### Setup Steps
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/cooperate.git
-```
+1. Clone the repository
 
-2. Create the database:
-```sql
-DROP DATABASE IF EXISTS CoOperate;
-CREATE DATABASE IF NOT EXISTS CoOperate;
-USE CoOperate;
-```
+2. Copy the env.template file:
+    - Rename it to .env 
+    - Change the value of MYSQL_ROOT_PASSWORD
 
-3. Run the setup script:
-```bash
-mysql -u your_username -p CoOperate < setup.sql
-```
+3. Open a terminal:
+    - run: docker compose build
+    - run: docker compose up
 
-4. Set up the user (optional):
-```sql
-CREATE USER 'jimbobwe'@'%' IDENTIFIED BY '1234';
-GRANT ALL PRIVILEGES ON CoOperate.* TO 'jimbobwe'@'%';
-```
+4. Verify that docker images and container are all running properly
 
-## Usage
+5. Open a browser and type "localhost:8501" into the search bar
 
-### Basic Queries
-
-1. View all available positions:
-```sql
-SELECT c.Name, cr.Title, cr.City, cr.Pay
-FROM Company c
-JOIN CoopRole cr ON c.CompanyID = cr.CompanyID;
-```
-
-2. Check student skills:
-```sql
-SELECT s.FirstName, s.LastName, sk.SkillName, ss.Proficiency
-FROM Students s
-JOIN StudentSkills ss ON s.StudentID = ss.StudentID
-JOIN Skill sk ON ss.SkillID = sk.SkillID;
-```
-
-3. View company reviews:
-```sql
-SELECT c.Name, cr.Title, r.Culture, r.Satisfaction, r.Summary
-FROM Reviews r
-JOIN CoopRole cr ON r.PositionID = cr.PositionID
-JOIN Company c ON cr.CompanyID = c.CompanyID;
-```
+6. Welcome to CoOperate!
 
 ## Data Structure
 
@@ -114,20 +86,6 @@ JOIN Company c ON cr.CompanyID = c.CompanyID;
 - Each co-op position can require multiple skills
 - Students can apply to multiple positions
 - Each review is linked to a specific position and student
-
-## Security
-
-### Access Control
-- User authentication required
-- Role-based access control
-- Activity logging for administrative actions
-- Data encryption for sensitive information
-
-### Best Practices
-- Regular backups recommended
-- Periodic security audits
-- Password policy enforcement
-- SSL/TLS encryption for connections
 
 ## Contributing
 

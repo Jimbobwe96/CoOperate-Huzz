@@ -261,7 +261,7 @@ def update_approved(review_id,admin_id):
     return response
 
 #------------------------------------------------------------
-@reviews.route('/reviews/{review_id}/admin/{admin_id}/approve', methods=['POST'])
+@reviews.route('/reviews/<review_id>/admin/<admin_id>/approve', methods=['POST'])
 def log_update_approved(review_id,admin_id):
     query = f'''
         INSERT INTO Activity_Logs (AdminID, ActionType, Details)
