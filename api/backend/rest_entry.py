@@ -53,7 +53,7 @@ def create_app():
     app.register_blueprint(experiences, url_prefix='/e')
     app.register_blueprint(admins,      url_prefix='/a')
     app.register_blueprint(coop_role,   url_prefix='/cr')
-    app.register_blueprint(company,   url_prefix='/c')
+    app.register_blueprint(company,     url_prefix='/c')
     app.register_blueprint(coop_list,   url_prefix='/cl')
 
     # Don't forget to return the app object

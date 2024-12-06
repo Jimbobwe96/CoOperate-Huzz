@@ -3,7 +3,7 @@ import pandas as pd
 import requests
 
 # Page configuration
-st.set_page_config(page_title="CoOperate - Co-op List", layout="wide")
+st.set_page_config(page_title="Your saved Co-op List", layout="wide")
 
 # Add custom CSS for styling
 st.markdown(
@@ -76,7 +76,7 @@ st.markdown(
 )
 
 # Header section
-st.markdown("<h1>Co-op Opportunities</h1>", unsafe_allow_html=True)
+st.markdown("<h1>Your saved Co-ops</h1>", unsafe_allow_html=True)
 st.markdown("<hr style='border: 1px solid #ffffff; margin: 20px 0;'>", unsafe_allow_html=True)
 
 # Fetch the Co-op list data from the API
@@ -115,3 +115,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+
+
