@@ -13,16 +13,20 @@ skills = Blueprint('skills', __name__)
 #------------------------------------------------------------
 
 # 1. GET all skills for a student
-@skills.route('/skills/<student_id>', methods=['GET'])
+@skills.route('/skills/student/<student_id>', methods=['GET'])
 def get_student_skills(student_id):
     # """
     # Retrieve all skills and their proficiency levels for a specific student.
     # """
     query = f'''
-        SELECT Skill.SkillName, StudentSkills.Proficiency
-        FROM StudentSkills
-        JOIN Skill ON StudentSkills.SkillID = Skill.SkillID
-        WHERE StudentSkills.StudentID = {str(student_id)}
+        SELECT 
+            s.SkillID 'SkillID',
+            s.SkillName 'Skill',
+            sk.Proficiency 'Proficiency',
+            sk.StudentID 'StudentID'
+        FROM StudentSkills `sk`
+        JOIN Skill `s` ON sk.SkillID = s.SkillID
+        WHERE sk.StudentID = {str(student_id)}
     '''
 
     cursor = db.get_db().cursor()
