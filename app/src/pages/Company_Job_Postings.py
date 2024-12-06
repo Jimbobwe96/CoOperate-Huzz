@@ -1,12 +1,28 @@
 import streamlit as st
 import requests
 
-# Set page title
-st.markdown("<h2>Job Postings</h2>", unsafe_allow_html=True)
-
 # Get company ID from session state
 # company_id = st.session_state['company_id']
 st.session_state['company_id'] = 1
+
+# Fetch company name
+try:
+    company_id = st.session_state['company_id']
+    response = requests.get(f'http://api:4000/c/company/{company_id}')
+    if response.status_code == 200:
+        data = response.json()
+    else:
+        st.error(f"Error fetching data from API: {response.status_code}")
+        data = []
+except Exception as e:
+    st.write("**Important**: Could not connect to sample API, so using dummy company name.")
+
+company_name = data[0]['Name']
+if company_name:
+    st.markdown(f"<h2>Job Postings for {company_name}</h2>", unsafe_allow_html=True)
+else:
+    st.markdown("<h2>Job Postings", unsafe_allow_html=True)
+
 # Fetch job postings data
 try:
     company_id = st.session_state['company_id']
