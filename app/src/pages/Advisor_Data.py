@@ -52,6 +52,8 @@ if data:
         labels={'avg_overall_score': 'Average Overall Score', 'PosTitle': 'CoopRole'}
     )
 
+    fig.update_traces(width=0.5)  # Adjust the bar width (default is usually smaller)
+
     # Customize the layout
     fig.update_layout(
         xaxis_title="Company",
