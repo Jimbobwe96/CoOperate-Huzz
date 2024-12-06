@@ -9,7 +9,6 @@ with col2:
         st.switch_page('pages/Advisor_Home.py')
 
 try:
-    position_id = 1
     response = requests.get('http://api:4000/c/company/positions/agg_data')
     if response.status_code == 200:
         data = response.json()  # Assuming the API returns a JSON list of reviews

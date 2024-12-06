@@ -5,31 +5,32 @@ logger = logging.getLogger(__name__)
 from streamlit_extras.app_logo import add_logo
 from modules.nav import SideBarLinks
 
+st.session_state['advisor_id'] = 1
 # Page configuration
-st.set_page_config(page_title="My Reviews", layout="wide")
+st.set_page_config(page_title="My Students", layout="wide")
+advisor_id = st.session_state['advisor_id']
 
 # Header
 # Create a two-column layout with the button on the far right
 col1, col2, col3 = st.columns([9, 1, 1])  # Adjust proportions as needed
 with col1:
-    st.markdown("# My Reviews")
+    st.markdown("# My Students")
 with col2:
-    if st.button('Add Review', 
+    if st.button('Add Student', 
                 type='secondary', 
                 use_container_width=False):
-        logger.info("Button maybe works")
         st.session_state['authenticated'] = True
-        st.session_state['role'] = 'student'
-        st.switch_page('pages/Add_Student_Review.py')
+        st.session_state['role'] = 'advisor'
+        st.switch_page('pages/Advisor_Add_Student_Form.py')
 with col3:
     if st.button('Back', 
                 type='secondary', 
                 use_container_width=False):
-        st.switch_page('pages/Student_All_Reviews.py')
+        st.switch_page('pages/Advisor_Home.py')
 
 # Fetch data from the API or use dummy data if the request fails
 try:
-    response = requests.get('http://api:4000/r/reviews')
+    response = requests.get(f'http://api:4000/s/students/{advisor_id}')
     if response.status_code == 200:
         data = response.json()  # Assuming the API returns a JSON list of reviews
     else:
@@ -61,66 +62,50 @@ except Exception as e:
             "Date": "2024-11-25"
         }
     ]
-# Filter reviews for Student_ID = 1
-filtered_data = [review for review in data if review.get("StudentID") == 1]
-
 # Display the filtered review
-if filtered_data:
-    # Assuming there's only one review for Student_ID = 1
-    review = filtered_data[0]
-    review_id = review.get('ReviewID', 'N/A')
-    company = review.get('Company', 'N/A')
-    title = review.get('Title', 'N/A')
-    culture = review.get('Culture', 'N/A')
-    satisfaction = review.get('Satisfaction', 'N/A')
-    compensation = review.get('Compensation', 'N/A')
-    learning_opportunity = review.get('LearningOpportunity', 'N/A')
-    work_life_balance = review.get('WorkLifeBalance', 'N/A')
-    summary = review.get('Summary', 'N/A')
-    date = review.get('Date', 'N/A')
+if data:
+    for student in data:
+        student_id = student.get('StudentID')
+        full_name = student.get('FirstName') + " " + student.get('LastName')
+        email = student.get('Email')
+        gpa = student.get('GPA')
+        major = student.get('Major')
+        cur_year = student.get('CurrentYear')
+        college = student.get('HomeCollege')
 
-    # Display the review content
-    st.markdown(
-            f"""
-            <div class="review-card">
-                <div class="review-header">
-                    <h2>{company}</h2>
-                    <h3>{title}</h3>
-                    <div class="review-date">{date}</div>
+        # Display the review content
+        st.markdown(
+                f"""
+                <div class="review-card">
+                    <div class="review-header">
+                        <h2>Student Info</h2>
+                    </div>
+                    <div class="student_info">
+                        <p><strong>Name: </strong> {student.get('FirstName') + " " + student.get('LastName')}</p>
+                        <p><strong>Major: </strong> {student.get('Major')}</p>
+                        <p><strong>Home College:</strong> {student.get('HomeCollege')}</p>
+                        <p><strong>GPA:</strong> {student.get('GPA')}</p>
+                        <p><strong>Current Year:</strong> {student.get('CurrentYear')}</p>
+                        <p><strong>Email:</strong> {student.get('Email')}</p>
+                    </div>
                 </div>
-                <div class="review-content">
-                    <p><strong>Culture:</strong> {culture}</p>
-                    <p><strong>Satisfaction:</strong> {satisfaction}</p>
-                    <p><strong>Compensation:</strong> {compensation}</p>
-                    <p><strong>Learning Opportunity:</strong> {learning_opportunity}</p>
-                    <p><strong>Work-Life Balance:</strong> {work_life_balance}</p>
-                    <p><strong>Summary:</strong> {summary}</p>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-else:
-    st.write("No reviews found for Student_ID = 1.")
-
+                """,
+                unsafe_allow_html=True
+            )
         
+        
+        if st.button(f"Remove Student: {student_id}"):
+            try:
+                response = requests.put(f'http://api:4000/s/students/{student["StudentID"]}/advisor/remove')
+                if response.status_code == 200:
+                    st.success("Student removed successfully!")
+                    st.rerun()
+                else:
+                    st.error(f"Error removing student: {response.text}")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Error connecting to server: {str(e)}")
+else:
+    st.write("No students found for this advisor")
         # Add action buttons below the review
-col1, col2 = st.columns([1, 1])
-with col1:
-            if st.button(f"Edit Review"):
-                st.session_state['passed_review_id'] = review_id
-                st.switch_page("pages/Edit_Review_Form.py")
-with col2:
-            if st.button(f"Delete Review "):
-                try:
-                    logger.info({review_id})
-                    response = requests.delete(f'http://api:4000/r/reviews/{student_id}/{position_id}]')
-                    if response.status_code == 200:
-                        st.success("Review deleted successfully!")
-                        st.rerun()
-                    else:
-                        st.error(f"Error deleting review: {response.text}")
-                except requests.exceptions.RequestException as e:
-                    st.error(f"Error connecting to server: {str(e)}")
-                st.write(f"Delete Review {review_id} clicked.")
+
 

@@ -193,7 +193,7 @@ if st.button("Act as a Student", key="student"):
 if st.button("Act as a Co-Op Advisor", key="advisor"):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'coop_advisor'
-    st.session_state['first_name'] = 'Mohammad'
+    st.session_state['advisor_id'] = 1
     st.switch_page('pages/Advisor_Home.py')
 
 if st.button("Act as a Company", key="company"):

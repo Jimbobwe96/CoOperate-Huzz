@@ -7,6 +7,7 @@ st.set_page_config(
     layout="wide"
 )
 
+st.session_state['advisor_id'] = 1
 # Apply custom CSS for stunning design
 st.markdown(
     """
@@ -199,6 +200,7 @@ with col2:
     )
 
 with col3:
+    st.session_state['advisor_id'] = 1
     st.markdown(
         """
         <div class="card">

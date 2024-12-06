@@ -52,7 +52,7 @@ def get_advisor_student(AdvisorID):
     query = f'''
         SELECT *
         FROM Students
-        WHERE StudentID = {str(AdvisorID)}
+        WHERE AdvisorID = {str(AdvisorID)}
     '''
     # get a cursor object from the database
     cursor = db.get_db().cursor()
@@ -72,6 +72,9 @@ def get_advisor_student(AdvisorID):
     response.status_code = 200
     # send the response back to the client
     return response
+
+#------------------------------------------------------------
+
 
 #------------------------------------------------------------
 # TODO
@@ -128,6 +131,53 @@ def get_student_advisor_info(studentID):
     # set the proper HTTP Status code of 200 (meaning all good)
     response.status_code = 200
     # send the response back to the client
+    return response
+
+#------------------------------------------------------------
+
+# returns all the advisor infomration to the given students advisor
+@students.route('/students/<studentID>/advisor/remove', methods=['PUT'])
+def remove_student_advisor(studentID):
+    query = f'''
+        UPDATE Students
+        SET AdvisorID = NULL
+        WHERE StudentID = {studentID}
+    '''
+    # Get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    cursor.execute(query)
+
+    db.get_db().commit()
+    
+    response = make_response("Successfully removed advisor")
+    response.status_code = 200
+    return response
+
+#------------------------------------------------------------
+
+# returns all the advisor infomration to the given students advisor
+@students.route('/students/advisor/<advisor_id>/add', methods=['PUT'])
+def add_student_advisor(advisor_id):
+    data = request.json
+
+    student_id = data.get('student_id')
+
+
+    query = f'''
+        UPDATE Students
+        SET AdvisorID = {advisor_id}
+        WHERE StudentID = {student_id}
+    '''
+    # Get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    cursor.execute(query)
+
+    db.get_db().commit()
+    
+    response = make_response("Successfully added advisor")
+    response.status_code = 200
     return response
 
 #------------------------------------------------------------
