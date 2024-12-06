@@ -5,10 +5,11 @@ import requests
 st.markdown("<h2>Job Postings</h2>", unsafe_allow_html=True)
 
 # Get company ID from session state
-company_id = st.session_state['company_id']
-
+# company_id = st.session_state['company_id']
+st.session_state['company_id'] = 1
 # Fetch job postings data
 try:
+    company_id = st.session_state['company_id']
     response = requests.get(f'http://api:4000/cr/coop_role/company/{company_id}')
     if response.status_code == 200:
         data = response.json()
