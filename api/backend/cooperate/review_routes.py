@@ -172,6 +172,41 @@ def del_by_reviewid(review_id):
     return response
 
 #------------------------------------------------------------
+# TODO
+@reviews.route('/reviews/student/<student_id>', methods=['GET'])
+def get_reviews_for_student(student_id):
+    query = f'''
+        SELECT *,
+        c.Name 'Company',
+        cr.Title 'Role'
+        FROM Reviews `r` 
+        JOIN CoopRole `cr` ON r.PositionID = cr.PositionID
+        JOIN Company `c` ON cr.CompanyID = c.CompanyID
+        WHERE r.StudentID = {student_id}
+    '''
+    
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    # use cursor to query the database for a list of products
+    cursor.execute(query)
+
+    # fetch all the data from the cursor
+    # The cursor will return the data as a 
+    # Python Dictionary
+    theData = cursor.fetchall()
+
+    # Create a HTTP Response object and add results of the query to it
+    # after "jasonify"-ing it.
+    response = make_response(jsonify(theData))
+    # set the proper HTTP Status code of 200 (meaning all good)
+    response.status_code = 200
+    # send the response back to the client
+    return response
+
+
+
+#------------------------------------------------------------
 @reviews.route('/reviews/<positionID>', methods=['GET'])
 def get_position_reviews(positionID):
     query = f'''
