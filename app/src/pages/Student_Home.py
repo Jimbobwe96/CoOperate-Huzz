@@ -167,11 +167,12 @@ if isinstance(data, list):
 # Divider
 st.markdown("<hr style='border: 1px solid #ffffff; margin: 20px 0;'>", unsafe_allow_html=True)
 
-# Footer with "See Co-op List" button
+# Footer with buttons aligned horizontally
 st.markdown(
     """
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="/Student_Coop_List" target="_self" class="coop-button">See Co-op List</a>
+    <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+        <a href="/Student_Coop_List" target="_self" class="coop-button">Saved Co-op List</a>
+        <a href="/Student_All_Reviews" target="_self" class="coop-button">View All Reviews →</a>
     </div>
     """,
     unsafe_allow_html=True,
