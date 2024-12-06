@@ -110,7 +110,7 @@ else:
 st.markdown(
     """
     <div style="text-align: center;">
-        <a href="/" class="back-button">← Back</a>
+        <a href="/Student_Home" target="_self" class="back-button">← Back</a>
     </div>
     """,
     unsafe_allow_html=True,

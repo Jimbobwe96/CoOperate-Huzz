@@ -21,7 +21,7 @@ with st.form("add_review_form"):
     city = st.text_input("City")
     country = st.text_input("Country")
     pay = st.number_input("Compensation", min_value=0)
-    required_gpa = st.number_input("Required GPA", min_value=0, max_value=4)
+    required_gpa = st.number_input("Required GPA", min_value=0.00, max_value=4.00)
     # Notice here, we are using a selectbox widget.  The options for the 
     # select are provided with the 'options' parameter.
     # product_category = st.selectbox("Product Category", options=category_options, index=0)
