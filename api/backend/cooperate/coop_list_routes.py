@@ -8,12 +8,12 @@ from backend.db_connection import db
 #------------------------------------------------------------
 # Create a new Blueprint object, which is a collection of 
 # routes.
-coopList = Blueprint('coopList', __name__)
+coop_list = Blueprint('coop_list', __name__)
 
 #------------------------------------------------------------
 
 # returns all of the previous students and their stats that have had a given position 
-@coopList.route('/coopList/<PositionID>', methods=['GET'])
+@coop_list.route('/coop_list/<PositionID>', methods=['GET'])
 def get_student_reviews(positionID):
     query = f'''
         SELECT *
@@ -38,4 +38,29 @@ def get_student_reviews(positionID):
     # set the proper HTTP Status code of 200 (meaning all good)
     response.status_code = 200
     # send the response back to the client
+    return response
+
+#------------------------------------------------------------
+# returns all of the previous students and their stats that have had a given position 
+@coop_list.route('/coop_list/student/<student_id>', methods=['POST'])
+def add_role_to_student_list(student_id):
+    data = request.json
+
+    company_id = data.get('company_id')
+    position_id = data.get('position_id')
+
+    query = f'''
+        INSERT INTO CoopList (StudentID, CompanyID, PositionID)
+        VALUES ('{student_id}', '{company_id}', '{position_id}')
+    '''
+    
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    cursor.execute(query)
+
+    db.get_db().commit()
+    
+    response = make_response("Successfully added position to student's list")
+    response.status_code = 200
     return response

@@ -44,13 +44,18 @@ if data:
 
     # Filter data based on the selected companies
     filtered_df = df[df['Company'].isin(selected_companies)]
+    filtered_df = filtered_df.rename(columns={
+        "Company": "Company",
+        "PosTitle": "Role",
+        "avg_overall_score": "Rating"
+    })
 
     # Plot grouped bar chart for the selected companies
     fig = px.bar(
         filtered_df,
         x='Company',
-        y='avg_overall_score',
-        color='PosTitle',
+        y='Rating',
+        color='Role',
         barmode='group',
         title="Average Overall Scores by Company and CoopRole",
         labels={'avg_overall_score': 'Average Overall Score', 'PosTitle': 'CoopRole'}

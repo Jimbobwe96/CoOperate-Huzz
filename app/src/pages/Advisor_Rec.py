@@ -128,7 +128,7 @@ with col2:
             f_pay = role["pay"]
             f_req_gpa = role["req_gpa"]
 
-            colcr, colb = st.columns([3,1])
+            colcr, colb = st.columns([2,1])
             with colcr:
                 st.markdown(
                         f"""
@@ -157,14 +157,15 @@ with col2:
                             st.error("Please select a student")
                         else:
                             data = {
-                                "student_id": selected_student_id,
                                 "position_id": f_position_id,
                                 "company_id": f_company_id
                             }
                             try:
-                                response = requests.put("http://api:4000/s/recommend", json=data)
+                                response = requests.post(f"http://api:4000/cl/coop_list/student/{selected_student_id}", json=data)
                                 if response.status_code == 200:
                                     st.success("Recommendation successfully recorded!")
+                                elif response.status_code == 500:
+                                    st.error("Student already has this job on their Co-op List!")
                                 else:
                                     st.error(f"Failed to recommend. Server responded with status {response.status_code}.")
                             except Exception as e:
@@ -174,21 +175,3 @@ with col2:
         selected_position_id = None
 
 st.write("---")
-
-# --- Recommend Button ---
-if st.button("Recommend to Student"):
-    if not selected_student_id or not selected_position_id:
-        st.error("Please select both a student and a CoopRole.")
-    else:
-        payload = {
-            "student_id": selected_student_id,
-            "position_id": selected_position_id
-        }
-        try:
-            put_response = requests.put("http://api:4000/s/recommend", json=payload)
-            if put_response.status_code == 200:
-                st.success("Recommendation successfully recorded!")
-            else:
-                st.error(f"Failed to recommend. Server responded with status {put_response.status_code}.")
-        except Exception as e:
-            st.error(f"Error sending request: {e}")

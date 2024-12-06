@@ -110,7 +110,7 @@ CREATE TABLE CoopList
     PositionID INT NOT NULL,
     appliedStatus BOOLEAN NOT NULL DEFAULT FALSE,
     acceptedStatus BOOLEAN NOT NULL DEFAULT FALSE,
-    appliedGPA FLOAT CHECK (appliedGPA BETWEEN 1 AND 10),
+    appliedGPA FLOAT CHECK (appliedGPA BETWEEN 1.0 AND 4.0),
     prevExpCount INT,
     PRIMARY KEY (StudentID, CompanyID, PositionID),
     FOREIGN KEY (StudentID) REFERENCES Students (StudentID)
