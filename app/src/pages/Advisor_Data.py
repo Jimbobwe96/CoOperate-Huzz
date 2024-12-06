@@ -1,10 +1,11 @@
 import requests
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 
 try:
     position_id = 1
-    response = requests.get(f'http://api:4000/cr/coop_role/{str(position_id)}')
+    response = requests.get('http://api:4000/c/company/positions/agg_data')
     if response.status_code == 200:
         data = response.json()  # Assuming the API returns a JSON list of reviews
     else:
@@ -18,19 +19,52 @@ except Exception as e:
          "Compensation": 2, "Learning": 2, "Work Life Balance": 1},
     ]
 
+
 # Aggregate the data for bar chart
 if data:
-    # Convert the list of dictionaries to a DataFrame
+    # Convert to DataFrame
     df = pd.DataFrame(data)
-    
-    # Select only numeric columns for bar chart
-    numeric_columns = ["Culture", "Satisfaction", "Compensation", "Learning", "Work Life Balance"]
-    
-    # Aggregate the data for the bar chart
-    bar_chart_data = df[numeric_columns].mean().reset_index()
-    bar_chart_data.columns = ["Category", "Average Rating"]
-    
-    # Plot the bar chart
-    st.bar_chart(bar_chart_data.set_index("Category"))
-else:
-    st.write("No data available to display.")
+
+    # Get unique companies
+    company_options = df['Company'].unique().tolist()
+
+    # Default selection: First 5 companies or any arbitrary selection
+    default_selection = company_options[:5]  # Select the first 5 companies
+
+    # Multiselect for filtering
+    selected_companies = st.multiselect(
+        "Select Companies:",
+        options=company_options,
+        default=default_selection  # Default to first 5 companies
+    )
+
+    # Filter data based on the selected companies
+    filtered_df = df[df['Company'].isin(selected_companies)]
+
+    # Plot grouped bar chart for the selected companies
+    fig = px.bar(
+        filtered_df,
+        x='Company',
+        y='avg_overall_score',
+        color='PosTitle',
+        barmode='group',
+        title="Average Overall Scores by Company and CoopRole",
+        labels={'avg_overall_score': 'Average Overall Score', 'PosTitle': 'CoopRole'}
+    )
+
+    # Customize the layout
+    fig.update_layout(
+        xaxis_title="Company",
+        yaxis_title="Average Overall Score",
+        legend_title="CoopRole",
+        xaxis_tickangle=-45,
+        width=1200,
+        height=700
+    )
+
+    # Display chart in Streamlit
+    st.plotly_chart(fig)
+
+    # Display filtered table for additional clarity (optional)
+    st.write("Filtered Table Representation")
+    st.dataframe(filtered_df)
