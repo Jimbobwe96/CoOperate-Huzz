@@ -167,3 +167,11 @@ with col2:
                 st.switch_page('pages/Job_Posting.py')        
     else:
         st.write("No data available to display.")
+
+    st.write("   ")
+
+    if st.button('Add Co-op', 
+                type='secondary', 
+                use_container_width=False):
+        st.session_state['authenticated'] = True
+        st.switch_page('pages/Add_Job.py')
