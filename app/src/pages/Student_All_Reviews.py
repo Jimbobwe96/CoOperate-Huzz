@@ -182,22 +182,24 @@ except Exception as e:
     st.warning("**Important**: Could not connect to the sample API, so using dummy data.")
     data = [
         {
-            "ReviewID": "1",
-            "Culture": "Friendly",
-            "Satisfaction": "High",
-            "Compensation": "Fair",
-            "LearningOpportunity": "Abundant",
-            "WorkLifeBalance": "Excellent",
+            "Company": "John Inc",
+            "Title": "John",
+            "Culture": 2,
+            "Satisfaction": 2,
+            "Compensation": 2,
+            "LearningOpportunity": 2,
+            "WorkLifeBalance": 2,
             "Summary": "Great experience",
             "Date": "2024-12-05"
         },
         {
-            "ReviewID": "2",
-            "Culture": "Challenging",
-            "Satisfaction": "Medium",
-            "Compensation": "Good",
-            "LearningOpportunity": "Moderate",
-            "WorkLifeBalance": "Balanced",
+            "Company": "Samuel Inc",
+            "Title": "Sam",
+            "Culture": 2,
+            "Satisfaction": 5,
+            "Compensation": 5,
+            "LearningOpportunity": 5,
+            "WorkLifeBalance": 5,
             "Summary": "Good learning curve",
             "Date": "2024-11-25"
         }
@@ -206,7 +208,8 @@ except Exception as e:
 # Display reviews from the data fetched
 if isinstance(data, list) and data:
     for review in data:
-        review_id = review.get('ReviewID', 'N/A')
+        company = review.get('Company', 'N/A')
+        title = review.get('Title', 'N/A')
         culture = review.get('Culture', 'N/A')
         satisfaction = review.get('Satisfaction', 'N/A')
         compensation = review.get('Compensation', 'N/A')
@@ -220,7 +223,8 @@ if isinstance(data, list) and data:
             f"""
             <div class="review-card">
                 <div class="review-header">
-                    <h2>Review ID: {review_id}</h2>
+                    <h2>{company}</h2>
+                    <h3>{title}</h3>
                     <div class="review-date">{date}</div>
                 </div>
                 <div class="review-content">

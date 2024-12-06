@@ -147,9 +147,6 @@ def log_update_approved(CompanyID):
 
     # use cursor to query the database for a list of products
     cursor.execute(query)
-
-    cursor = db.get_db().cursor()
-    cursor.execute(query)
     db.get_db().commit()
     
     response = make_response("Successfully logged action")

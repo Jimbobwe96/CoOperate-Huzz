@@ -36,14 +36,30 @@ try:
         st.error(f"Error fetching data from API: {response.status_code}")
         data = []
 except Exception as e:
-    st.write("**Important**: Could not connect to sample API, so using dummy data.")
+    st.warning("**Important**: Could not connect to the sample API, so using dummy data.")
     data = [
-        {"ReviewID": "123", "Date": "2024-01-01", "Culture": "Positive", "Satisfaction": "High",
-         "Compensation": "Fair", "LearningOpportunity": "Good", "WorkLifeBalance": "Excellent",
-         "Summary": "Great experience", "PositionID": "P123", "Student_ID": 1},
-        {"ReviewID": "456", "Date": "2024-02-01", "Culture": "Negative", "Satisfaction": "Low",
-         "Compensation": "Poor", "LearningOpportunity": "Limited", "WorkLifeBalance": "Bad",
-         "Summary": "Challenging experience", "PositionID": "P456", "Student_ID": 2}
+        {
+            "Company": "John Inc",
+            "Title": "John",
+            "Culture": 2,
+            "Satisfaction": 2,
+            "Compensation": 2,
+            "LearningOpportunity": 2,
+            "WorkLifeBalance": 2,
+            "Summary": "Great experience",
+            "Date": "2024-12-05"
+        },
+        {
+            "Company": "Samuel Inc",
+            "Title": "Sam",
+            "Culture": 2,
+            "Satisfaction": 5,
+            "Compensation": 5,
+            "LearningOpportunity": 5,
+            "WorkLifeBalance": 5,
+            "Summary": "Good learning curve",
+            "Date": "2024-11-25"
+        }
     ]
 # Filter reviews for Student_ID = 1
 filtered_data = [review for review in data if review.get("StudentID") == 1]
@@ -53,41 +69,37 @@ if filtered_data:
     # Assuming there's only one review for Student_ID = 1
     review = filtered_data[0]
     review_id = review.get('ReviewID', 'N/A')
-    date = review.get('Date', 'N/A')
+    company = review.get('Company', 'N/A')
+    title = review.get('Title', 'N/A')
     culture = review.get('Culture', 'N/A')
     satisfaction = review.get('Satisfaction', 'N/A')
     compensation = review.get('Compensation', 'N/A')
     learning_opportunity = review.get('LearningOpportunity', 'N/A')
     work_life_balance = review.get('WorkLifeBalance', 'N/A')
     summary = review.get('Summary', 'N/A')
-    position_id = review.get('PositionID', 'N/A')
+    date = review.get('Date', 'N/A')
 
     # Display the review content
     st.markdown(
-        f"""
-        <div style="
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px auto; 
-            background-color: #f9f9f9;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        ">
-            <div style="position: absolute; top: 10px; right: 15px; font-size: 14px; color: #555;">
-                <strong>{date}</strong>
+            f"""
+            <div class="review-card">
+                <div class="review-header">
+                    <h2>{company}</h2>
+                    <h3>{title}</h3>
+                    <div class="review-date">{date}</div>
+                </div>
+                <div class="review-content">
+                    <p><strong>Culture:</strong> {culture}</p>
+                    <p><strong>Satisfaction:</strong> {satisfaction}</p>
+                    <p><strong>Compensation:</strong> {compensation}</p>
+                    <p><strong>Learning Opportunity:</strong> {learning_opportunity}</p>
+                    <p><strong>Work-Life Balance:</strong> {work_life_balance}</p>
+                    <p><strong>Summary:</strong> {summary}</p>
+                </div>
             </div>
-            <h4 style="margin: 0; font-size: 20px;">Review ID: {review_id}</h4>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Culture:</strong> {culture}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Satisfaction:</strong> {satisfaction}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Compensation:</strong> {compensation}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Learning Opportunity:</strong> {learning_opportunity}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Work-Life Balance:</strong> {work_life_balance}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Summary:</strong> {summary}</p>
-            <p style="font-size: 16px; margin: 10px 0 0 0;"><strong>Position ID:</strong> {position_id}</p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+            """,
+            unsafe_allow_html=True
+        )
 else:
     st.write("No reviews found for Student_ID = 1.")
 
