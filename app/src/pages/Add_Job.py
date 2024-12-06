@@ -4,6 +4,8 @@ import streamlit as st
 from modules.nav import SideBarLinks
 import requests
 
+st.session_state['company_id'] = 1
+
 st.set_page_config(layout = 'wide')
 
 st.title('Add New Co-op')
