@@ -75,15 +75,6 @@ st.markdown(
         transform: scale(1.05);
     }
 
-    /* Table styling */
-    .custom-table {
-        margin-top: 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
-    }
     </style>
     """,
     unsafe_allow_html=True,
