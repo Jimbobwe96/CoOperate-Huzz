@@ -47,7 +47,7 @@ def get_students():
 
 #------------------------------------------------------------
 # TODO
-@students.route('/students/<AdvisorID>', methods=['GET'])
+@students.route('/students/advisor/<AdvisorID>', methods=['GET'])
 def get_advisor_student(AdvisorID):
     query = f'''
         SELECT *

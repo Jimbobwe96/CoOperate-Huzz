@@ -188,12 +188,13 @@ with col1:
 
 # Card 2: Compatibility Assessment
 with col2:
+    st.session_state['advisor_id'] = 1
     st.markdown(
         """
         <div class="card">
             <h3>Recommend Co-ops</h3>
             <p>Pick Any of Your Students and Recommend Co-ops to Them!</p>
-            <a href="Advisor_Rec" target="_self" class="button">Recommend</a>
+            <a href="/Advisor_Rec" target="_self" class="button">Recommend</a>
         </div>
         """,
         unsafe_allow_html=True,

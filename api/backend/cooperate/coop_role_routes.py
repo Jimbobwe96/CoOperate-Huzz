@@ -8,7 +8,7 @@ from backend.db_connection import db
 #------------------------------------------------------------
 # Create a new Blueprint object, which is a collection of 
 # routes.
-coop_role = Blueprint('coop-role', __name__)
+coop_role = Blueprint('coop_role', __name__)
 
 #------------------------------------------------------------
 
@@ -16,14 +16,16 @@ coop_role = Blueprint('coop-role', __name__)
 @coop_role.route('/coop_role', methods=['GET'])
 def get_coop_role():
     query = '''
-        SELECT  Name, 
-                Title, 
-                City, 
-                Country, 
-                Pay,
-                RequiredGPA,
-                Email 
-        FROM Students JOIN Company
+        SELECT
+            c.Name 'Company',
+            c.CompanyID 'CompanyID',
+            cr.Title 'Role',
+            CONCAT(cr.City, ', ', cr.Country) 'Location',
+            cr.Pay 'Pay',
+            cr.RequiredGPA 'Required GPA',
+            cr.PositionID 'PositionID'
+        FROM Company `c`
+        JOIN CoopRole `cr` ON c.CompanyID = cr.CompanyID
     '''
     
     # get a cursor object from the database

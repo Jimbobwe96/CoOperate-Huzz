@@ -30,7 +30,7 @@ with col3:
 
 # Fetch data from the API or use dummy data if the request fails
 try:
-    response = requests.get(f'http://api:4000/s/students/{advisor_id}')
+    response = requests.get(f'http://api:4000/s/students/advisor/{advisor_id}')
     if response.status_code == 200:
         data = response.json()  # Assuming the API returns a JSON list of reviews
     else:
