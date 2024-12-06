@@ -13,8 +13,11 @@ reviews = Blueprint('reviews', __name__)
 @reviews.route('/reviews', methods=['GET'])
 def get_reviews():
     query = '''
-        SELECT *
-        FROM Reviews
+        SELECT *, 
+        c.Name 'Company',
+        cr.Title 'Role'
+        FROM Reviews `r` JOIN CoopRole `cr` ON r.PositionID = cr.PositionID
+                       JOIN Company `c` ON cr.CompanyID = c.CompanyID
     '''
     
     # get a cursor object from the database
