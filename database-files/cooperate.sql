@@ -112,7 +112,7 @@ CREATE TABLE CoopList
     acceptedStatus BOOLEAN NOT NULL DEFAULT FALSE,
     appliedGPA FLOAT CHECK (appliedGPA BETWEEN 1.0 AND 4.0),
     prevExpCount INT,
-    PRIMARY KEY (StudentID, CompanyID, PositionID),
+    PRIMARY KEY (StudentID, PositionID),
     FOREIGN KEY (StudentID) REFERENCES Students (StudentID)
         ON DELETE CASCADE,
     FOREIGN KEY (CompanyID) REFERENCES Company (CompanyID)

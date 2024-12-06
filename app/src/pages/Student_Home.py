@@ -89,6 +89,27 @@ st.markdown(
     .footer-link:hover {
         color: #fbc2eb;
     }
+
+    /* Co-op button */
+    .coop-button {
+        display: inline-block;
+        padding: 15px 30px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #ffffff;
+        font-weight: bold;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid #ffffff;
+        border-radius: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .coop-button:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: scale(1.05);
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -116,69 +137,41 @@ with header_col3:
 # Divider
 st.markdown("<hr style='border: 1px solid #ffffff; margin: 20px 0;'>", unsafe_allow_html=True)
 
-# Main content for the Home page
-col_left, col_right = st.columns([2, 1])
-
-# Left column: Static image
-with col_left:
-    st.image(
-        "https://static1.gensler.com/uploads/hero_element/20772/thumb_desktop/thumbs/221201_US-Workplace-Survey_1_1669939238_1024x576.jpg",
-        use_container_width=True,
-        caption="Helping Students Find Great Co-Ops!",
-    )
-
 # Right column: Featured Reviews
-with col_right:
-    st.markdown("<h3 style='text-align: center;'>Featured Reviews</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Featured Reviews</h3>", unsafe_allow_html=True)
 
-    # Fetch data from the API or use dummy data if the request fails
-    try:
-        data = requests.get('http://api:4000/r/reviews').json()
-    except:
-        st.write("**Important**: Could not connect to sample API, so using dummy data.")
-        data = [
-            {"ReviewID": "1", "Summary": "Great learning environment!"},
-            {"ReviewID": "2", "Summary": "Supportive team and good work-life balance."},
-            {"ReviewID": "3", "Summary": "Excellent mentorship opportunities."},
-        ]
+# Fetch data from the API or use dummy data if the request fails
+try:
+    data = requests.get('http://api:4000/r/reviews').json()
+except:
+    st.write("**Important**: Could not connect to sample API, so using dummy data.")
+    data = [
+        {"ReviewID": "1", "Summary": "Great learning environment!"},
+        {"ReviewID": "2", "Summary": "Supportive team and good work-life balance."},
+        {"ReviewID": "3", "Summary": "Excellent mentorship opportunities."},
+    ]
 
-    # Display reviews in a formatted way
-    if isinstance(data, list):
-        for review in data[:3]:  # Show only the first 3 reviews
-            st.markdown(
-                f"""
-                <div class="review-card">
-                    <h4>Review {review.get('ReviewID', 'N/A')}</h4>
-                    <p>{review.get('Summary', 'N/A')}</p>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+# Display reviews in a formatted way
+if isinstance(data, list):
+    for review in data[:3]:  # Show only the first 3 reviews
+        st.markdown(
+            f"""
+            <div class="review-card">
+                <h4>Review {review.get('ReviewID', 'N/A')}</h4>
+                <p>{review.get('Summary', 'N/A')}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-# Footer with "All Reviews" link
+# Divider
 st.markdown("<hr style='border: 1px solid #ffffff; margin: 20px 0;'>", unsafe_allow_html=True)
+
+# Footer with "See Co-op List" button
 st.markdown(
     """
-    <div style="
-        text-align: center; 
-        margin-top: 20px;
-    ">
-        <a href="/Student_All_Reviews" target="_self" style="
-            display: inline-block;
-            padding: 15px 30px;
-            text-decoration: none;
-            font-size: 20px;
-            color: #ffffff;
-            font-weight: bold;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid #ffffff;
-            border-radius: 10px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-        ">
-            View All Reviews →
-        </a>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/Student_Coop_List" target="_self" class="coop-button">See Co-op List</a>
     </div>
     """,
     unsafe_allow_html=True,
