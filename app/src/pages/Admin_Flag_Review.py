@@ -158,7 +158,7 @@ if isinstance(data, list):
                 response = requests.put(f'http://api:4000/r/reviews/{review["ReviewID"]}/admin/{admin_id}/approve')
                 if response.status_code == 200:
                     st.success("Review approved!")
-                    st.experimental_rerun()
+                    st.rerun()
                 else:
                     st.error(f"Error approving review: {response.text}")
             except requests.exceptions.RequestException as e:

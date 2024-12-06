@@ -17,7 +17,7 @@ with col3:
     if st.button('Back', 
                 type='secondary', 
                 use_container_width=False):
-        st.switch_page('pages/Company_Home.py')
+        st.switch_page('pages/Company_Job_Postings.py')
 
 
 
