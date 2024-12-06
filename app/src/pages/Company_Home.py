@@ -162,7 +162,7 @@ with col2:
                 """,
                 unsafe_allow_html=True
             )
-            if st.button(f"View Reviews for {role}", key=f"view_reviews_{role}"):
+            if st.button(f"View Reviews for {position_id}", key=f"view_reviews_{role}"):
                 st.session_state['passed_position_id'] = position_id
                 st.switch_page('pages/Job_Posting.py')        
     else:
