@@ -48,7 +48,7 @@ st.markdown(
     }
     .header h1 {
         font-size: 2.5rem;
-        color: #ffffff;
+        color: #000000;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         margin: 0;
     }
@@ -61,7 +61,7 @@ st.markdown(
     .custom-buttons > button {
         background: rgba(255, 255, 255, 0.2);
         border: 1px solid rgba(255, 255, 255, 0.4);
-        color: #ffffff;
+        color: #000000;
         padding: 12px 24px;
         border-radius: 10px;
         cursor: pointer;
@@ -102,20 +102,20 @@ st.markdown(
     .review-header h2 {
         margin: 0;
         font-size: 1.5rem;
-        color: #ffffff;
+        color: #000000;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
     .review-date {
         font-size: 0.9rem;
-        color: #dddddd;
+        color: #000000;
     }
     .review-content p {
         margin: 5px 0;
         font-size: 1rem;
-        color: #f0f0f0;
+        color: #000000;
     }
     .review-content p strong {
-        color: #ffffff;
+        color: #000000;
     }
 
     /* Button Styling Override for Streamlit Buttons */

@@ -161,7 +161,7 @@ with header_col1:
 
 with header_col2:
     # Streamlit's button for Sign Out
-    if st.button("Sign Out 🔓"):
+    if st.button("Sign Out"):
         sign_out()
 
 # Main Content Section with Admin Tools

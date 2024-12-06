@@ -61,6 +61,7 @@ except Exception as e:
             "Date": "2024-11-25"
         }
     ]
+
 # Filter reviews for Student_ID = 1
 filtered_data = [review for review in data if review.get("StudentID") == 1]
 
@@ -79,48 +80,45 @@ if filtered_data:
     summary = review.get('Summary', 'N/A')
     date = review.get('Date', 'N/A')
 
-    # Display the review content
+    # Display the review content in a box with the date on the top right
     st.markdown(
-            f"""
-            <div class="review-card">
-                <div class="review-header">
-                    <h2>{company}</h2>
-                    <h3>{title}</h3>
-                    <div class="review-date">{date}</div>
-                </div>
-                <div class="review-content">
-                    <p><strong>Culture:</strong> {culture}</p>
-                    <p><strong>Satisfaction:</strong> {satisfaction}</p>
-                    <p><strong>Compensation:</strong> {compensation}</p>
-                    <p><strong>Learning Opportunity:</strong> {learning_opportunity}</p>
-                    <p><strong>Work-Life Balance:</strong> {work_life_balance}</p>
-                    <p><strong>Summary:</strong> {summary}</p>
-                </div>
+        f"""
+        <div style="border: 1px solid #ccc; padding: 16px; border-radius: 8px; position: relative;">
+            <div style="position: absolute; top: 8px; right: 16px; color: #666; font-size: 14px;">{date}</div>
+            <h2 style="margin: 0;">{company}</h2>
+            <h3 style="margin: 0; color: #555;">{title}</h3>
+            <div style="margin-top: 16px;">
+                <p><strong>Culture:</strong> {culture}</p>
+                <p><strong>Satisfaction:</strong> {satisfaction}</p>
+                <p><strong>Compensation:</strong> {compensation}</p>
+                <p><strong>Learning Opportunity:</strong> {learning_opportunity}</p>
+                <p><strong>Work-Life Balance:</strong> {work_life_balance}</p>
+                <p><strong>Summary:</strong> {summary}</p>
             </div>
-            """,
-            unsafe_allow_html=True
-        )
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 else:
     st.write("No reviews found for Student_ID = 1.")
 
-        
-        # Add action buttons below the review
+st.write('   ')
+# Add action buttons below the review
 col1, col2 = st.columns([1, 1])
 with col1:
-            if st.button(f"Edit Review"):
-                st.session_state['passed_review_id'] = review_id
-                st.switch_page("pages/Edit_Review_Form.py")
+    if st.button(f"Edit Review"):
+        st.session_state['passed_review_id'] = review_id
+        st.switch_page("pages/Edit_Review_Form.py")
 with col2:
-            if st.button(f"Delete Review "):
-                try:
-                    logger.info({review_id})
-                    response = requests.delete(f'http://api:4000/r/reviews/{student_id}/{position_id}]')
-                    if response.status_code == 200:
-                        st.success("Review deleted successfully!")
-                        st.rerun()
-                    else:
-                        st.error(f"Error deleting review: {response.text}")
-                except requests.exceptions.RequestException as e:
-                    st.error(f"Error connecting to server: {str(e)}")
-                st.write(f"Delete Review {review_id} clicked.")
-
+    if st.button(f"Delete Review"):
+        try:
+            logger.info({review_id})
+            response = requests.delete(f'http://api:4000/r/reviews/{student_id}/{position_id}')
+            if response.status_code == 200:
+                st.success("Review deleted successfully!")
+                st.rerun()
+            else:
+                st.error(f"Error deleting review: {response.text}")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Error connecting to server: {str(e)}")
+        st.write(f"Delete Review {review_id} clicked.")

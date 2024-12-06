@@ -75,6 +75,64 @@ def get_company(companyID):
     return response
 
 #------------------------------------------------------------
+# update a given company's information
+@company.route('/company/<companyID>', methods=['PUT'])
+def update_company(companyID):
+    data = request.json
+    print(data)
+    
+    # Validate required fields are present
+    required_fields = ['name', 'headquarters', 'industry', 'size']
+    for field in required_fields:
+        if field not in data:  # Changed from content to data
+            response = make_response(jsonify({"message": f"Missing required field: {field}"}))
+            response.status_code = 400
+            return response
+    
+    # Validate size is one of the allowed values
+    if data['size'] not in ['S', 'M', 'L']:  # Changed from content to data
+        response = make_response(jsonify({"message": "Size must be 'S', 'M', or 'L'"}))
+        response.status_code = 400
+        return response
+
+    company_name = data['name']
+    company_hq = data['headquarters']
+    company_industry = data['industry']
+    company_size = data['size']
+    
+    # Query using direct string interpolation since we're not concerned about SQL injection
+    query = f'''
+        UPDATE Company 
+        SET Name = '{company_name}',
+            Headquarters = '{company_hq}',
+            Industry = '{company_industry}',
+            Size = '{company_size}'
+        WHERE CompanyID = {companyID}
+    '''
+    
+    cursor = db.get_db().cursor()
+    try:
+        # Execute query directly without parameters since we're using f-string
+        cursor.execute(query)
+        
+        db.get_db().commit()
+        
+        if cursor.rowcount == 0:
+            response = make_response(jsonify({"message": f"No company found with ID {companyID}"}))
+            response.status_code = 404
+            return response
+        
+        response = make_response(jsonify({"message": "Company updated successfully"}))
+        response.status_code = 200
+        return response
+        
+    except Exception as e:
+        current_app.logger.error('Error updating company: %s', str(e))
+        response = make_response(jsonify({"message": "Error updating company"}))
+        response.status_code = 500
+        return response
+    finally:
+        cursor.close()
 
 #------------------------------------------------------------
 # returns the aggregated average scores for each company with each of their positions

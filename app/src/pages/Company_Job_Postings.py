@@ -5,6 +5,12 @@ import requests
 # company_id = st.session_state['company_id']
 st.session_state['company_id'] = 1
 
+
+col1, col2 = st.columns([8, 1])
+with col2:
+    if st.button("Back"):
+        st.switch_page('pages/Company_Home.py')
+
 # Fetch company name
 try:
     company_id = st.session_state['company_id']
