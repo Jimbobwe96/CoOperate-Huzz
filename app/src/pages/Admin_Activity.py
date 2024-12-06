@@ -28,7 +28,7 @@ st.markdown(
         background-size: 400% 400%;
         animation: gradientAnimation 15s ease infinite;
         font-family: 'Poppins', sans-serif;
-        color: #ffffff;
+        color: #000000;
     }
 
     @keyframes gradientAnimation {
