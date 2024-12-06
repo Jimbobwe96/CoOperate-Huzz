@@ -62,7 +62,7 @@ st.markdown(
     ">
         <h2 style="margin-bottom: 5px;">{first_name} {last_name}</h2>
         <p style="margin: 0;"><strong>Major:</strong> {major}</p>
-        <p style="margin: 0;"><strong>Current Year:</strong> Year {current_year}</p>
+        <p style="margin: 0;"><strong>Current Year:</strong> {current_year}</p>
         <p style="margin: 0;"><strong>GPA:</strong> {gpa}</p>
         <p style="margin: 0;"><strong>Home College:</strong> {home_college}</p>
     </div>
@@ -164,10 +164,10 @@ if exp:
                 background-color: #f9f9f9;
                 box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
             ">
-                <p style="margin: 0;"><strong>Company:</strong> Year {company}</p>
-                <p style="margin: 0;"><strong>Job Title:</strong> Year {title}</p>
+                <p style="margin: 0;"><strong>Company:</strong> {company}</p>
+                <p style="margin: 0;"><strong>Job Title:</strong> {title}</p>
                 <p style="margin: 0;"><strong>Industry:</strong> {industry}</p>
-                <p style="margin: 0;"><strong>Started:</strong> Year {start_time}</p>
+                <p style="margin: 0;"><strong>Started:</strong> {start_time}</p>
                 <p style="margin: 0;"><strong>Ended:</strong> {end_time}</p>
             </div>
             """,
