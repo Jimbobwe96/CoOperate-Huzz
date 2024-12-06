@@ -137,51 +137,55 @@ with header_col3:
 # Divider
 st.markdown("<hr style='border: 1px solid #ffffff; margin: 20px 0;'>", unsafe_allow_html=True)
 
-# Display a large image at the top
-st.image(
-    "https://bpb-us-e1.wpmucdn.com/sites.northeastern.edu/dist/c/979/files/2022/05/2x3-campus-feature-42.jpg",
-    # "https://news.northeastern.edu/wp-content/uploads/2024/09/feature_library.jpg",  # Replace with your image URL
-    caption="Explore Opportunities",
-    use_container_width=True
-)
+col1, col2 = st.columns([1, 1])
 
-# Right column: Featured Reviews
-st.markdown("<h3 style='text-align: center;'>Featured Reviews</h3>", unsafe_allow_html=True)
+with col1:
+    # Display a large image at the top
+    st.image(
+        "https://bpb-us-e1.wpmucdn.com/sites.northeastern.edu/dist/c/979/files/2022/05/2x3-campus-feature-42.jpg",
+        caption="Explore Opportunities",
+        use_container_width=True
+    )
 
-# Fetch data from the API or use dummy data if the request fails
-try:
-    data = requests.get('http://api:4000/r/reviews').json()
-except:
-    st.write("**Important**: Could not connect to sample API, so using dummy data.")
-    data = [
-        {"ReviewID": "1", "Summary": "Great learning environment!"},
-        {"ReviewID": "2", "Summary": "Supportive team and good work-life balance."},
-        {"ReviewID": "3", "Summary": "Excellent mentorship opportunities."},
-    ]
 
-# Display reviews in a formatted way
-if isinstance(data, list):
-    for review in data[:3]:  # Show only the first 3 reviews
-        st.markdown(
-            f"""
-            <div class="review-card">
-                <h4>Review {review.get('ReviewID', 'N/A')}</h4>
-                <p>{review.get('Summary', 'N/A')}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+with col2:
+    # Right column: Featured Reviews
+    st.markdown("<h3 style='text-align: center;'>Featured Reviews</h3>", unsafe_allow_html=True)
 
-# Divider
-st.markdown("<hr style='border: 1px solid #ffffff; margin: 20px 0;'>", unsafe_allow_html=True)
+    # Fetch data from the API or use dummy data if the request fails
+    try:
+        data = requests.get('http://api:4000/r/reviews').json()
+    except:
+        st.write("**Important**: Could not connect to sample API, so using dummy data.")
+        data = [
+            {"ReviewID": "1", "Summary": "Great learning environment!"},
+            {"ReviewID": "2", "Summary": "Supportive team and good work-life balance."},
+            {"ReviewID": "3", "Summary": "Excellent mentorship opportunities."},
+        ]
 
-# Footer with buttons aligned horizontally
-st.markdown(
-    """
-    <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
-        <a href="/Student_Coop_List" target="_self" class="coop-button">Saved Co-op List</a>
-        <a href="/Student_All_Reviews" target="_self" class="coop-button">View All Reviews →</a>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+    # Display reviews in a formatted way
+    if isinstance(data, list):
+        for review in data[:3]:  # Show only the first 3 reviews
+            st.markdown(
+                f"""
+                <div class="review-card">
+                    <h4>Review {review.get('ReviewID', 'N/A')}</h4>
+                    <p>{review.get('Summary', 'N/A')}</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+    # Divider
+    st.markdown("<hr style='border: 1px solid #ffffff; margin: 20px 0;'>", unsafe_allow_html=True)
+
+    # Footer with buttons aligned horizontally
+    st.markdown(
+        """
+        <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+            <a href="/Student_Coop_List" target="_self" class="coop-button">Saved Co-op List</a>
+            <a href="/Student_All_Reviews" target="_self" class="coop-button">View All Reviews →</a>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
