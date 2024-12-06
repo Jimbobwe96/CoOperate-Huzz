@@ -137,6 +137,14 @@ with header_col3:
 # Divider
 st.markdown("<hr style='border: 1px solid #ffffff; margin: 20px 0;'>", unsafe_allow_html=True)
 
+# Display a large image at the top
+st.image(
+    "https://bpb-us-e1.wpmucdn.com/sites.northeastern.edu/dist/c/979/files/2022/05/2x3-campus-feature-42.jpg",
+    # "https://news.northeastern.edu/wp-content/uploads/2024/09/feature_library.jpg",  # Replace with your image URL
+    caption="Explore Opportunities",
+    use_container_width=True
+)
+
 # Right column: Featured Reviews
 st.markdown("<h3 style='text-align: center;'>Featured Reviews</h3>", unsafe_allow_html=True)
 
