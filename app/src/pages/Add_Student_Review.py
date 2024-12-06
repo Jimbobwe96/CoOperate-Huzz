@@ -15,7 +15,7 @@ with st.form("add_review_form"):
 
 # Create the various input widgets needed for 
     # each piece of information you're eliciting from the user
-    student_id = st.text_input("Student ID")
+    student_id = st.session_state['student_id']
     culture = st.number_input("Culture", min_value=1, max_value=5)
     satisfaction = st.number_input("Satisfaction", min_value=1, max_value=5)
     compensation = st.number_input("Compensation", min_value=1, max_value=5)
@@ -33,9 +33,7 @@ with st.form("add_review_form"):
     
     # Validate all fields are filled when form is submitted
     if submit_button:
-        if not student_id:
-            st.error("Please enter a student id")
-        elif not (culture or satisfaction or satisfaction or compensation or learning_oppurtunity or work_life_balance):
+        if not (culture or satisfaction or satisfaction or compensation or learning_oppurtunity or work_life_balance):
             st.error("Please enter a rating")
         elif culture <= 0 or satisfaction <= 0 or satisfaction <= 0 or compensation <= 0 or learning_oppurtunity <= 0 or work_life_balance <= 0:
             st.error("Please enter a valid rating from 1-5")
