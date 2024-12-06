@@ -169,7 +169,7 @@ with col2:
         <div class="card">
             <h3>Job Postings</h3>
             <p>Manage and Review Your Company Job Postings</p>
-            <a href="/Job_Postings" target="_self" class="button">Postings</a>
+            <a href="/Company_Job_Postings" target="_self" class="button">Postings</a>
         </div>
         """,
         unsafe_allow_html=True,
