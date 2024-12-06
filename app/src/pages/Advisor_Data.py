@@ -3,6 +3,11 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+col1, col2 = st.columns([9, 2])
+with col2:
+    if st.button("Back"):
+        st.switch_page('pages/Advisor_Home.py')
+
 try:
     position_id = 1
     response = requests.get('http://api:4000/c/company/positions/agg_data')
