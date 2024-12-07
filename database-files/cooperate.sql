@@ -587,11 +587,41 @@ INSERT INTO Skill (SkillID, SkillName) VALUES
 
 
 -- Admin
-INSERT INTO Admin (AdminID, FirstName, LastName, Email, Role)
+INSERT INTO Admin (FirstName, LastName, Email, Role)
 VALUES
-(1, 'Dana', 'Levine', 'kristenluna@hunter-alvarez.com', 'System Administrator'),
-(2, 'Gregory', 'Smith', 'deanna76@dyer-martin.com', 'System Administrator'),
-(3, 'Michael', 'Gutierrez', 'benjaminvasquez@yahoo.com', 'Operations Manager');
+('Dana', 'Levine', 'kristenluna@hunter-alvarez.com', 'System Administrator'),
+('Gregory', 'Smith', 'deanna76@dyer-martin.com', 'System Administrator'),
+('Michael', 'Gutierrez', 'benjaminvasquez@yahoo.com', 'Operations Manager'),
+('John', 'Doe', 'john.doe@example.com', 'Super Admin'),
+('Jane', 'Smith', 'jane.smith@example.com', 'Admin'),
+('Robert', 'Johnson', 'robert.johnson@example.com', 'Moderator'),
+('Emily', 'Davis', 'emily.davis@example.com', 'Content Manager'),
+('Michael', 'Brown', 'michael.brown@example.com', 'Admin'),
+('Jessica', 'Williams', 'jessica.williams@example.com', 'Super Admin'),
+('David', 'Jones', 'david.jones@example.com', 'Admin'),
+('Sarah', 'Garcia', 'sarah.garcia@example.com', 'Moderator'),
+('James', 'Martinez', 'james.martinez@example.com', 'Content Manager'),
+('Linda', 'Hernandez', 'linda.hernandez@example.com', 'Admin'),
+('William', 'Lopez', 'william.lopez@example.com', 'Moderator'),
+('Elizabeth', 'Gonzalez', 'elizabeth.gonzalez@example.com', 'Super Admin'),
+('Christopher', 'Wilson', 'christopher.wilson@example.com', 'Admin'),
+('Patricia', 'Anderson', 'patricia.anderson@example.com', 'Content Manager'),
+('Matthew', 'Thomas', 'matthew.thomas@example.com', 'Moderator'),
+('Karen', 'Taylor', 'karen.taylor@example.com', 'Admin'),
+('Joshua', 'Moore', 'joshua.moore@example.com', 'Content Manager'),
+('Barbara', 'Jackson', 'barbara.jackson@example.com', 'Admin'),
+('Andrew', 'Martin', 'andrew.martin@example.com', 'Moderator'),
+('Donna', 'Lee', 'donna.lee@example.com', 'Content Manager'),
+('Steven', 'Perez', 'steven.perez@example.com', 'Admin'),
+('Michelle', 'White', 'michelle.white@example.com', 'Super Admin'),
+('Paul', 'Harris', 'paul.harris@example.com', 'Moderator'),
+('Laura', 'Sanchez', 'laura.sanchez@example.com', 'Content Manager'),
+('Daniel', 'Clark', 'daniel.clark@example.com', 'Admin'),
+('Jennifer', 'Lewis', 'jennifer.lewis@example.com', 'Super Admin'),
+('Anthony', 'Young', 'anthony.young@example.com', 'Moderator'),
+('Susan', 'Hall', 'susan.hall@example.com', 'Content Manager'),
+('Mark', 'Allen', 'mark.allen@example.com', 'Admin'),
+('Sandra', 'Wright', 'sandra.wright@example.com', 'Moderator');
 
 INSERT INTO StudentSkills (StudentID, SkillID, Proficiency) VALUES
 (1, 80, 9),

@@ -155,21 +155,6 @@ def get_all_company_agg_data():
         GROUP BY c.CompanyID, c.Name, cr.Title
         ORDER BY c.Name, cr.Title;
     '''
-    # query = '''
-    #     SELECT 
-    #         c.CompanyID 'CompanyID',
-    #         c.Name 'Company',
-    #         cr.PositionID 'PositionID',
-    #         cr.Title 'PosTitle',
-    #         AVG(r.Culture) 'avg_culture',
-    #         AVG(r.Satisfaction) 'avg_satisfaction',
-    #         AVG(r.LearningOpportunity) 'avg_learning',
-    #         AVG(r.WorkLifeBalance) 'avg_balance'
-    #     FROM Company `c`
-    #     JOIN CoopRole `cr` ON c.CompanyID = cr.CompanyID
-    #     JOIN Reviews `r` ON cr.PositionID = r.PositionID
-    #     GROUP BY c.CompanyID, c.Name, cr.PositionID, cr.Title
-    # '''
     logger.info(query)
     # get a cursor object from the database
     cursor = db.get_db().cursor()
