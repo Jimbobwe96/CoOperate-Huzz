@@ -62,3 +62,45 @@ def del_advisor(advisor_id):
     response.status_code = 200
     return response
 
+#------------------------------------------------------------
+# TODO
+@advisors.route('/advisors/<advisor_id>', methods=['PUT'])
+def update_id(advisor_id):
+    update_query = f'''
+        UPDATE Advisors
+        SET AdvisorID = 100
+        WHERE AdvisorID = {advisor_id}
+    '''
+    cursor = db.get_db().cursor() 
+    cursor.execute(update_query)
+
+    db.get_db().commit()
+    
+    response = make_response("Successfully updated id to 100")
+    response.status_code = 200
+    return response
+    
+#------------------------------------------------------------
+# TODO
+@advisors.route('/advisors/<advisor_id>', methods=['POST'])
+def add_new_advisor(advisor_id):
+    the_data = request.json
+    current_app.logger.info(the_data)
+
+    #extracting the variable
+    details = the_data['details']
+
+    insert_query = f'''
+        INSERT INTO Advisors (FirstName, LastName, College, Email)
+        VALUES ('FirstName', 'LastNamw', 'College', 'Email')
+    '''
+
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+    cursor.execute(insert_query)
+
+    db.get_db().commit()
+        
+    response = make_response("Successfully Added!")
+    response.status_code = 200
+    return response
