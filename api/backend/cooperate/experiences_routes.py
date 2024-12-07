@@ -74,8 +74,17 @@ def post_student_experience(studentID):
 
 # delete a specific  experiences
 @experiences.route('/experiences/<int:Experience_id>', methods=['DELETE'])
-def delete_student_experiences(Experience_id):
-    return 'Experience sucessfully deleted', 200
+def delete_student_experiences(experienceId):
+     query = f'''
+        DELETE FROM Experiences
+        WHERE ExperienceID = {experienceId}
+    '''
+     
+     cursor = db.get_db().cursor()
+     cursor.execute(query)
+     db.get_db().commit()
+     response = make_response("Profile deleted successfully", 200)
+     return response
 
 #------------------------------------------------------------
 
