@@ -11,7 +11,6 @@ from backend.db_connection import db
 students = Blueprint('students', __name__)
 
 #------------------------------------------------------------
-# TODO
 @students.route('/students', methods=['GET'])
 def get_students():
     query = '''
@@ -46,7 +45,6 @@ def get_students():
 
 
 #------------------------------------------------------------
-# TODO
 @students.route('/students/advisor/<AdvisorID>', methods=['GET'])
 def get_advisor_student(AdvisorID):
     query = f'''
@@ -74,10 +72,6 @@ def get_advisor_student(AdvisorID):
     return response
 
 #------------------------------------------------------------
-
-
-#------------------------------------------------------------
-# TODO
 @students.route('/students/<StudentID>', methods=['GET'])
 def get_student(StudentID):
     query = f'''
