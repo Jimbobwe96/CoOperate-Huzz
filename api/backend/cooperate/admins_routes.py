@@ -109,3 +109,21 @@ def get_all_reviews_to_check():
     response = make_response(jsonify(theData))
     response.status_code = 200
     return response
+
+#------------------------------------------------------------
+# TODO
+@admins.route('/admins/<admin_id>', methods=['DELETE'])
+def del_admin(admin_id):
+    query = f'''
+        DELETE FROM Admin
+        WHERE AdminID = {admin_id}
+    '''
+
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()  
+
+    response = make_response("Successfully deleted admin")
+    response.status_code = 200
+    return response

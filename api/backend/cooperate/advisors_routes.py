@@ -43,3 +43,22 @@ def get_reviews():
     # send the response back to the client
     return response
 
+
+#------------------------------------------------------------
+# TODO
+@advisors.route('/advisors/<advisor_id>', methods=['DELETE'])
+def del_advisor(advisor_id):
+    query = f'''
+        DELETE FROM Advisors
+        WHERE CompanyID = {advisor_id}
+    '''
+
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()  
+
+    response = make_response("Successfully deleted advisor")
+    response.status_code = 200
+    return response
+

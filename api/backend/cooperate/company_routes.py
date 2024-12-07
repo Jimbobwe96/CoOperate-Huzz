@@ -191,3 +191,21 @@ def get_all_company_agg_data():
     return response
 
 #------------------------------------------------------------
+
+#------------------------------------------------------------
+# TODO
+@company.route('/company/<company_id>', methods=['DELETE'])
+def del_company(company_id):
+    query = f'''
+        DELETE FROM Company
+        WHERE CompanyID = {company_id}
+    '''
+
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()  
+
+    response = make_response("Successfully deleted company")
+    response.status_code = 200
+    return response
